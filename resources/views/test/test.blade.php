@@ -8,11 +8,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -268,9 +263,7 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
