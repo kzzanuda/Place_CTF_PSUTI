@@ -11,8 +11,11 @@
         @yield('styles')
     </head>
     <body>
+      @include('layouts.header')
       
       @yield('content')
+
+      @include('layouts.footer')
 
       <script src="{{ asset('js/app.js') }}"></script>
       @yield('sripts')

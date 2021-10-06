@@ -18,9 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('test');
+    return view('test.test');
 });
 
 Route::get('/boot', function () {
-    return view('boot');
+    return view('test.boot');
 });
