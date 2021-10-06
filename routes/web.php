@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('test');
+Route::get('/olimp/tasks', function () {
+    return view('olimp.tasks');
+});
+
+Route::get('/boot', function () {
+    return view('test.boot');
 });
