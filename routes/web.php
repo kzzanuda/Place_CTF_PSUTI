@@ -17,10 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/olimp/tasks', function () {
-    return view('olimp.tasks');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/boot', function () {
-    return view('test.boot');
-});
+require __DIR__.'/auth.php';
