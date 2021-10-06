@@ -24,6 +24,7 @@
                     Вход
                 </a>
             </div>
+            {{ Auth::user()->email }}
         </div>
     </div>
 </nav>
