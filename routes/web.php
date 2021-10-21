@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/olimp/tasks', function () {
+    return view('olimp.tasks');
+});
+
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
 
