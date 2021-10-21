@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/olimp/tasks', function () {
+Route::get('/tasks', function () {
     return view('olimp.tasks');
 });
 
@@ -28,6 +28,10 @@ Route::prefix('user')->group(function () {
     Route::post('/edit', function () {
         // Использует посредники `first` и `second` ...
     });
+});
+
+Route::prefix('post')->group(function(){
+
 });
 
 Route::get('/dashboard', function () {

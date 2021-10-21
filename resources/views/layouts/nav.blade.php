@@ -32,7 +32,7 @@
                   {{ Auth::user()->name }}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="{{ route('profile', Auth::user()->id ) }}">Профиль {{Auth::user()->id}}</a>
+                  <a class="dropdown-item" href="{{ route('profile', Auth::user()->id ) }}">Профиль</a>
                   <div class="dropdown-divider"></div>
                   <form method="POST" action="{{ route('logout') }}">
                       @csrf

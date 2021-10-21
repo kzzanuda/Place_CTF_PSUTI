@@ -1,5 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-{{ $id }}
+  {{ $user->name }}
+  {{ $user->id }}
+
+  {{ $Auth }}
 @endsection
