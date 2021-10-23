@@ -7,4 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Основной файл стилей - глобальные вещи
 @import 'main';
+
+// Стили для авторизации
+@import 'auth'

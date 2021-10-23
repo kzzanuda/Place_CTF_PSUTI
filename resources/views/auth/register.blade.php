@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('layouts.main')
+
+{{--<x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -56,4 +58,39 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout>--}}
+
+@section('content')
+  <form class="form-signin">
+    <div class="text-center mb-4">
+      <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+    </div>
+
+    <div class="form-label-group">
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputEmail">ФИО</label>
+    </div>
+    <div class="form-label-group">
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputEmail">Наименование учебного заведения</label>
+    </div>
+
+    <div class="form-label-group">
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputEmail">Email</label>
+    </div>
+
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <label for="inputPassword">Пароль</label>
+    </div>
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <label for="inputPassword">Подтвердите пароль</label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+    <div class="mt-2">Вы уже зарегистрированы?
+      <a href="{{ route('login') }}"> Войти</a>
+    </div>
+  </form>
+@endsection

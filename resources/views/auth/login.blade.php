@@ -57,49 +57,28 @@
 </x-guest-layout>--}}
 
 @section('content')
-<div class="card mb-2">
-      <div class="card-body">
-        <h3 class="m-0">Войти</h3>
+    <form class="form-signin">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
       </div>
-    </div>
-    @if ($errors->any())
-       <div class="alert alert-danger mb-2">
-           <ul class="mb-0">
-               @foreach ($errors->all() as $error)
-                   <li>{{ $error }}</li>
-               @endforeach
-           </ul>
-       </div>
-    @endif
-    <div class="card">
-      <div class="card-body">
-        <div>
-          <label for="username_email">Никнейм или E-mail</label>
-          <input @input="changeInput" v-model="text" class="profile-input form-control mb-3" name="username_email" type="text" id="username_email">
-        </div>  
-        @if (Route::has('auth.register'))
-        <div class="d-flex mb-2" style="font-size:1.05rem;">
-          <p class="m-0">Еще нет аккаунта?</p>
 
-          <a class="ml-2" href="{{ rroute('auth.register') }}">Зарегистрируйтесь</a>
-          </a>
-
-        </div>
-        <hr>
-        @endif
-        @if (Route::has('auth.recovery'))
-        <a href="{{ rroute('auth.recovery') }}" style="font-size:1.05rem;">
-          Забыли пароль?
-        </a>
-        @endif
-
-        <div class="custom-control custom-checkbox mt-2">
-            <input type="checkbox" class="custom-control-input-orange" id="use-only-nickname" name="remeber">
-            <label class="custom-control-label" for="use-only-nickname" style="font-size:1rem;">Запомнить меня</label>
-        </div>
-
-        <button-submit title="Войти" v-bind:disabled="disabled"></button-submit>
-
+      <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Email</label>
       </div>
-    </div>
+
+      <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Пароль</label>
+      </div>
+      <div class="checkbox mb-2">
+        <label>
+          <input type="checkbox" value="remember-me"> Запомнить меня
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+      <div class="mt-2">У Вас нет профиля?
+        <a href="{{ route('register') }}"> Регистрация</a>
+      </div>
+    </form>
 @endsection
