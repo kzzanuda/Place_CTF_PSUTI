@@ -1,8 +1,9 @@
-<x-guest-layout>
+@extends('layouts.main')
+{{--<x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="" />
             </a>
         </x-slot>
 
@@ -53,4 +54,52 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout>--}}
+
+@section('content')
+<div class="card mb-2">
+      <div class="card-body">
+        <h3 class="m-0">Войти</h3>
+      </div>
+    </div>
+    @if ($errors->any())
+       <div class="alert alert-danger mb-2">
+           <ul class="mb-0">
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+    @endif
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <label for="username_email">Никнейм или E-mail</label>
+          <input @input="changeInput" v-model="text" class="profile-input form-control mb-3" name="username_email" type="text" id="username_email">
+        </div>  
+        @if (Route::has('auth.register'))
+        <div class="d-flex mb-2" style="font-size:1.05rem;">
+          <p class="m-0">Еще нет аккаунта?</p>
+
+          <a class="ml-2" href="{{ rroute('auth.register') }}">Зарегистрируйтесь</a>
+          </a>
+
+        </div>
+        <hr>
+        @endif
+        @if (Route::has('auth.recovery'))
+        <a href="{{ rroute('auth.recovery') }}" style="font-size:1.05rem;">
+          Забыли пароль?
+        </a>
+        @endif
+
+        <div class="custom-control custom-checkbox mt-2">
+            <input type="checkbox" class="custom-control-input-orange" id="use-only-nickname" name="remeber">
+            <label class="custom-control-label" for="use-only-nickname" style="font-size:1rem;">Запомнить меня</label>
+        </div>
+
+        <button-submit title="Войти" v-bind:disabled="disabled"></button-submit>
+
+      </div>
+    </div>
+@endsection
