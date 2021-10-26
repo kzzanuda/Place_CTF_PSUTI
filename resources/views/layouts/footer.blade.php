@@ -1,4 +1,7 @@
 <!-- Footer-->
-<footer class="py-3 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+<footer class="footer mt-auto py-3">
+  <div class="container d-flex justify-content-between">
+    <span class="text-muted">ПГУТИ</span>
+    <span class="text-muted">CTF Band 2021</span>
+  </div>
 </footer>

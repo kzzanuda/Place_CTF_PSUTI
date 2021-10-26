@@ -18,12 +18,31 @@
                     </ul>
                 </li> --}}
             </ul>
+            @if( !Auth::check() and !(Route::has('login') or Route::has('register')) )
             <div class="d-flex">
-                <a class="nav-link" href="#" type="button" name="button">Регистрация</a>
-                <a class="btn btn-outline-dark" type="button">
+                <a class="nav-link" href="/register" type="button" name="button">Регистрация</a>
+                <a class="btn btn-outline-dark" href="/login" type="button">
                     Вход
                 </a>
             </div>
+            @endif
+            @if( Auth::check() )
+              <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ Auth::user()->name }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ route('profile', Auth::user()->id ) }}">Профиль</a>
+                  <div class="dropdown-divider"></div>
+                  <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                          Выход
+                      </a>
+                  </form>
+                </div>
+              </div>
+            @endif
         </div>
     </div>
 </nav>

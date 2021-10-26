@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/olimp/tasks', function () {
+Route::get('/tasks', function () {
     return view('olimp.tasks');
 });
 
-Route::get('/boot', function () {
-    return view('test.boot');
+Route::prefix('user')->group(function () {
+    Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
+
+    Route::post('/edit', function () {
+        // Использует посредники `first` и `second` ...
+    });
 });
+
+Route::prefix('post')->group(function(){
+
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
