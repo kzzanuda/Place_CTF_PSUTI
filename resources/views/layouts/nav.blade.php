@@ -18,8 +18,9 @@
                     </ul>
                 </li> --}}
             </ul>
-            @if( !Auth::check() and !(Route::has('login') or Route::has('register')) )
+            @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
             <div class="d-flex">
+              {{URL::current()}}
                 <a class="nav-link" href="/register" type="button" name="button">Регистрация</a>
                 <a class="btn btn-outline-dark" href="/login" type="button">
                     Вход
