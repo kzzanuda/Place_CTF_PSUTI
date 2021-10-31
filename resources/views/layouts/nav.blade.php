@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Олимпиада</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Задачи</a></li>
                 <li class="nav-item"><a class="nav-link" href="/olimp/tasks">Соревнования</a></li>
                 {{--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -20,7 +20,6 @@
             </ul>
             @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
             <div class="d-flex">
-              {{URL::current()}}
                 <a class="nav-link" href="/register" type="button" name="button">Регистрация</a>
                 <a class="btn btn-outline-dark" href="/login" type="button">
                     Вход
@@ -29,7 +28,7 @@
             @endif
             @if( Auth::check() )
               <div class="btn-group">
-                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ Auth::user()->name }}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">

@@ -15,6 +15,7 @@ class EditUserTable extends Migration
     {
       if (Schema::hasTable('users')) {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('univers');
             $table->boolean('active')->default(1);
         });
       }
