@@ -7,7 +7,7 @@ body {
 }
 
 .logo {
-  width: 100px;
+  width: 105px;
 }
 
 h2 {
@@ -16,4 +16,18 @@ h2 {
 
 p {
   text-indent: 20px;
+}
+
+.btn-outline-light:hover {
+  color: #0c426f !important;
+}
+
+.bg-blue a {
+  color: #fff !important;
+}
+
+.bg-blue {
+  background: #0c426f;
+  border-bottom: 1px solid #09355a;
+  color: #fff;
 }
