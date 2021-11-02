@@ -22,12 +22,12 @@ p {
   color: #0c426f !important;
 }
 
-.bg-blue a {
-  color: #fff !important;
-}
-
 .bg-blue {
   background: #0c426f;
   border-bottom: 1px solid #09355a;
   color: #fff;
+}
+
+.card {
+  height: 100%;
 }

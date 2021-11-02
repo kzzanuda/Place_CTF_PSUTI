@@ -11,12 +11,7 @@ class UserController extends Controller
 {
     public function ShowProfile(Request $request, $id)
     {
-      // $users_id = DB::select('select id from users');
-      // $arr_id = [];
-      // foreach ($users_id as $loc_id) {
-      //     array_push($arr_id, $loc_id->id);
-      // }
-      $user = DB::select('select id, name, email from users where id = ? and active = 1', [$id]);
+      $user = DB::select('select id, name, email, univers from users where id = ? and active = 1', [$id]);
       $userAuth = Auth::user();
 
       if ($user) {
@@ -25,5 +20,10 @@ class UserController extends Controller
         return abort(404);
       }
 
+    }
+
+    public function UpdateUser(Request $request, $id)
+    {
+      // code...
     }
 }
