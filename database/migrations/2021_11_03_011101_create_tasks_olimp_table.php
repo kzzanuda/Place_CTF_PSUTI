@@ -19,6 +19,7 @@ class CreateTasksOlimpTable extends Migration
             $table->string('description');
             $table->integer('diff')->default(1);
             $table->string('answer')->nullable();
+            $table->boolean('visibale')->default(1);
             $table->timestamps();
         });
     }

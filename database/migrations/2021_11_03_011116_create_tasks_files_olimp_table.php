@@ -17,6 +17,7 @@ class CreateTasksFilesOlimpTable extends Migration
             $table->id();
             $table->integer('task_id');
             $table->string('link');
+            $table->boolean('visibale')->default(1);
             $table->timestamps();
         });
     }
