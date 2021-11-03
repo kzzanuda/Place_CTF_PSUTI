@@ -6,7 +6,7 @@
   @if(Auth::user()->id == $user->id)
   @if($errors->any())
     <div class="alert alert-danger">
-        <ul>
+        <ul class="m-0">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
