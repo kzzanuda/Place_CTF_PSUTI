@@ -20,6 +20,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/tasks',[TasksController::class, 'ShowTasks'])->name('tasks');
+Route::get('/task/{id}',[TasksController::class, 'ShowTaskById'])->name('taskid');
 
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');

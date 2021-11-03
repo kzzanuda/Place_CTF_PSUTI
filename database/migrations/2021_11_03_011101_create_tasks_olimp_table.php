@@ -17,7 +17,7 @@ class CreateTasksOlimpTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->text('condition');
+            $table->text('cond');
             $table->integer('diff')->default(1);
             $table->string('answer')->nullable();
             $table->boolean('visibale')->default(1);
