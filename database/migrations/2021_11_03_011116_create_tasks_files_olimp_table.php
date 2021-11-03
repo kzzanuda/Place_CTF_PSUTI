@@ -15,7 +15,7 @@ class CreateTasksFilesOlimpTable extends Migration
     {
         Schema::create('tasks_files_olimp', function (Blueprint $table) {
             $table->id();
-            $table->int('task_id');
+            $table->integer('task_id');
             $table->string('link');
             $table->timestamps();
         });
