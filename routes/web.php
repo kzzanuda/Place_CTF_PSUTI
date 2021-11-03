@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/tasks', function () {
     return view('olimp.tasks');
-});
+})->name('tasks');
 
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
