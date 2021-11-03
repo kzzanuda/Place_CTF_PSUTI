@@ -4,19 +4,34 @@
 <div class="px-5 my-5 container">
   <h2>Профиль</h2>
   @if(Auth::user()->id == $user->id)
-  <form>
+  @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+  @if (\Session::has('success'))
+    <div class="alert alert-success">
+        {!! \Session::get('success') !!}
+    </div>
+    @endif
+  <form action="{{route('edituser')}}" method="post">
+    @csrf
     <div class="form-group row">
       <label for="staticFio" class="col-sm-2 col-form-label">ФИО</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="staticFio" value="{{ $user->name }}">
+        <input name="name" type="text" class="form-control" id="staticFio" value="{{ $user->name }}">
       </div>
       <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email</label>
       <div class="col-sm-10 mt-3">
-        <input type="text" class="form-control" id="staticEmail" value="{{ $user->email }}">
+        <input name="email" type="text" class="form-control" id="staticEmail" value="{{ $user->email }}">
       </div>
       <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
       <div class="col-sm-10 mt-3">
-        <input type="text" class="form-control" id="staticUnivers" value="{{ $user->univers }}">
+        <input name="univers" type="text" class="form-control" id="staticUnivers" value="{{ $user->univers }}">
       </div>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Сохранить</button>

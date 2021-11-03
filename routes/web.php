@@ -25,9 +25,7 @@ Route::get('/tasks', function () {
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
 
-    Route::post('/edit', function () {
-        // Использует посредники `first` и `second` ...
-    });
+    Route::post('/edit',[UserController::class, 'UpdateUser'])->name('edituser');
 });
 
 Route::prefix('post')->group(function(){

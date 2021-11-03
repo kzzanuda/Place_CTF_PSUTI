@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+
 use Auth;
 
 class UserController extends Controller
@@ -22,8 +23,21 @@ class UserController extends Controller
 
     }
 
-    public function UpdateUser(Request $request, $id)
+    public function UpdateUser(Request $request)
     {
-      // code...
+      $validate = $request->validate([
+          'name' => ['required', 'string', 'max:255'],
+          'univers' => ['required', 'string', 'max:255'],
+          'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id],
+      ]);
+
+      $name = $request->name;
+      $univers = $request->univers;
+      $email = $request->email;
+      $updated_at = date("Y-m-d H:i:s");
+
+      DB::table('users')->where('id', Auth::user()->id)->update(['name' => $name, 'univers' => $univers, 'email' => $email, 'updated_at' => $updated_at, ]);
+
+      return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
 }
