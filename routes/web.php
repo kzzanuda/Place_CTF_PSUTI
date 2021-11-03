@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/tasks', function () {
-    return view('olimp.tasks');
-})->name('tasks');
+Route::get('/tasks',[TasksController::class, 'ShowTasks'])->name('tasks');
 
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
