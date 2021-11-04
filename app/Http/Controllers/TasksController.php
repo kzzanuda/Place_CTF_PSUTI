@@ -23,10 +23,10 @@ class TasksController extends Controller
 
     public function ShowTaskById(Request $request, $id)
     {
-        $task = DB::select('select id, title, description, cond from tasks_olimp where id = ? and visibale = 1', [$id]);
-
+        $tasks = DB::select('select id from tasks_olimp where visibale = 1 order by diff');
+        $task = DB::select('select id, title, description, cond from tasks_olimp where id = ? and visibale = 1 limit 1', [$id]);
         if ($task) {
-          return view('olimp.task', ['task' => $task[0]]);
+          return view('olimp.task', ['tasks' => $tasks, 'taskid' => $task[0]]);
         } else {
           return abort(404);
         }
