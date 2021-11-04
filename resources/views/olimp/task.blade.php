@@ -18,7 +18,7 @@
                       </li>
                       @endif
                       @foreach ($tasks as $key => $task)
-                      <li class="page-item @if($task->id == $taskid->id) active @endif"><a class="page-link" href="{{route('taskid', $task->id)}}">{{$key + 1}}</a></li>
+                      <li class="page-item @if($task->id == $taskid->id) active @endif @if(in_array($task->id, $answers_id)) success @endif"><a class="page-link" href="{{route('taskid', $task->id)}}">{{$key + 1}}</a></li>
                       @endforeach
                       @if($id < count($tasks)-1)
                       <li class="page-item">

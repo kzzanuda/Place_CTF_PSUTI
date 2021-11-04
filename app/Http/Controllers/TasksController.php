@@ -19,15 +19,7 @@ class TasksController extends Controller
     {
         $tasks = DB::select('select id, title, description, cond from tasks_olimp where visibale = 1 order by diff');
 
-        $answers_id = [];
-        if (Auth::user()) {
-          $answers_id_db = DB::select('select task_id from olimp_answers where user_id = ?', [Auth::id()]);
-          foreach ($answers_id_db as $answer) {
-            array_push($answers_id, $answer->task_id);
-          }
-        }
-
-        return view('olimp.tasks',['tasks' => $tasks, 'answers_id' => $answers_id]);
+        return view('olimp.tasks',['tasks' => $tasks, 'answers_id' => $this->giveAnswerTasksId()]);
     }
 
     public function ShowTaskById(Request $request, $id)
@@ -49,7 +41,7 @@ class TasksController extends Controller
             $old_answer = [];
           }
 
-          return view('olimp.task', ['tasks' => $tasks, 'taskid' => $task[0], 'id' => $baTask[0], 'old_answer' => $old_answer, ]);
+          return view('olimp.task', ['tasks' => $tasks, 'taskid' => $task[0], 'id' => $baTask[0], 'old_answer' => $old_answer, 'answers_id' => $this->giveAnswerTasksId()]);
         } else {
           return abort(404);
         }
@@ -86,5 +78,17 @@ class TasksController extends Controller
     private function giveIdOldAnswer($user_id, $task_id)
     {
       return DB::select('select id from olimp_answers where user_id = ? and task_id = ? limit 1', [$user_id, $task_id]);
+    }
+
+    private function giveAnswerTasksId()
+    {
+      $answers_id = [];
+      if (Auth::user()) {
+        $answers_id_db = DB::select('select task_id from olimp_answers where user_id = ?', [Auth::id()]);
+        foreach ($answers_id_db as $answer) {
+          array_push($answers_id, $answer->task_id);
+        }
+      }
+      return $answers_id;
     }
 }
