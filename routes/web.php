@@ -19,17 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/tasks',[TasksController::class, 'ShowTasks'])->name('tasks');
-Route::get('/task/{id}',[TasksController::class, 'ShowTaskById'])->name('taskid');
-
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
 
     Route::post('/edit',[UserController::class, 'UpdateUser'])->name('edituser');
 });
 
-Route::prefix('post')->group(function(){
-
+Route::prefix('tasks')->group(function(){
+    Route::get('/',[TasksController::class, 'ShowTasks'])->name('tasks');
+    Route::get('/{id}',[TasksController::class, 'ShowTaskById'])->middleware(['auth'])->name('taskid');
+    Route::post('/{id}',[TasksController::class, 'StoreAnswerTask'])->middleware(['auth'])->name('storeAnswer');
 });
 
 Route::get('/dashboard', function () {
