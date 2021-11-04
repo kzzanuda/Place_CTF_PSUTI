@@ -18,12 +18,12 @@
                   @foreach ($tasks as $key => $task)
                   <div class="card mb-3">
                     <div class="card-header">
-                      Задача №{{$key + 1}}
+                      Задача №{{$key + 1}} @if(in_array($task->id, $answers_id)) - Ответ дан @endif
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">{{$task->title}}</h5>
                       <p class="card-text">{{$task->description}}</p>
-                      <a href="{{route('taskid', $task->id)}}" class="btn btn-primary">Перейти к задаче</a>
+                      <a href="{{route('taskid', $task->id)}}" class="btn @if(in_array($task->id, $answers_id)) btn-success @else btn-primary @endif">Перейти к задаче</a>
                     </div>
                   </div>
                   @endforeach

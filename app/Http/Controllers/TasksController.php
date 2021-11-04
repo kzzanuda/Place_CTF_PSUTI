@@ -19,7 +19,15 @@ class TasksController extends Controller
     {
         $tasks = DB::select('select id, title, description, cond from tasks_olimp where visibale = 1 order by diff');
 
-        return view('olimp.tasks',['tasks' => $tasks]);
+        $answers_id = [];
+        if (Auth::user()) {
+          $answers_id_db = DB::select('select task_id from olimp_answers where user_id = ?', [Auth::id()]);
+          foreach ($answers_id_db as $answer) {
+            array_push($answers_id, $answer->task_id);
+          }
+        }
+
+        return view('olimp.tasks',['tasks' => $tasks, 'answers_id' => $answers_id]);
     }
 
     public function ShowTaskById(Request $request, $id)
@@ -34,7 +42,7 @@ class TasksController extends Controller
           $taskId = $task[0]->id;
           $baTask = array_keys($tasksId, $taskId);
 
-          $id_old_answer = $this->giveIdOldAnswer(Auth::user()->id, $baTask[0]);
+          $id_old_answer = $this->giveIdOldAnswer(Auth::id(), $id);
           if ($id_old_answer) {
             $old_answer = DB::select('select id, answer from olimp_answers where id = ?', [$id_old_answer[0]->id]);
           } else {
@@ -54,7 +62,7 @@ class TasksController extends Controller
       ]);
 
       $task_id = $id;
-      $user_id = Auth::user()->id;
+      $user_id = Auth::id();
       $answer = $request->answer;
       $updated_at = date("Y-m-d H:i:s");
 

@@ -38,7 +38,7 @@
                     </div>
                   @endif
                   {{$taskid->cond}}
-                  <form class="mt-5" action="{{route('storeAnswer', $id)}}" method="post">
+                  <form class="mt-5" action="{{route('storeAnswer', $taskid->id)}}" method="post">
                     @csrf
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>
