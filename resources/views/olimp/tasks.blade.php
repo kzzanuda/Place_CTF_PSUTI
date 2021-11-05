@@ -23,7 +23,13 @@
                     <div class="card-body">
                       <h5 class="card-title">{{$task->title}}</h5>
                       <p class="card-text">{{$task->description}}</p>
-                      <a href="{{route('taskid', $task->id)}}" class="btn @if(in_array($task->id, $answers_id)) btn-success @else btn-primary @endif">Перейти к задаче</a>
+                      <div class="d-flex align-items-end justify-content-between">
+                        <a href="{{route('taskid', $task->id)}}" class="btn @if(in_array($task->id, $answers_id)) btn-success @else btn-primary @endif">Перейти к задаче</a>
+                        <div class="">
+                           Сложность: {{$task->diff}}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                   @endforeach

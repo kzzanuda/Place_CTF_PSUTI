@@ -17,7 +17,7 @@ class TasksController extends Controller
      */
     public function ShowTasks(Request $request)
     {
-        $tasks = DB::select('select id, title, description, cond from tasks_olimp where visibale = 1 order by diff');
+        $tasks = DB::select('select id, title, description, cond, diff from tasks_olimp where visibale = 1 order by diff');
 
         return view('olimp.tasks',['tasks' => $tasks, 'answers_id' => $this->giveAnswerTasksId()]);
     }
