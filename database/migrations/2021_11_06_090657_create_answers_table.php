@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditUserTable extends Migration
+class CreateAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class EditUserTable extends Migration
      */
     public function up()
     {
-      if (Schema::hasTable('users')) {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('univers');
-            $table->boolean('active')->default(1);
+        Schema::create('answers', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->integer('task_id');
+            $table->text('answer');
+            $table->timestamps();
         });
-      }
     }
 
     /**
@@ -28,6 +29,6 @@ class EditUserTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('answers');
     }
 }
