@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,26 +17,22 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/tasks', function () {
-    return view('olimp.tasks');
-});
+})->name('home');
 
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
 
-    Route::post('/edit', function () {
-        // Использует посредники `first` и `second` ...
-    });
+    Route::post('/edit',[UserController::class, 'UpdateUser'])->name('edituser');
 });
 
-Route::prefix('post')->group(function(){
-
+Route::prefix('tasks')->group(function(){
+    Route::get('/',[TasksController::class, 'ShowTasks'])->name('tasks');
+    Route::get('/{id}',[TasksController::class, 'ShowTaskById'])->middleware(['auth'])->name('taskid');
+    Route::post('/{id}',[TasksController::class, 'StoreAnswerTask'])->middleware(['auth'])->name('storeAnswer');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

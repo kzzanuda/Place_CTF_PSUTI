@@ -5,3 +5,35 @@ body {
 .footer {
   background-color: #f5f5f5;
 }
+
+.logo {
+  width: 105px;
+}
+
+h2 {
+  text-align: center;
+}
+
+p.red-line {
+  text-indent: 20px;
+}
+
+.btn-outline-light:hover {
+  color: #0c426f !important;
+}
+
+.bg-blue {
+  background: #0c426f;
+  border-bottom: 1px solid #09355a;
+  color: #fff;
+}
+
+.card {
+  height: 100%;
+}
+
+.success a.page-link {
+  color: #fff;
+  background-color: #38c172;
+  border-color: #38c172;
+}

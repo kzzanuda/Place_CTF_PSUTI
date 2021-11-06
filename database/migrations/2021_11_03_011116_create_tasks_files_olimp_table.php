@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditUserTable extends Migration
+class CreateTasksFilesOlimpTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class EditUserTable extends Migration
      */
     public function up()
     {
-      if (Schema::hasTable('users')) {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('active')->default(1);
+        Schema::create('tasks_files_olimp', function (Blueprint $table) {
+            $table->id();
+            $table->integer('task_id');
+            $table->string('link');
+            $table->boolean('visibale')->default(1);
+            $table->timestamps();
         });
-      }
     }
 
     /**
@@ -27,6 +29,6 @@ class EditUserTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tasks_files_olimp');
     }
 }
