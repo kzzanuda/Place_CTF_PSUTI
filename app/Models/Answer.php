@@ -10,4 +10,6 @@ class Answer extends Model
     use HasFactory;
 
     protected $table = 'answers';
+
+    protected $fillable = ['user_id', 'task_id', 'answer'];
 }

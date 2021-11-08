@@ -11,4 +11,33 @@ class Task extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'tasks';
+
+    public function hasAnswer(): bool
+    {
+        if ($this->belongsTo(Answer::class, 'task_id')->first() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasNext(): bool
+    {
+        if ($this->where('id', '>', $this->id)->first() != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function hasPrevious(): bool
+    {
+        if ($this->where('id', '<', $this->id)->first() != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

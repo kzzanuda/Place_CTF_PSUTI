@@ -8,41 +8,30 @@
                   <nav aria-label="..." class="d-flex justify-content-center mt-4 mb-3">
                     <ul class="pagination">
 
-                      @if($id > 0)
-                      <li class="page-item">
-                        <a class="page-link" href="{{route('taskid', $tasks[$id-1]->id)}}" tabindex="-1">Предыдущая задача</a>
+                      <li class="page-item @if(!$task->hasPrevious()) disabled @endif">
+                        <a class="page-link" href="@if($task->hasPrevious()) {{route('task', $task->id-1)}} @else # @endif " tabindex="-1">Предыдущая задача</a>
                       </li>
-                      @else
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Предыдущая задача</a>
-                      </li>
-                      @endif
-                      @foreach ($tasks as $key => $task)
-                      <li class="page-item @if($task->id == $taskid->id) active @endif @if(in_array($task->id, $answers_id)) success @endif"><a class="page-link" href="{{route('taskid', $task->id)}}">{{$key + 1}}</a></li>
+                      @foreach (\App\Models\Task::all() as $key => $pagination_task)
+                        <li class="page-item @if($task->id == $pagination_task->id) active @endif @if(Auth()->user()->taskAnswer($pagination_task->id) != null) success @endif"><a class="page-link" href="{{route('task', $key+1)}}">{{$key + 1}}</a></li>
                       @endforeach
-                      @if($id < count($tasks)-1)
-                      <li class="page-item">
-                        <a class="page-link" href="{{route('taskid', $tasks[$id+1]->id)}}">Следующая задача</a>
+
+                      <li class="page-item @if(!$task->hasNext()) disabled @endif">
+                        <a class="page-link" href="@if($task->hasNext()) {{route('task', $task->id+1)}} @else # @endif ">Следующая задача</a>
                       </li>
-                      @else
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-disabled="true">Следующая задача</a>
-                      </li>
-                      @endif
                     </ul>
                   </nav>
-                  <h3 class="text-center">{{$taskid->title}}</h3>
-                  @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        {!! \Session::get('success') !!}
-                    </div>
-                  @endif
-                  {{$taskid->cond}}
-                  <form class="mt-5" action="{{route('storeAnswer', $taskid->id)}}" method="post">
+                  <h3 class="text-center">{{$task->title}}</h3>
+                  {{$task->description_full}}
+                    @if(isset($success))
+                        <div class="alert alert-success mt-2">
+                            {{$success}}
+                        </div>
+                    @endif
+                  <form class="mt-2" action="{{route('to_answer', $task->id)}}" method="post">
                     @csrf
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>
-                      <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3">@if($old_answer){{$old_answer[0]->answer}}@endif</textarea>
+                      <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3">{{Auth()->user()->taskAnswer($task->id)->answer??''}}</textarea>
                     </div>
                     @if($errors->any())
                       <div class="alert alert-danger">

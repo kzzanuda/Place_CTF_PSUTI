@@ -25,10 +25,10 @@ Route::prefix('user')->group(function () {
     Route::post('/edit',[UserController::class, 'UpdateUser'])->name('edituser');
 });
 
-Route::prefix('tasks')->group(function(){
-    Route::get('/',[TasksController::class, 'ShowTasks'])->name('tasks');
-    Route::get('/{id}',[TasksController::class, 'ShowTaskById'])->middleware(['auth'])->name('taskid');
-    Route::post('/{id}',[TasksController::class, 'StoreAnswerTask'])->middleware(['auth'])->name('storeAnswer');
+Route::prefix('task')->group(function(){
+    Route::get('/list',[TasksController::class, 'index'])->name('tasks');
+    Route::get('/{id}',[TasksController::class, 'show_task'])->middleware(['auth'])->name('task');
+    Route::post('/{id}',[TasksController::class, 'to_answer'])->middleware(['auth'])->name('to_answer');
 });
 
 Route::get('/dashboard', function () {

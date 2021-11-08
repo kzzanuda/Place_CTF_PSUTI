@@ -18,15 +18,15 @@
                   @foreach ($tasks as $key => $task)
                   <div class="card mb-3">
                     <div class="card-header">
-                      Задача №{{$key + 1}} @if(in_array($task->id, $answers_id)) - Ответ дан @endif
+                        Задача №{{$key + 1}} @if($task->hasAnswer()) - Ответ дан @endif
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">{{$task->title}}</h5>
-                      <p class="card-text">{{$task->description}}</p>
+                      <p class="card-text">{{$task->description_short}}</p>
                       <div class="d-flex align-items-end justify-content-between">
-                        <a href="{{route('taskid', $task->id)}}" class="btn @if(in_array($task->id, $answers_id)) btn-success @else btn-primary @endif">Перейти к задаче</a>
+                        <a href="{{route('task', $task->id)}}" class="btn @if($task->hasAnswer()) btn-success @else btn-primary @endif">Перейти к задаче</a>
                         <div class="">
-                           Сложность: {{$task->diff}}
+                           Сложность: {{$task->points}}
                         </div>
                       </div>
 
