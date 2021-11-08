@@ -1,6 +1,8 @@
 body {
   background-color: #ececec;
-  background: url('/storage/background.jpg') round;
+  background: url('/storage/background.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .footer {
