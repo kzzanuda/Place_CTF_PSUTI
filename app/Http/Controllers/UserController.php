@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function ShowProfile(Request $request, $id)
     {
-      $user = DB::select('select id, name, email, univers from users where id = ? and active = 1', [$id]);
+      $user = DB::select('select id, name, email, university from users where id = ? and active = 1', [$id]);
       $userAuth = Auth::user();
 
       if ($user) {
@@ -27,16 +27,16 @@ class UserController extends Controller
     {
       $validate = $request->validate([
           'name' => ['required', 'string', 'max:255'],
-          'univers' => ['required', 'string', 'max:255'],
+          'university' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id],
       ]);
 
       $name = $request->name;
-      $univers = $request->univers;
+      $university = $request->university;
       $email = $request->email;
       $updated_at = date("Y-m-d H:i:s");
 
-      DB::table('users')->where('id', Auth::user()->id)->update(['name' => $name, 'univers' => $univers, 'email' => $email, 'updated_at' => $updated_at, ]);
+      DB::table('users')->where('id', Auth::user()->id)->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at, ]);
 
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }

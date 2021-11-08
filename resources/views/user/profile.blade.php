@@ -31,7 +31,7 @@
       </div>
       <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
       <div class="col-sm-10 mt-3">
-        <input name="univers" type="text" class="form-control" id="staticUnivers" value="{{ $user->univers }}">
+        <input name="university" type="text" class="form-control" id="staticUnivers" value="{{ $user->university }}">
       </div>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
@@ -48,7 +48,7 @@
     </div>
     <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
     <div class="col-sm-10 mt-3">
-      <input type="text" readonly class="form-control-plaintext" id="staticUnivers" value="{{ $user->univers }}">
+      <input type="text" readonly class="form-control-plaintext" id="staticUnivers" value="{{ $user->university }}">
     </div>
   </div>
   @endif

@@ -15,8 +15,8 @@
       <label for="name">ФИО</label>
     </div>
     <div class="form-label-group">
-      <input name="univers" type="text" id="univers" class="form-control" placeholder="Наименование учебного заведения" value="{{old('univers')}}" required autofocus>
-      <label for="univers">Наименование учебного заведения</label>
+      <input name="university" type="text" id="university" class="form-control" placeholder="Наименование учебного заведения" value="{{old('university')}}" required autofocus>
+      <label for="university">Наименование учебного заведения</label>
     </div>
 
     <div class="form-label-group">
