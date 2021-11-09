@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Task;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +11,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        return view('olimp.tasks')->with(['tasks' => Task::where('deleted_at', NULL)->orderBy('points')->get()]);
+        return view('olimp.tasks')->with(['tasks' => Task::orderBy('points')->orderBy('id')->get()]);
     }
 
     public function show_task($task_id)
@@ -22,10 +21,15 @@ class TasksController extends Controller
 
     public function to_answer(Request $request, $task_id)
     {
-        Answer::updateOrCreate(
-            ['user_id' => Auth::id(), 'task_id' => $task_id],
-            ['answer' => $request->answer??'']
-        );
+        if($request->answer == '') {
+            Answer::where('task_id', $task_id)->where('user_id', Auth::id())->delete();
+        }else{
+            Answer::updateOrCreate(
+                ['user_id' => Auth::id(), 'task_id' => $task_id],
+                ['answer' => $request->answer??'']
+            );
+        }
+
 
         return $this->show_task($task_id)->with(['success' => 'Ваш ответ сохранен!']);
     }

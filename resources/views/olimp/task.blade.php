@@ -7,16 +7,17 @@
                 <div class="row row-cols-1 mx-md-5 px-lg-5">
                   <nav aria-label="..." class="d-flex justify-content-center mt-4 mb-3">
                     <ul class="pagination">
-
                       <li class="page-item @if(!$task->hasPrevious()) disabled @endif">
-                        <a class="page-link" href="@if($task->hasPrevious()) {{route('task', $task->id-1)}} @else # @endif " tabindex="-1">Предыдущая задача</a>
+                        <a class="page-link" href="@if($task->hasPrevious()) {{route('task', $task->previous())}} @else # @endif " tabindex="-1">Предыдущая задача</a>
                       </li>
-                      @foreach (\App\Models\Task::all() as $key => $pagination_task)
-                        <li class="page-item @if($task->id == $pagination_task->id) active @endif @if(Auth()->user()->taskAnswer($pagination_task->id) != null) success @endif"><a class="page-link" href="{{route('task', $key+1)}}">{{$key + 1}}</a></li>
+                      @foreach ((new App\Models\Task)->pagination() as $key => $page)
+                        <li class="page-item @if($task->id == $page) disabled @endif @if(Auth()->user()->taskAnswer($page) != null) success @endif">
+                            <a class="page-link" href="{{route('task', $page)}}">{{$key + 1}}</a>
+                        </li>
                       @endforeach
 
                       <li class="page-item @if(!$task->hasNext()) disabled @endif">
-                        <a class="page-link" href="@if($task->hasNext()) {{route('task', $task->id+1)}} @else # @endif ">Следующая задача</a>
+                        <a class="page-link" href="@if($task->hasNext()) {{route('task', $task->next())}} @else # @endif ">Следующая задача</a>
                       </li>
                     </ul>
                   </nav>
