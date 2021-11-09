@@ -14,7 +14,7 @@ class Task extends Model
 
     public function hasAnswer(): bool
     {
-        if ($this->belongsTo(Answer::class, 'task_id')->first() != null) {
+        if ($this->belongsTo(Answer::class, 'task_id')->where('user_id', Auth::id())->first() != null) {
             return true;
         } else {
             return false;

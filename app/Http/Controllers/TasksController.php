@@ -12,7 +12,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        return view('olimp.tasks')->with(['tasks' => Task::all()]);
+        return view('olimp.tasks')->with(['tasks' => Task::where('deleted_at', NULL)->orderBy('points')->get()]);
     }
 
     public function show_task($task_id)
