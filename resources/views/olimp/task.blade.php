@@ -11,7 +11,7 @@
                         <a class="page-link" href="@if($task->hasPrevious()) {{route('task', $task->previous())}} @else # @endif " tabindex="-1">Предыдущая задача</a>
                       </li>
                       @foreach ((new App\Models\Task)->pagination() as $key => $page)
-                        <li class="page-item @if($task->id == $page) disabled @endif @if(Auth()->user()->taskAnswer($page) != null) success @endif">
+                        <li class="page-item @if($task->id == $page) active @endif @if(Auth()->user()->taskAnswer($page) != null) success @endif">
                             <a class="page-link" href="{{route('task', $page)}}">{{$key + 1}}</a>
                         </li>
                       @endforeach
