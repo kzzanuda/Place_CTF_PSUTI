@@ -22,8 +22,9 @@ Route::get('/', function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/{id}',[UserController::class, 'ShowProfile'])->where('id', '[0-9]+')->name('profile');
-
     Route::post('/edit',[UserController::class, 'UpdateUser'])->name('edituser');
+
+    Route::get('/{id}/{task_id}',[UserController::class, 'ShowAnswer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+');
 });
 
 Route::prefix('task')->group(function(){

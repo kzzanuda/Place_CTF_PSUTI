@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Answer;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -39,5 +42,13 @@ class UserController extends Controller
       DB::table('users')->where('id', Auth::user()->id)->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at, ]);
 
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
+    }
+
+    public function ShowAnswer($task_id, $id)
+    {
+      $task = Task::where('id', $task_id)->first();
+      $answer = Answer::where('user_id', $id)->where('task_id', $task_id)->first();
+
+      return view('user.answer', ['task' => $task, 'answer' => $answer]);
     }
 }
