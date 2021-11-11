@@ -28,6 +28,12 @@
                         <div class="">
                            Сложность: {{$task->points}}
                         </div>
+                        @if("admin" == "admin")
+                        <div class="">
+                          <a href="{{route('task', $task->id)}}" class="btn btn-success">Редактировать</a>
+                          <a href="{{route('task', $task->id)}}" class="btn btn-danger">Удалить</a>
+                        </div>
+                        @endif
                       </div>
 
                     </div>

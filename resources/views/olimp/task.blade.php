@@ -22,6 +22,12 @@
                     </ul>
                   </nav>
                   <h3 class="text-center">{{$task->title}}</h3>
+                  @if("admin" == "admin")
+                  <div class="d-flex justify-content-end">
+                    <a href="{{route('task', $task->id)}}" class="btn btn-success">Редактировать</a>
+                    <a href="{{route('task', $task->id)}}" class="btn btn-danger ml-3">Удалить</a>
+                  </div>
+                  @endif
                   {{$task->description_full}}
                     @if(isset($success))
                         <div class="alert alert-success mt-2">
