@@ -6,14 +6,13 @@ use App\Models\User;
 use App\Models\Answer;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
-    public function ShowProfile(Request $request, $id)
+    public function profile(Request $request, $id)
     {
       $user = DB::select('select id, name, email, university from users where id = ? and active = 1', [$id]);
       $userAuth = Auth::user();
@@ -21,12 +20,12 @@ class UserController extends Controller
       if ($user) {
         return view('user.profile', ['user' => $user[0], 'userAuth' => $userAuth]);
       } else {
-        return abort(404);
+        error(404);
       }
 
     }
 
-    public function UpdateUser(Request $request)
+    public function update(Request $request)
     {
       $validate = $request->validate([
           'name' => ['required', 'string', 'max:255'],
@@ -44,7 +43,7 @@ class UserController extends Controller
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
 
-    public function ShowAnswer($task_id, $id)
+    public function answers($task_id, $id)
     {
       $task = Task::where('id', $task_id)->first();
       $answer = Answer::where('user_id', $id)->where('task_id', $task_id)->first();

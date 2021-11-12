@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\AdminController;
 
+use App\Http\Middleware\VerifyAdmin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,17 +29,17 @@ Route::prefix('user')->group(function () {
     Route::get('/{id}/{task_id}',[UserController::class, 'ShowAnswer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+');
 });
 
-Route::prefix('task')->group(function(){
+Route::prefix('task')->middleware('task_time_limit')->group(function(){
     Route::get('/list',[TasksController::class, 'index'])->name('tasks');
     Route::get('/{id}',[TasksController::class, 'show_task'])->middleware(['auth'])->name('task');
     Route::post('/{id}',[TasksController::class, 'to_answer'])->middleware(['auth'])->name('to_answer');
 });
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware('admin')->group(function(){
     Route::get('/',[AdminController::class, 'index'])->name('admin_menu');
     Route::get('/users',[AdminController::class, 'users'])->name('admin_users');
     Route::get('/tasks',[AdminController::class, 'tasks'])->name('admin_tasks');
-    Route::get('/addtask',[AdminController::class, 'task_add'])->name('admin_add_task');
+    Route::get('/add-task',[AdminController::class, 'task_add'])->name('admin_add_task');
 });
 
 Route::get('/dashboard', function () {

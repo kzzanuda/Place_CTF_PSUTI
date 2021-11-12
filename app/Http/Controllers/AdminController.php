@@ -16,4 +16,14 @@ class AdminController extends Controller
     {
       return view('admin.users')->with(['users' => User::all()]);
     }
+
+    public function tasks()
+    {
+        return redirect('task/list')->with(['admin' => true]);
+    }
+
+    public function taskAdd()
+    {
+        return redirect()->route('admin_menu');
+    }
 }
