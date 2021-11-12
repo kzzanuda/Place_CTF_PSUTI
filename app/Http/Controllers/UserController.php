@@ -20,7 +20,7 @@ class UserController extends Controller
       if ($user) {
         return view('user.profile', ['user' => $user[0], 'userAuth' => $userAuth]);
       } else {
-        error(404);
+        return abort('404');
       }
 
     }
@@ -43,11 +43,29 @@ class UserController extends Controller
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
 
-    public function answers($task_id, $id)
+    public function answer($id, $task_id)
     {
       $task = Task::where('id', $task_id)->first();
       $answer = Answer::where('user_id', $id)->where('task_id', $task_id)->first();
 
-      return view('user.answer', ['task' => $task, 'answer' => $answer]);
+      if($answer){
+        return view('user.answer', ['task' => $task, 'answer' => $answer]);
+      } else {
+        return abort('404');
+      }
+    }
+
+    public function answers($id)
+    {
+      $tasks = Answer::where('user_id', $id)->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')->get();
+
+      return view('user.tasks', ['tasks' => $tasks, 'user_id' => $id]);
+    }
+
+    public function add_points(Request $request, $id, $task_id)
+    {
+      Answer::where('user_id', $id)->where('task_id', $task_id)->update(['points' => $request->points]);
+
+      return redirect()->back()->with('success', 'Баллы проставлены в системе');
     }
 }

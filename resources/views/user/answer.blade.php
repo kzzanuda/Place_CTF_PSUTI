@@ -11,18 +11,35 @@
           <br>
           Ответ:<br>
           {{$answer->answer}}
-          <div class="form-group mt-3">
-            <label for="exampleFormControlSelect1">Количество баллов за задачу</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <button type="button" class="btn btn-success">Проставить баллы</button>
-          <a href="#" class="btn btn-danger mt-5">Удалить ответ</a>
+          <form class="" action="{{route('add_points', [$answer->user_id, $task->id])}}" method="post">
+            @csrf
+            <div class="form-group mt-3">
+              <label for="points">Количество баллов за задачу</label>
+              <select name="points" class="form-control" id="points">
+                @for ($i = 1; $i <= $task->points; $i++)
+                    <option @if($answer->points == $i) selected @endif >{{$i}}</option>
+                @endfor
+              </select>
+            </div>
+            @if (\Session::has('success'))
+              <div class="alert alert-success mb-2">
+                  {!! \Session::get('success') !!}
+              </div>
+            @endif
+            <button type="submit" class="btn btn-success w-100">Проставить баллы</button>
+          </form>
+          @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="m-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+          @endif
+
+
+          <button type="button" class="btn btn-danger mt-5">Удалить ответ</button>
         </div>
     </div>
 </section>

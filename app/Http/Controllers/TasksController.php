@@ -30,7 +30,37 @@ class TasksController extends Controller
             );
         }
 
-
         return $this->show_task($task_id)->with(['success' => 'Ваш ответ сохранен!']);
+    }
+
+    public function add_task(Request $request, $id = null)
+    {
+        $validate = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description_short' => ['required', 'string', 'max:255'],
+            'description_full' => ['required', 'string', 'max:40000'],
+            'points' => ['required', 'integer', 'max:10'],
+        ]);
+        if ($id) {
+          Task::where('id', $id)->update(
+            [
+              'title' => $request->title,
+              'description_short' => $request->description_short,
+              'description_full' => $request->description_full,
+              'points' => $request->points,
+            ]
+          );
+          return redirect()->back()->with(['success' => 'Задача обновлена!']);
+        } else {
+          Task::create([
+              'title' => $request->title,
+              'description_short' => $request->description_short,
+              'description_full' => $request->description_full,
+              'points' => $request->points,
+          ]);
+          return redirect()->back()->with(['success' => 'Задача добавлена!']);
+        }
+
+
     }
 }

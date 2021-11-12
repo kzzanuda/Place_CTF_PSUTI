@@ -54,4 +54,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class)->where('task_id', '=', $task_id)->first();
     }
+
+    public function points()
+    {
+        return $this->hasMany(Answer::class)->sum('points');
+    }
+
+    public function not_null_points()
+    {
+        return $this->hasMany(Answer::class)->whereNotNull('points')->get();
+    }
 }

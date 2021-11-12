@@ -15,8 +15,11 @@
         <section class="py-3">
             <div class="container px-4 px-lg-5">
                 <div class="row row-cols-1 mx-md-5 px-lg-5">
+                  @if(Auth()->user()->role == 'admin')
+                    <a href="{{route('admin_task')}}" class="btn btn-primary my-3 w-100">Добавить задачу</a>
+                  @endif
                   @foreach ($tasks as $key => $task)
-                  <div class="card mb-3">
+                  <div class="card @if(Auth()->user()->taskAnswer($task->id)) success @endif mb-3">
                     <div class="card-header">
                         Задача №{{$key + 1}} @if(Auth()->user()->taskAnswer($task->id)) - Ответ дан @endif
                     </div>
@@ -30,7 +33,7 @@
                         </div>
                         @if(Auth()->user()->role == 'admin')
                         <div class="">
-                          <a href="{{route('task', $task->id)}}" class="btn btn-success">Редактировать</a>
+                          <a href="{{route('admin_task', $task->id)}}" class="btn btn-success">Редактировать</a>
                           <a href="{{route('task', $task->id)}}" class="btn btn-danger">Удалить</a>
                         </div>
                         @endif

@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-      return view('admin.menu');
+      return view('admin.menu')->with(['admin' => true]);
     }
 
     public function users()
     {
-      return view('admin.users')->with(['users' => User::all()]);
+      return view('admin.users')->with(['users' => User::all(), 'admin' => true]);
     }
 
     public function tasks()
@@ -22,8 +23,12 @@ class AdminController extends Controller
         return redirect('task/list')->with(['admin' => true]);
     }
 
-    public function taskAdd()
+    public function add_task($id = null)
     {
-        return redirect()->route('admin_menu');
+        if ($id) {
+          return view('admin.addtask')->with('task', Task::where('id', $id)->first());
+        } else {
+          return view('admin.addtask');
+        }
     }
 }

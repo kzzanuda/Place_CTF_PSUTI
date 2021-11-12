@@ -13,7 +13,12 @@ class Task extends Model
 
     protected $table = 'tasks';
 
-    protected $fillable = [];
+    protected $fillable = [
+      'title',
+      'description_full',
+      'description_short',
+      'points',
+    ];
 
     public function hasAnswer(): bool
     {
