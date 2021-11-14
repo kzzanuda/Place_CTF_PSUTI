@@ -3,7 +3,7 @@
 @section('content')
 <div class="px-5 my-5 container">
   <h2>Профиль</h2>
-  @if(Auth::user()->id == $user->id)
+  @if(Auth::user()->getAuthIdentifier() == $user->id)
   @if($errors->any())
     <div class="alert alert-danger">
         <ul class="m-0">
