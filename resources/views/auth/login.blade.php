@@ -13,6 +13,12 @@
       <!-- Validation Errors -->
       <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+      @if(Session()->get('message'))
+        <div class="alert alert-success mt-2">
+          {{Session()->get('message')}}
+        </div>
+      @endif
+
       <div class="form-label-group">
         <input name="email" type="email" id="inputEmail" class="form-control" value="{{old('email')}}" placeholder="Email address" required autofocus>
         <label for="inputEmail">Email</label>

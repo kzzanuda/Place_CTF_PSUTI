@@ -15,20 +15,26 @@ class AdminController extends Controller
 
     public function users()
     {
-      return view('admin.users')->with(['users' => User::all(), 'admin' => true]);
+      return view('admin.users')->with(['users' => User::where('role', 'user')->get()]);
     }
 
     public function tasks()
     {
-        return redirect('task/list')->with(['admin' => true]);
+        return redirect(route('tasks.list'))->with(['admin' => true]);
     }
 
-    public function add_task($id = null)
+    public function task($id)
     {
-        if ($id) {
-          return view('admin.addtask')->with('task', Task::where('id', $id)->first());
-        } else {
-          return view('admin.addtask');
-        }
+        return route('tasks.task', ['id' => $id]);
+    }
+
+    public function taskAdd()
+    {
+        return redirect()->route('tasks.list');
+    }
+
+    public function taskEdit($id)
+    {
+        return view('admin.task')->with(['task' => Task::where('id', $id)->first()]);
     }
 }

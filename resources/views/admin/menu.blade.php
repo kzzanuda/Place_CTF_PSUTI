@@ -2,30 +2,16 @@
 
 @section('content')
 <div class="container">
-  @if($admin)
   <div class="row m-5 px-5">
     <div class="col-12">
       <h3>Меню админ панели</h3>
     </div>
     <div class="col-12">
-      <a href="{{ route('admin_users') }}" class="btn btn-light font-weight-bold">Перейти к списку пользователей</a>
+      <a href="{{ route('admin.users.list') }}" class="btn btn-light font-weight-bold">Перейти к списку пользователей</a>
     </div>
     <div class="col-12 mt-3">
-      <a href="{{ route('admin_tasks') }}" class="btn btn-light rounded font-weight-bold">Перейти к списку задач и меню добавления задач</a>
+      <a href="{{ route('admin.tasks.list') }}" class="btn btn-light rounded font-weight-bold">Перейти к списку задач и меню добавления задач</a>
     </div>
   </div>
-  @elseif(!$admin)
-  <div class="row m-5 px-5">
-    <div class="col-12">
-      <h3>Меню панели для жюри</h3>
-    </div>
-    <div class="col-12">
-      <a href="{{ route('admin_users') }}" class="btn btn-light font-weight-bold">Перейти к списку пользоавтелей</a>
-    </div>
-    <div class="col-12 mt-3">
-      <a href="{{ route('admin_tasks') }}" class="btn btn-light rounded font-weight-bold">Перейти к списку задач</a>
-    </div>
-  </div>
-  @endif
 </div>
 @endsection

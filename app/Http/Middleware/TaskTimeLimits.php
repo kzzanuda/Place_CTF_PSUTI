@@ -24,7 +24,7 @@ class TaskTimeLimits
         if (Route::current()->uri === 'task/list' or ($current_time > $start and $current_time < $end)) {
             return $next($request);
         } else {
-            return redirect(route('tasks'));
+            return redirect(route('tasks.list'));
         }
     }
 }

@@ -32,7 +32,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/');
+        if(Session()->get('back_route')){
+            $back = Session()->get('back_route');
+            $request->session()->forget(['back_route', 'message']);
+
+            return redirect(route($back));
+        } else {
+            return redirect('/');
+        }
     }
 
     /**

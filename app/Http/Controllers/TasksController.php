@@ -11,15 +11,22 @@ class TasksController extends Controller
 {
     public function index()
     {
-        return view('olimp.tasks')->with(['tasks' => Task::orderBy('points')->orderBy('id')->get()]);
+        if(Auth::user()->role == 'admin')
+        {
+            $tasks = Task::orderBy('points')->withTrashed()->orderBy('id')->get();
+        } else {
+            $tasks = Task::orderBy('points')->orderBy('id')->get();
+        }
+
+        return view('olimp.tasks')->with(['tasks' => $tasks]);
     }
 
-    public function show_task($task_id)
+    public function showTask($task_id)
     {
         return view('olimp.task')->with(['task' => Task::where('id', $task_id)->first()]);
     }
 
-    public function to_answer(Request $request, $task_id)
+    public function toAnswer(Request $request, $task_id)
     {
         if($request->answer == '') {
             Answer::where('task_id', $task_id)->where('user_id', Auth::id())->delete();
@@ -30,37 +37,44 @@ class TasksController extends Controller
             );
         }
 
-        return $this->show_task($task_id)->with(['success' => 'Ваш ответ сохранен!']);
+        return $this->showTask($task_id)->with(['success' => 'Ваш ответ сохранен!']);
     }
 
-    public function add_task(Request $request, $id = null)
+    public function edit(Request $request, $id)
     {
-        $validate = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description_short' => ['required', 'string', 'max:255'],
-            'description_full' => ['required', 'string', 'max:40000'],
-            'points' => ['required', 'integer', 'max:10'],
+        $data = $request->all();
+        Task::withTrashed()->find($id)->update([
+            'description_short' => $data['description_short'],
+            'description_full' => $data['description_full'],
+            'points' => $data['points'],
+            'file' => $data['file']
         ]);
-        if ($id) {
-          Task::where('id', $id)->update(
-            [
-              'title' => $request->title,
-              'description_short' => $request->description_short,
-              'description_full' => $request->description_full,
-              'points' => $request->points,
-            ]
-          );
-          return redirect()->back()->with(['success' => 'Задача обновлена!']);
-        } else {
-          Task::create([
-              'title' => $request->title,
-              'description_short' => $request->description_short,
-              'description_full' => $request->description_full,
-              'points' => $request->points,
-          ]);
-          return redirect()->back()->with(['success' => 'Задача добавлена!']);
-        }
+        return view('admin.task')
+            ->with('task', Task::withTrashed()->where('id', $id)->first())
+            ->with('success', true);
+    }
 
+    public function add()
+    {
+        return dd("work");
+    }
 
+    public function delete($id)
+    {
+        Task::find($id)->delete();
+
+        return redirect()->route('tasks.list');
+    }
+
+    public function restore($id)
+    {
+        Task::withTrashed()->find(1)->restore();
+
+        return redirect()->route('tasks.list');
+    }
+
+    public function closure()
+    {
+        return 'Заглушка';
     }
 }

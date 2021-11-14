@@ -30,7 +30,7 @@ class UserController extends Controller
       $validate = $request->validate([
           'name' => ['required', 'string', 'max:255'],
           'university' => ['required', 'string', 'max:255'],
-          'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id],
+          'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->getAuthIdentifier()],
       ]);
 
       $name = $request->name;
@@ -38,7 +38,7 @@ class UserController extends Controller
       $email = $request->email;
       $updated_at = date("Y-m-d H:i:s");
 
-      DB::table('users')->where('id', Auth::user()->id)->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at, ]);
+      DB::table('users')->where('id', Auth::user()->getAuthIdentifier())->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at, ]);
 
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
@@ -67,5 +67,19 @@ class UserController extends Controller
       Answer::where('user_id', $id)->where('task_id', $task_id)->update(['points' => $request->points]);
 
       return redirect()->back()->with('success', 'Баллы проставлены в системе');
+    }
+
+    public function block($id)
+    {
+        User::find($id)->block();
+
+        return redirect()->route('admin.users.list');
+    }
+
+    public function unblock($id)
+    {
+        User::find($id)->unblock();
+
+        return redirect()->route('admin.users.list');
     }
 }

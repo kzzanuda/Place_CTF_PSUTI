@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\VerifyAdmin::class,
         'task_time_limit' => \App\Http\Middleware\TaskTimeLimits::class,
+        'auth_access' => \App\Http\Middleware\AuthenticateCheck::class,
     ];
 }

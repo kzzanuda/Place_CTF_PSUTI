@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'university',
+        'role', #FIXME: уязвимость
     ];
 
     /**
@@ -45,14 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function answers()
-    {
-        return $this->hasMany(Answer::class);
-    }
-
     public function taskAnswer($task_id)
     {
-        return $this->hasMany(Answer::class)->where('task_id', '=', $task_id)->first();
+        return $this->hasMany(Answer::class)->where('task_id', $task_id)->first();
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class);
     }
 
     public function points()
@@ -60,8 +62,20 @@ class User extends Authenticatable
         return $this->hasMany(Answer::class)->sum('points');
     }
 
-    public function not_null_points()
+    public function verified(): HasMany
     {
-        return $this->hasMany(Answer::class)->whereNotNull('points')->get();
+        return $this->hasMany(Answer::class)->whereNotNull('points');
+    }
+
+    public function block()
+    {
+        $this->active = 0;
+        $this->save();
+    }
+
+    public function unblock()
+    {
+        $this->active = 1;
+        $this->save();
     }
 }
