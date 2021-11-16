@@ -36,7 +36,7 @@
                       </form>
                     </div>
                 @endif
-                {{$task->description_full}}
+                {!! $task->description_full !!}
                 @if(isset($success))
                     <div class="alert alert-success mt-2">
                         {{$success}}

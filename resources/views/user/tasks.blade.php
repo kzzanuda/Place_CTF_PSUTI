@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+<a href="{{ route('admin.users.list') }}" class="btn btn-outline-secondary m-2">Вернуться к списку пользователей</a>
 <table class="table">
   <thead>
     <tr>

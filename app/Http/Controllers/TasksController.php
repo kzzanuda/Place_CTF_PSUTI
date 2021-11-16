@@ -45,13 +45,14 @@ class TasksController extends Controller
         $data = $request->all();
         Task::withTrashed()->find($id)->update([
             'description_short' => $data['description_short'],
-            'description_full' => $data['description_full'],
+            'description_full' => $this->strip_tags($data['description_full']),
             'points' => $data['points'],
-            'file' => $data['file']
+          #  'file' => $data['file'],
         ]);
-        return view('admin.task')
-            ->with('task', Task::withTrashed()->where('id', $id)->first())
-            ->with('success', true);
+        // return view('admin.task')
+        //     ->with('task', Task::withTrashed()->where('id', $id)->first())
+        //     ->with('success', true);
+        return 'Задача обновлена';
     }
 
     public function add()
@@ -73,8 +74,30 @@ class TasksController extends Controller
         return redirect()->route('tasks.list');
     }
 
-    public function closure()
+    public function closure(Request $request)
     {
-        return 'Заглушка';
+      $validate = $request->validate([
+          'title' => ['required', 'string', 'max:255'],
+          'description_short' => ['required', 'string', 'max:255'],
+          'description_full' => ['required', 'string', 'max:40000'],
+          'points' => ['required', 'integer', 'max:10'],
+        ]);
+
+        Task::create([
+            'title' => $request->title,
+            'description_short' => $request->description_short,
+            'description_full' => $this->strip_tags($request->description_full),
+            'points' => $request->points,
+        ]);
+        return 'Задача добавлена';      #  return redirect()->back()->with(['success' => 'Задача добавлена!']);
+    }
+
+    private function strip_tags($input) {
+        $input = preg_replace('/<\/script>/', '&lt;/script&gt;', $input);
+        $input = preg_replace('/<script>/', '&lt;script&gt;', $input);
+
+        $input = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $input);
+
+        return $input;
     }
 }

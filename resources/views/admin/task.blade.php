@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('styles')
+<link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row mx-5 mt-2 px-5">
@@ -23,7 +27,7 @@
       </div>
     @endif
     <div class="col-12">
-      <form action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @endif" method="post">
+      <form id="mainForm" action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @endif" method="post">
         @csrf
         <div class="form-group">
           <label for="nameTask">Название</label>
@@ -31,11 +35,12 @@
         </div>
         <div class="form-group">
           <label for="description_short">Краткое описание</label>
-          <textarea class="form-control" name="description_short" id="description_short" rows="2">@if(isset($task)){{$task->description_short}}@endif</textarea>
+          <input style="height: 60px;" class="form-control" name="description_short" id="description_short" value="@if(isset($task)){{$task->description_short}}@endif" rows="2">
         </div>
         <div class="form-group">
           <label for="description_full">Условие задачи</label>
-          <textarea class="form-control" name="description_full" id="description_full" rows="5">@if(isset($task)){{$task->description_full}}@endif</textarea>
+          <input type="hidden" name="description_full" id="description_full" value="@if(isset($task)){{$task->description_full}}@endif">
+          <textarea class="form-control" name="" id="description_full_area" rows="5">@if(isset($task)){!!$task->description_full!!}@endif</textarea>
         </div>
         <div class="form-group">
           <label for="points">Сложность</label>
@@ -61,4 +66,30 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('sripts')
+<script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+<script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script>
+var editor = new Editor();
+editor.render();
+
+$('#mainForm').submit(function(e) {
+  e.preventDefault();
+  $('.icon-preview').click();
+  $('#description_full').val($('.editor-preview')[0].innerHTML);
+
+  let data = $('#mainForm').serialize();
+
+  $.ajax({
+    url: '@if(isset($task)){{route('admin.tasks.edit_post', $task->id)}}@else{{route('admin.tasks.add_post')}}@endif',
+    method: 'POST',
+    data: data,
+    success: function(data) {
+      alert(data);
+    }
+  });
+});
+</script>
 @endsection

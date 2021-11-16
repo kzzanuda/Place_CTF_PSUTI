@@ -41,7 +41,7 @@
                     @if($task->trashed())
                       <form action="{{route('admin.tasks.restore', $task->id)}}" method="post">
                         @csrf
-                        <button class="btn btn-danger ml-3" type="submit">Восстановить</button>
+                        <button class="btn btn-warning ml-3" type="submit">Восстановить</button>
                       </form>
                     @else
                       <form action="{{route('admin.tasks.delete', $task->id)}}" method="post">

@@ -32,7 +32,7 @@ class AdminController extends Controller
 
     public function taskAdd()
     {
-        return redirect()->route('tasks.list');
+        return view('admin.task');
     }
 
     public function taskEdit($id)
