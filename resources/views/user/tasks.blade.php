@@ -13,13 +13,13 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($tasks as $key => $task)
+    @foreach ($answers as $key => $answer)
     <tr>
       <th scope="row">{{$key+1}}</th>
-      <th>{{$task->title}}</th>
-      <th>{{$task->description_short}}</th>
-      <th>{{$task->points}}</th>
-      <th><a class="btn btn-primary" href="{{ route('user_answer', [$user_id, $task->id]) }}" role="button">Перейти к ответу</a></th>
+      <th>{{$answer->title}}</th>
+      <th>{{$answer->description_short}}</th>
+      <th>{{$answer->points}}</th>
+      <th><a class="btn btn-primary" href="{{ route('admin.user_answer', [$user_id, $answer->task_id]) }}" role="button">Перейти к ответу</a></th>
     </tr>
     @endforeach
   </tbody>

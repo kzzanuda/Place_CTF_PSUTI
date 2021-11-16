@@ -11,7 +11,6 @@
       <th scope="col">Дано ответов</th>
       <th scope="col">Проверено</th>
       <th scope="col">Набрано очков</th>
-      <th scope="col">Заблокирован?</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -26,9 +25,8 @@
         <th>{{$user->answers()->count()}}</th>
         <th>{{$user->verified()->count()}}</th>
         <th>{{$user->points()}}</th>
-        <th><i class="@if($user->active) bi-unlock @else bi-lock-fill @endif"></i></th>
         {{--TODO: нужно изменить роут--}}
-        <th><a class="btn btn-primary" href="{{ route('tasks.list', $user->id) }}" role="button">Перейти к ответам</a>
+        <th><a class="btn btn-primary" href="{{ route('admin.user_answers', $user->id) }}" role="button">Перейти к ответам</a>
         </th>
         <th>
           @if($user->active)

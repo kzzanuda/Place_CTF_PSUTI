@@ -15,7 +15,9 @@ class AdminController extends Controller
 
     public function users()
     {
-      return view('admin.users')->with(['users' => User::where('role', 'user')->get()]);
+      return view('admin.users')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
+          return $users->points();
+      })]);
     }
 
     public function tasks()

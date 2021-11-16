@@ -21,12 +21,12 @@
                     </ul>
                 </li> --}}
             </ul>
-            @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
             <div class="d-flex">
-                <a class="nav-link text-light" href="/register" type="button" name="button">Регистрация</a>
-                <a class="btn btn-outline-light" href="/login" type="button">
-                    Вход
-                </a>
+            @if( Auth::check() and Route::has('register') and (Auth::user()->role == "admin" or Auth::user()->role == "juri") )
+              <a class="nav-link text-light" href="/register" type="button" name="button">Регистрация</a>
+            @endif
+            @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
+              <a class="btn btn-outline-light" href="/login" type="button">Вход</a>
             </div>
             @endif
             @if( Auth::check() )

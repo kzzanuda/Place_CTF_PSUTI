@@ -6,7 +6,11 @@
     <div class="text-center mb-4">
       <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
     </div>
-
+    @if(isset($success))
+        <div class="alert alert-success mt-2">
+            {{$success}}
+        </div>
+    @endif
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

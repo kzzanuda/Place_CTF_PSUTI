@@ -57,9 +57,13 @@ class UserController extends Controller
 
     public function answers($id)
     {
-      $tasks = Answer::where('user_id', $id)->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')->get();
+      $answers = Answer::where('user_id', $id)
+                  ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
+                  ->select('answers.*', 'tasks.title', 'tasks.description_short')
+                  ->orderBy('tasks.points')
+                  ->get();
 
-      return view('user.tasks', ['tasks' => $tasks, 'user_id' => $id]);
+      return view('user.tasks', ['answers' => $answers, 'user_id' => $id]);
     }
 
     public function add_points(Request $request, $id, $task_id)

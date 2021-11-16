@@ -46,10 +46,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>
-                        <textarea name="answer" class="form-control" id="exampleFormControlTextarea1"
-                                  rows="3" @if(Auth::user()->role != 'user') disabled @endif>
-                            {{Auth::user()->taskAnswer($task->id)->answer??''}}
-                        </textarea>
+                        <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3" @if(Auth::user()->role != 'user') disabled @endif>{{Auth::user()->taskAnswer($task->id)->answer??''}}</textarea>
                     </div>
                     @if($errors->any())
                         <div class="alert alert-danger">
