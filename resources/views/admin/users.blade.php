@@ -16,9 +16,10 @@
     </tr>
     </thead>
     <tbody>
-    @foreach ($users as $key => $user)
+
+    @foreach ($users as $user)
       <tr>
-        <th scope="row">{{$key+1}}</th>
+        <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->name}}</th>
         <th>{{$user->email}}</th>
         <th>{{$user->university}}</th>

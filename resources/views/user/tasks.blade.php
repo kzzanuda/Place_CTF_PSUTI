@@ -13,9 +13,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($answers as $key => $answer)
+    @foreach ($answers as $answer)
     <tr>
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row">{{$loop->iteration}}</th>
       <th>{{$answer->title}}</th>
       <th>{{$answer->description_short}}</th>
       <th>{{$answer->points}}</th>

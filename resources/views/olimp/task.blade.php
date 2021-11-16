@@ -12,9 +12,9 @@
                                href="@if($task->hasPrevious()) {{route('tasks.task', $task->previous())}} @else # @endif "
                                tabindex="-1">Предыдущая задача</a>
                         </li>
-                        @foreach ($task->pagination() as $key => $page)
+                        @foreach ($task->pagination() as $page)
                             <li class="page-item @if($task->id == $page) active @endif @if(Auth::user()->taskAnswer($page) != null) success @endif">
-                                <a class="page-link" href="{{route('tasks.task', $page)}}">{{$key + 1}}</a>
+                                <a class="page-link" href="{{route('tasks.task', $page)}}">{{$loop->iteration}}</a>
                             </li>
                         @endforeach
 

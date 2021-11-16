@@ -18,10 +18,10 @@
         @if(Auth::user()->role == 'admin')
           <a href="{{route('admin.tasks.add_form')}}" class="btn btn-primary my-3 w-100">Добавить задачу</a>
         @endif
-        @foreach ($tasks as $key => $task)
+        @foreach ($tasks as $task)
           <div class="card @if(Auth::user()->taskAnswer($task->id)) success @endif mb-3">
             <div class="card-header">
-              Задача №{{$key + 1}} @if(Auth::user()->taskAnswer($task->id)) - Ответ дан @endif
+              Задача №{{$loop->iteration}} @if(Auth::user()->taskAnswer($task->id)) - Ответ дан @endif
             </div>
             <div class="card-body">
               <h5 class="card-title">{{$task->title}}</h5>
