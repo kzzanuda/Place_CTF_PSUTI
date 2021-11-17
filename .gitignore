@@ -26,3 +26,13 @@ Homestead.json
 
 /storage/framework
 /storage/logs/
+
+Dockerfile
+Dockerfile.save
+dbdata/
+docker-compose.yml
+mysql/
+nginx/
+php/
+
+
