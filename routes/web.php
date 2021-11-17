@@ -53,8 +53,8 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
             Route::get('/add', [AdminController::class, 'taskAdd'])->name('add_form');
             Route::get('/edit/{id}', [AdminController::class, 'taskEdit'])->name('edit_form');
 
-            Route::post('/task/{id?}', [TasksController::class, 'closure'])->where('id', '[0-9]+')->name('admin_add_task');
-            Route::post('/task/add', [TasksController::class, 'closure'])->name('add_post');
+//            Route::post('/task/{id?}', [TasksController::class, 'closure'])->where('id', '[0-9]+')->name('admin_add_task');
+            Route::post('/task/add', [TasksController::class, 'add'])->name('add_post');
             Route::post('/task/edit/{id}', [TasksController::class, 'edit'])->name('edit_post');
             Route::post('/task/restore/{id}', [TasksController::class, 'restore'])->name('restore');
 

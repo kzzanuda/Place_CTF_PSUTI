@@ -27,7 +27,7 @@
       </div>
     @endif
     <div class="col-12">
-      <form id="mainForm" action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @endif" method="post">
+      <form id="mainForm" action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @else {{route('admin.tasks.add_post')}} @endif" method="post">
         @csrf
         <div class="form-group">
           <label for="nameTask">Название</label>
@@ -56,11 +56,9 @@
             <label class="custom-file-label" for="file">Выбрать файл</label>
           </div>
         </div>
-        @if (isset($success))
-          <div class="alert alert-success mt-2 mb-0">
-              Сохранено!
-          </div>
-        @endif
+        <div class="alert alert-success mt-2 mb-0" id="success" hidden>
+          Сохранено!
+        </div>
         <button type="submit" name="button" class="btn btn-primary w-100 my-4">Сохранить</button>
       </form>
     </div>
@@ -87,7 +85,8 @@ $('#mainForm').submit(function(e) {
     method: 'POST',
     data: data,
     success: function(data) {
-      alert(data);
+      let success = document.getElementById('success');
+      success.removeAttribute('hidden');
     }
   });
 });

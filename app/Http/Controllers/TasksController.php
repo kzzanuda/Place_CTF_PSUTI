@@ -11,8 +11,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->role == 'admin')
-        {
+        if (Auth::user()->role == 'admin') {
             $tasks = Task::orderBy('points')->withTrashed()->orderBy('id')->get();
         } else {
             $tasks = Task::orderBy('points')->orderBy('id')->get();
@@ -28,12 +27,12 @@ class TasksController extends Controller
 
     public function toAnswer(Request $request, $task_id)
     {
-        if($request->answer == '') {
+        if ($request->answer == '') {
             Answer::where('task_id', $task_id)->where('user_id', Auth::id())->delete();
-        }else{
+        } else {
             Answer::updateOrCreate(
                 ['user_id' => Auth::id(), 'task_id' => $task_id],
-                ['answer' => $request->answer??'']
+                ['answer' => $request->answer ?? '']
             );
         }
 
@@ -42,22 +41,30 @@ class TasksController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $data = $request->all();
+        $data = $this->validateInput($request);
+
         Task::withTrashed()->find($id)->update([
+            'title' => $data['title'],
             'description_short' => $data['description_short'],
             'description_full' => $this->strip_tags($data['description_full']),
             'points' => $data['points'],
-          #  'file' => $data['file'],
         ]);
-        // return view('admin.task')
-        //     ->with('task', Task::withTrashed()->where('id', $id)->first())
-        //     ->with('success', true);
-        return 'Задача обновлена';
+
+        return response(status: 200);
     }
 
-    public function add()
+    public function add(Request $request)
     {
-        return dd("work");
+        $data = $this->validateInput($request);
+
+        Task::create([
+            'title' => $data['title'],
+            'description_short' => $data['description_short'],
+            'description_full' => $this->strip_tags($data['description_full']),
+            'points' => $data['points'],
+        ]);
+
+        return response(status: 200);
     }
 
     public function delete($id)
@@ -69,30 +76,25 @@ class TasksController extends Controller
 
     public function restore($id)
     {
-        Task::withTrashed()->find(1)->restore();
+        Task::withTrashed()->find($id)->restore();
 
         return redirect()->route('tasks.list');
     }
 
-    public function closure(Request $request)
+    protected function validateInput($request)
     {
-      $validate = $request->validate([
-          'title' => ['required', 'string', 'max:255'],
-          'description_short' => ['required', 'string', 'max:255'],
-          'description_full' => ['required', 'string', 'max:40000'],
-          'points' => ['required', 'integer', 'max:10'],
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description_short' => ['required', 'string', 'max:255'],
+            'description_full' => ['required', 'string', 'max:40000'],
+            'points' => ['required', 'integer', 'max:10'],
         ]);
 
-        Task::create([
-            'title' => $request->title,
-            'description_short' => $request->description_short,
-            'description_full' => $this->strip_tags($request->description_full),
-            'points' => $request->points,
-        ]);
-        return 'Задача добавлена';      #  return redirect()->back()->with(['success' => 'Задача добавлена!']);
+        return $request->all();
     }
 
-    private function strip_tags($input) {
+    private function strip_tags($input)
+    {
         $input = preg_replace('/<\/script>/', '&lt;/script&gt;', $input);
         $input = preg_replace('/<script>/', '&lt;script&gt;', $input);
 

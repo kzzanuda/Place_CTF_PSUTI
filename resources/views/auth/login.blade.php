@@ -34,8 +34,10 @@
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+      @if(Auth()->user() && Auth()->user()->role == 'admin')
       <div class="mt-2">У Вас нет профиля?
         <a href="{{ route('register') }}"> Регистрация</a>
       </div>
+      @endif
     </form>
 @endsection
