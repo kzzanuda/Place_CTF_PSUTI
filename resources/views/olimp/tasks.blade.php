@@ -27,17 +27,21 @@
               <h5 class="card-title">{{$task->title}}</h5>
               <p class="card-text">{{$task->description_short}}</p>
               <div class="d-flex align-items-end justify-content-between">
+                @if(!$task->trashed())
                 <a href="{{route('tasks.task', $task->id)}}"
                    class="btn
                    @if(Auth::user()->taskAnswer($task->id)) btn-success @else btn-primary @endif">
                   Перейти к задаче
                 </a>
+                @endif
                 <div class="">
                   Сложность: {{$task->points}}
                 </div>
                 @if(Auth::user()->role == 'admin')
                   <div class="d-flex justify-content-end">
+                    @if(!$task->trashed())
                     <a href="{{route('admin.tasks.edit_form', $task->id)}}" class="btn btn-success">Редактировать</a>
+                    @endif
                     @if($task->trashed())
                       <form action="{{route('admin.tasks.restore', $task->id)}}" method="post">
                         @csrf
