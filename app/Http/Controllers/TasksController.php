@@ -50,7 +50,7 @@ class TasksController extends Controller
             'points' => $data['points'],
         ]);
 
-        return response(status: 200);
+        return response('status', 200);
     }
 
     public function add(Request $request)
@@ -64,7 +64,7 @@ class TasksController extends Controller
             'points' => $data['points'],
         ]);
 
-        return response(status: 200);
+        return response('status', 200);
     }
 
     public function delete($id)
