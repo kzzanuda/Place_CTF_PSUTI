@@ -62,8 +62,9 @@ class UserController extends Controller
                   ->select('answers.*', 'tasks.title', 'tasks.description_short')
                   ->orderBy('tasks.points')
                   ->get();
+      $user = User::find($id);
 
-      return view('user.tasks', ['answers' => $answers, 'user_id' => $id]);
+      return view('user.tasks', ['answers' => $answers, 'user' => $user]);
     }
 
     public function add_points(Request $request, $id, $task_id)

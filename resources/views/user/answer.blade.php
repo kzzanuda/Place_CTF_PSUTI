@@ -7,7 +7,7 @@
           <a href="{{ route('admin.user_answers', $answer->user_id) }}" class="btn btn-outline-secondary mb-5">Вернуться к списку ответов пользователя</a>
           <h3 class="text-center">{{$task->title}}</h3>
           Условие:<br>
-          {{$task->description_full}}<br>
+          {!! $task->description_full !!}<br>
           <br>
           Ответ:<br>
           {{$answer->answer}}

@@ -36,12 +36,12 @@
                       </form>
                     </div>
                 @endif
-                {!! $task->description_full !!}
                 @if(isset($success))
                     <div class="alert alert-success mt-2">
                         {{$success}}
                     </div>
                 @endif
+                {!! $task->description_full !!}
                 <form class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
                     @csrf
                     <div class="form-group">
