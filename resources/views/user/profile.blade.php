@@ -18,7 +18,7 @@
         {!! \Session::get('success') !!}
     </div>
     @endif
-  <form action="{{route('edituser')}}" method="post">
+  <form action="{{route('user.edit')}}" method="post">
     @csrf
     <div class="form-group row">
       <label for="staticFio" class="col-sm-2 col-form-label">ФИО</label>

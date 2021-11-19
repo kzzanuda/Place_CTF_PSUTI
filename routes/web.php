@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/{id}', [UserController::class, 'profile'])->name('profile');
-        Route::post('/edit', [UserController::class, 'update'])->name('edituser');
+        Route::post('/edit', [UserController::class, 'update'])->name('edit');
 
         // Route::get('/{id}/{task_id}',[UserController::class, 'answer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+');
     });
