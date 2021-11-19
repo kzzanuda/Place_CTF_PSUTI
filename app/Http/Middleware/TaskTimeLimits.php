@@ -21,7 +21,7 @@ class TaskTimeLimits
         date_default_timezone_set('Europe/Moscow');
 
         $current_time = now()->addHour();
-        $start = '2021-11-19 22:00:00';
+        $start = '2021-11-19 20:32:00';
         $end = '2021-11-26 19:30:00';
 
         $date = date_create($start); #2012-01-26T13:51:50.417-07:00
