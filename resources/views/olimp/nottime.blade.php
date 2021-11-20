@@ -73,7 +73,10 @@ function checkTime() {
   if (distance < 0) {
       clearInterval(x);
       location.reload();
-      return;
+      deys = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
   }
 
   // Display the result in the element with id="demo"
