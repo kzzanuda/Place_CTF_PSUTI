@@ -13,7 +13,8 @@
                                tabindex="-1">Предыдущая задача</a>
                         </li>
                         @foreach ($task->pagination() as $page)
-                            <li class="page-item @if($task->id == $page) active @endif @if(Auth::user()->taskAnswer($page) != null) success @endif">
+                            <li class="page-item @if($task->id == $page) active @endif @if(Auth::user()->taskAnswer($page)->confirm??0) success
+                              @elseif(Auth::user()->taskAnswer($page) != null) info @endif">
                                 <a class="page-link" href="{{route('tasks.task', $page)}}">{{$loop->iteration}}</a>
                             </li>
                         @endforeach
@@ -42,11 +43,11 @@
                     </div>
                 @endif
                 {!! $task->description_full !!}
-                <form class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
+                <form id="mainForm" class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>
-                        <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3" @if(Auth::user()->role != 'user') disabled @endif>{{Auth::user()->taskAnswer($task->id)->answer??''}}</textarea>
+                        <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3" @if(Auth::user()->role != 'user' or Auth::user()->taskAnswer($task->id)->confirm??0) disabled @endif>{{Auth::user()->taskAnswer($task->id)->answer??''}}</textarea>
                     </div>
                     @if($errors->any())
                         <div class="alert alert-danger">
@@ -57,13 +58,34 @@
                             </ul>
                         </div>
                     @endif
+                    <input id="confirm" type="hidden" name="confirm" value="0">
                     <div class="d-flex justify-content-end">
+                        @if(!(Auth::user()->taskAnswer($task->id)->confirm??false))
                         <button type="submit" class="btn btn-primary mb-2" @if(Auth::user()->role != 'user') disabled @endif>
-                            Отправить
+                            Сохранить
                         </button>
+                        <button type="button" data-toggle="tooltip" data-placement="left"
+                        title="Это необходимо сделать до конца олимпиады, чтобы ответ был засчитан в системе, но пропадет возможность отредактировать ответ. Будьте внимательны!"
+                        id="submitAnswer" class="btn btn-success mb-2 ml-3" @if(Auth::user()->role != 'user') disabled @endif>
+                            Отправить на проверку
+                        </button>
+                        @else
+                        <div class="text-center">
+                          Ответ отправлен на проверку.
+                        </div>
+                        @endif
                     </div>
                 </form>
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+<script>
+  $('#submitAnswer').click(function() {
+      $('#confirm').val(1);
+      $('#mainForm').submit();
+  });
+</script>
 @endsection

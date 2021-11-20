@@ -9,6 +9,7 @@
       <th scope="col">Email</th>
       <th scope="col">Учебное заведение</th>
       <th scope="col">Дано ответов</th>
+      <th scope="col">Сдано на проверку</th>
       <th scope="col">Проверено</th>
       <th scope="col">Набрано очков</th>
       <th scope="col"></th>
@@ -24,9 +25,9 @@
         <th>{{$user->email}}</th>
         <th>{{$user->university}}</th>
         <th>{{$user->answers()->count()}}</th>
+        <th>{{$user->confirmAnswers()->count()}}</th>
         <th>{{$user->verified()->count()}}</th>
         <th>{{$user->points()}}</th>
-        {{--TODO: нужно изменить роут--}}
         <th><a class="btn btn-primary" href="{{ route('admin.user_answers', $user->id) }}" role="button">Перейти к ответам</a>
         </th>
         <th>

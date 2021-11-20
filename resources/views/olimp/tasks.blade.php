@@ -19,9 +19,10 @@
           <a href="{{route('admin.tasks.add_form')}}" class="btn btn-primary my-3 w-100">Добавить задачу</a>
         @endif
         @foreach ($tasks as $task)
-          <div class="card @if(Auth::user()->taskAnswer($task->id)) success @endif mb-3">
+          <div class="card @if(Auth::user()->taskAnswer($task->id)->confirm??0) success @elseif(Auth::user()->taskAnswer($task->id)) info @endif mb-3">
             <div class="card-header">
-              Задача №{{$loop->iteration}} @if(Auth::user()->taskAnswer($task->id)) - Ответ дан @endif
+              Задача №{{$loop->iteration}} @if(Auth::user()->taskAnswer($task->id)->confirm??0) - Ответ отправлен на проверку
+              @elseif(Auth::user()->taskAnswer($task->id)) - Ответ сохранен @endif
             </div>
             <div class="card-body">
               <h5 class="card-title">{{$task->title}}</h5>
@@ -30,7 +31,8 @@
                 @if(!$task->trashed())
                 <a href="{{route('tasks.task', $task->id)}}"
                    class="btn
-                   @if(Auth::user()->taskAnswer($task->id)) btn-success @else btn-primary @endif">
+                   @if(Auth::user()->taskAnswer($task->id)->confirm??0) btn-success @elseif(Auth::user()->taskAnswer($task->id)) btn-info @else btn-primary
+                   @endif">
                   Перейти к задаче
                 </a>
                 @endif

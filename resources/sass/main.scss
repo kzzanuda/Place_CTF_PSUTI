@@ -43,8 +43,19 @@ h2 {
   background-color: #e4ffef;
 }
 
-.success a.page-link {
+.card.info {
+  background-color: #e2f5f8;
+  border-color: #bee5eb;
+}
+
+.success a.page-link, tr.confirm {
   color: #fff;
   background-color: #38c172;
   border-color: #38c172;
+}
+
+.info a.page-link {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
 }

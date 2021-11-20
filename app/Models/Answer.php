@@ -11,5 +11,14 @@ class Answer extends Model
 
     protected $table = 'answers';
 
-    protected $fillable = ['user_id', 'task_id', 'answer'];
+    protected $fillable = ['user_id', 'task_id', 'answer', 'confirm'];
+
+    public function isConfirm(): bool
+    {
+        if ($this->first() != null or !$this->first()->confirm) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

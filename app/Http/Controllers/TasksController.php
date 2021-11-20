@@ -27,12 +27,13 @@ class TasksController extends Controller
 
     public function toAnswer(Request $request, $task_id)
     {
+        if (Auth::user()->taskAnswer($task_id) and Auth::user()->taskAnswer($task_id)->isConfirm()) return abort('403');
         if ($request->answer == '') {
             Answer::where('task_id', $task_id)->where('user_id', Auth::id())->delete();
         } else {
             Answer::updateOrCreate(
                 ['user_id' => Auth::id(), 'task_id' => $task_id],
-                ['answer' => $request->answer ?? '']
+                ['answer' => $request->answer ?? '', 'confirm' => $request->confirm],
             );
         }
 

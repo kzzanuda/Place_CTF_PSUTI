@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       @foreach ($answers as $answer)
-      <tr>
+      <tr @if($answer->confirm)class="confirm"@endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$answer->title}}</th>
         <th>{{$answer->description_short}}</th>

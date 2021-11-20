@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Answer::class);
     }
 
+    public function confirmAnswers(): HasMany
+    {
+        return $this->hasMany(Answer::class)->where('confirm', 1);
+    }
+
     public function points()
     {
         return $this->hasMany(Answer::class)->sum('points');

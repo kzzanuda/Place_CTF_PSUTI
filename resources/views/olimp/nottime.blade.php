@@ -50,7 +50,7 @@
 </div>
 @endsection
 
-@section('sripts')
+@section('scripts')
 <script>
 // Set the date we're counting down to
 var countDownDate = Date.parse('{{$time}}'); //.getTime();
@@ -72,11 +72,13 @@ function checkTime() {
   // If the count down is finished, write some text
   if (distance < 0) {
       clearInterval(x);
-      location.reload();
-      deys = 0;
+      days = 0;
       hours = 0;
       minutes = 0;
       seconds = 0;
+      setInterval(function() {
+          location.reload();
+      },1500);
   }
 
   // Display the result in the element with id="demo"

@@ -12,6 +12,6 @@
       @include('layouts.footer')
 
       <script src="{{ asset('js/app.js') }}"></script>
-      @yield('sripts')
+      @yield('scripts')
     </body>
 </html>

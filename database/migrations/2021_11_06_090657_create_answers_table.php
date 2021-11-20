@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->integer('user_id');
             $table->integer('task_id');
             $table->text('answer');
+            $table->boolean('confirm')->default(0);
             $table->smallInteger('points')->nullable()->default(null);
             $table->timestamps();
         });
