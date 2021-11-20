@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
-    public function index()
+    public function index($event = 'olymp')
     {
         if (Auth::user()->role == 'admin') {
             $tasks = Task::orderBy('points')->withTrashed()->orderBy('id')->get();
@@ -17,7 +17,7 @@ class TasksController extends Controller
             $tasks = Task::orderBy('points')->orderBy('id')->get();
         }
 
-        return view('olimp.tasks')->with(['tasks' => $tasks]);
+        return view('olimp.tasks')->with(['tasks' => $tasks, 'event' => $event]);
     }
 
     public function showTask($task_id)

@@ -6,9 +6,9 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="text-light nav-link active" aria-current="page" href="{{ route('home', $event) }}">Главная</a></li>
-                <li class="nav-item"><a class="text-light nav-link" href="{{ route('tasks.list', $event) }}">Задачи</a></li>
+                <li class="nav-item"><a class="text-light nav-link" href="{{ route('tasks.list') }}">Задачи</a></li>
                 @if(Auth::user() && Auth::user()->role == 'admin')
-                <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index', $event) }}">Админка</a></li>
+                <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index') }}">Админка</a></li>
                 @endif
             </ul>
             <div class="d-flex">
@@ -25,7 +25,7 @@
                   {{ Auth::user()->name }}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item text-dark" href="{{ route('user.profile', Auth::user()->getAuthIdentifier() ) }}">Профиль</a>
+                  <a class="dropdown-item text-dark" href="{{ route('user.profile', Auth::user()->getAuthIdentifier() ) }}">Профиль команды</a>
                   <div class="dropdown-divider"></div>
                   <form method="POST" action="{{ route('logout') }}">
                       @csrf

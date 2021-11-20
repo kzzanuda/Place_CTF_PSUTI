@@ -23,6 +23,8 @@ use App\Http\Middleware\AuthenticateCheck;
 //     return view('welcome');
 // })->name('home');
 
+Route::domain('{event}.psuti.local')->group(function () {
+
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/{id}', [UserController::class, 'profile'])->name('profile');
@@ -67,9 +69,11 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
     });
 });
 
-Route::domain('{event}.psuti.local')->group(function () {
     Route::get('/', function ($event) {
-        return view('welcome')->with('event', $event);
+      if ($event == 'comp') {
+        return view('welcome_comp')->with('event', $event);
+      }
+      return view('welcome')->with('event', $event);
     })->name('home');
 });
 
