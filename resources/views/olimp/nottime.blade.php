@@ -5,6 +5,10 @@
   #demo {
     font-size: 20pt;
   }
+  .clock {
+    font-size: 58pt;
+    font-weight: 800;
+  }
 </style>
 @endsection
 
@@ -23,10 +27,21 @@
       <div class="">
         До начала олимпиады осталось:
       </div>
-      <div class="mt-2" id="demo">
-
+      <div class="my-2 text-center mx-md-5" id="demo">
+        <div class="row mx-md-5">
+          <div class="col-3 clock" id="days"> </div>
+          <div class="col-3 clock" id="hours"> </div>
+          <div class="col-3 clock" id="minutes"> </div>
+          <div class="col-3 clock" id="seconds"> </div>
+        </div>
+        <div class="row mx-md-5">
+          <div class="col-3">дн</div>
+          <div class="col-3">час</div>
+          <div class="col-3">мин</div>
+          <div class="col-3">сек</div>
+        </div>
       </div>
-      <div class="text-muted mt-4">
+      <div class="text-muted mt-5">
         Задания станут доступны сразу после начала
       </div>
     </div>
@@ -40,8 +55,7 @@
 // Set the date we're counting down to
 var countDownDate = Date.parse('{{$time}}'); //.getTime();
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+function checkTime() {
 
   // Get today's date and time
   var now = new Date().getTime();
@@ -63,8 +77,17 @@ var x = setInterval(function() {
   }
 
   // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = days + " дней " + hours + " часов "
-  + minutes + " минут " + seconds + " секунд ";
-}, 1000);
+  document.getElementById("days").innerHTML = days;
+  document.getElementById("hours").innerHTML = hours;
+  document.getElementById("minutes").innerHTML = minutes;
+  document.getElementById("seconds").innerHTML = seconds;
+
+  var x = setInterval(checkTime, 1000);
+}
+
+checkTime();
+
+// Update the count down every 1 second
+
 </script>
 @endsection
