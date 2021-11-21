@@ -43,7 +43,16 @@
                     </div>
                 @endif
                 {!! $task->description_full !!}
-                <form id="mainForm" class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
+                @if($task->file())
+                  <div>
+                    Скачать файл во вложении
+                    <a href="{{asset($task->file()->path)}}" download>
+                      <i class="bi-file-earmark-arrow-down h3"></i>
+                    </a>
+                  </div>
+                @endif
+
+              <form id="mainForm" class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>

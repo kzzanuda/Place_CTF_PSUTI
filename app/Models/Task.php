@@ -14,25 +14,16 @@ class Task extends Model
     protected $table = 'tasks';
 
     protected $fillable = [
-      'title',
-      'description_full',
-      'description_short',
-      'points',
+        'title',
+        'description_full',
+        'description_short',
+        'points',
     ];
-
-    public function hasAnswer(): bool
-    {
-        if ($this->belongsTo(Answer::class, 'task_id')->first() != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public function hasNext(): bool
     {
         $pagination = $this->pagination();
-        if($pagination[array_key_last($pagination)] == $this->id) {
+        if ($pagination[array_key_last($pagination)] == $this->id) {
             return false;
         } else {
             return true;
@@ -42,7 +33,7 @@ class Task extends Model
     public function hasPrevious(): bool
     {
         $pagination = $this->pagination();
-        if($pagination[array_key_first($pagination)] == $this->id) {
+        if ($pagination[array_key_first($pagination)] == $this->id) {
             return false;
         } else {
             return true;
@@ -67,5 +58,10 @@ class Task extends Model
     public function pagination()
     {
         return Task::orderBy('points')->orderBy('id')->pluck('id')->toArray();
+    }
+
+    public function file()
+    {
+        return $this->hasOne(File::class, 'destination_id')->first();
     }
 }

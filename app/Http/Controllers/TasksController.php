@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\File;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TasksController extends Controller
 {
@@ -51,21 +54,42 @@ class TasksController extends Controller
             'points' => $data['points'],
         ]);
 
-        return response('status', 200);
+        $this->storeTaskFile($request->file('file'), $id);
+
+        return redirect()->route('admin.tasks.edit_form', $id)
+            ->with('file_url', asset(File::where('destination', 'task')->where('destination_id', $id)->pluck('path')));
     }
 
     public function add(Request $request)
     {
         $data = $this->validateInput($request);
 
-        Task::create([
+        $task = Task::create([
             'title' => $data['title'],
             'description_short' => $data['description_short'],
             'description_full' => $this->strip_tags($data['description_full']),
             'points' => $data['points'],
         ]);
 
-        return response('status', 200);
+        $this->storeTaskFile($request->file('file'), $task->id);
+
+        return redirect(route('admin.tasks.edit_form', $task->id));
+    }
+
+    protected function storeTaskFile($file, $task_id)
+    {
+        if ($file) {
+            $old_file = File::where('destination', 'task')->where('destination_id', $task_id)->first();
+
+            if ($old_file) {
+                Storage::delete($old_file->path);
+            }
+
+            $path = $file->store('files');
+
+            File::updateOrCreate(['destination' => 'task', 'destination_id' => $task_id],
+                ['path' => $path]);
+        }
     }
 
     public function delete($id)

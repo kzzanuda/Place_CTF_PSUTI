@@ -46,7 +46,16 @@
             @endfor
           </select>
 
-            <input type="file" class="mt-3" name="file" id="file" aria-describedby="inputGroupFileAddon04">
+            <input type="file" class="mt-3 d-none" name="file" id="file" aria-describedby="inputGroupFileAddon04" onchange="renameLabel(this)">
+            <label for="file" class="btn btn-primary mt-2" id="file_label">Загрузить новый файл</label>
+            @if($file_url)
+              <div>
+                Скачать ранее загруженный файл
+                <a href="{{$file_url}}" download>
+                  <i class="bi-file-earmark-arrow-down h2"></i>
+                </a>
+              </div>
+            @endif
 
         <div class="alert alert-success mt-2 mb-0" id="success" hidden>
           Сохранено!
@@ -58,7 +67,7 @@
 </div>
 @endsection
 
-@section('sripts')
+@section('scripts')
 <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
 <script>
@@ -85,13 +94,17 @@ editor.render();
 //   });
 // });
 
+function renameLabel(input) {
+  document.getElementById('file_label').innerHTML = input.files[0].name;
+}
+
 $("#submit").click(function(e) {
   $('.icon-preview').click();
   $('#description_full').val($('.editor-preview')[0].innerHTML);
-  
+
   setTimeout(function() {
     $('form#mainForm').submit();
-  }), 500;
+  }, 500);
 
 });
 </script>
