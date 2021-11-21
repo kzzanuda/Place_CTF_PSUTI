@@ -36,8 +36,8 @@
 
           </div>
           <div class="col-4">
-            <label for="description_short">Категория</label>
-            <select class="form-control" id="points" name="points">
+            <label for="category">Категория</label>
+            <select class="form-control" id="category" name="category">
                 <option @if(isset($task)) @if($task->category == 'Misc') selected @endif @endif>Misc</option>
                 <option @if(isset($task)) @if($task->category == 'Forensic') selected @endif @endif>Forensic</option>
                 <option @if(isset($task)) @if($task->category == 'Reverse') selected @endif @endif>Reverse</option>
