@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="px-5 my-5 container">
-  <h2>Профиль</h2>
+  <h2>Профиль команды</h2>
   @if(Auth::user()->getAuthIdentifier() == $user->id)
   @if($errors->any())
     <div class="alert alert-danger">
@@ -21,11 +21,11 @@
   <form action="{{route('user.edit')}}" method="post">
     @csrf
     <div class="form-group row">
-      <label for="staticFio" class="col-sm-2 col-form-label">ФИО</label>
+      <label for="staticFio" class="col-sm-2 col-form-label">Название команды</label>
       <div class="col-sm-10">
         <input name="name" type="text" class="form-control" id="staticFio" value="{{ $user->name }}">
       </div>
-      <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email</label>
+      <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email для входа</label>
       <div class="col-sm-10 mt-3">
         <input name="email" type="text" class="form-control" id="staticEmail" value="{{ $user->email }}">
       </div>
@@ -38,13 +38,9 @@
   </form>
   @else
   <div class="form-group row">
-    <label for="staticFio" class="col-sm-2 col-form-label">ФИО</label>
+    <label for="staticFio" class="col-sm-2 col-form-label">Название команды</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" id="staticFio" value="{{ $user->name }}">
-    </div>
-    <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email</label>
-    <div class="col-sm-10 mt-3">
-      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $user->email }}">
     </div>
     <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
     <div class="col-sm-10 mt-3">

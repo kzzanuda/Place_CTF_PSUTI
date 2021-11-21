@@ -17,7 +17,7 @@ class TasksController extends Controller
             $tasks = Task::orderBy('points')->orderBy('id')->get();
         }
 
-        return view('olimp.tasks')->with(['tasks' => $tasks]);
+        return view('ctf.tasks')->with(['tasks' => $tasks]);
     }
 
     public function showTask($task_id)

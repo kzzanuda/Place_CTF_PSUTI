@@ -35,7 +35,7 @@
 </div>
 @endsection
 
-@section('sripts')
+@section('scripts')
 <script>
 // Set the date we're counting down to
 var countDownDate = Date.parse('{{$time}}'); //.getTime();

@@ -21,7 +21,7 @@ class TaskTimeLimits
         date_default_timezone_set('Europe/Samara');
 
         $current_time = now()->addHour();
-        $start = '2021-11-25 10:00:00';
+        $start = '2021-11-20 10:00:00';
         $end = '2021-11-25 16:01:00';
 
         $date = date_create($start); #2012-01-26T13:51:50.417-07:00
@@ -29,7 +29,7 @@ class TaskTimeLimits
         if (Route::current()->uri === 'task/list' or ($current_time > $start and $current_time < $end) or Auth::user()->role == 'admin' or Auth::user()->role == 'juri') {
             return $next($request);
         } else {
-            return response()->view('olimp.nottime', ['time'=>date_format($date, 'c')]);
+            return response()->view('ctf.nottime', ['time'=>date_format($date, 'c')]);
         }
     }
 }

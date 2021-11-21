@@ -58,7 +58,7 @@
 </div>
 @endsection
 
-@section('sripts')
+@section('scripts')
 <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
 <script>
@@ -88,7 +88,7 @@ editor.render();
 $("#submit").click(function(e) {
   $('.icon-preview').click();
   $('#description_full').val($('.editor-preview')[0].innerHTML);
-  
+
   setTimeout(function() {
     $('form#mainForm').submit();
   }), 500;
