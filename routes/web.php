@@ -23,7 +23,9 @@ use App\Http\Middleware\AuthenticateCheck;
 //     return view('welcome');
 // })->name('home');
 
-Route::domain('{event}.psuti.local')->group(function () {
+Route::get('/', function () {
+    return view('welcome_comp');
+})->name('home');
 
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
@@ -67,14 +69,6 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/addpoints/{id}/{task_id}/', [UserController::class, 'add_points'])->where('id', '[0-9]+')->where('task_id', '[0-9]+')->name('add_points');
         Route::get('/user/{id}', [UserController::class, 'answers'])->where('id', '[0-9]+')->name('user_answers');
     });
-});
-
-    Route::get('/', function ($event) {
-      if ($event == 'comp') {
-        return view('welcome_comp')->with('event', $event);
-      }
-      return view('welcome')->with('event', $event);
-    })->name('home');
 });
 
 Route::get('/dashboard', function () {

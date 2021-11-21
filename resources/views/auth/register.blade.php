@@ -16,7 +16,7 @@
 
     <div class="form-label-group">
       <input name="name" type="text" id="name" class="form-control" placeholder="ФИО" value="{{old('name')}}" required autofocus>
-      <label for="name">ФИО</label>
+      <label for="name">Название команды</label>
     </div>
     <div class="form-label-group">
       <input name="university" type="text" id="university" class="form-control" placeholder="Наименование учебного заведения" value="{{old('university')}}" required autofocus>
