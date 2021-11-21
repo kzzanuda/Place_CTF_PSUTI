@@ -59,8 +59,9 @@ class TasksController extends Controller
 
         Task::create([
             'title' => $data['title'],
-            'description_short' => $data['description_short'],
-            'description_full' => $this->strip_tags($data['description_full']),
+            'description' => $data['description_short'],
+            'category' => $data['description_full'],
+            'flag' => $data['flag'],
             'points' => $data['points'],
         ]);
 

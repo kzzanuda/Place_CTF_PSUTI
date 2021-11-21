@@ -48,6 +48,10 @@
 
         </div>
 
+        <label for="flag">Флаг</label>
+        <input type="text" name="flag" class="form-control" id="flag" value="@if(isset($task)){{$task->flag}}@endif">
+
+
 
           <label for="description">Условие задачи</label>
           <input type="hidden" name="description" id="description" value="@if(isset($task)){{$task->description}}@endif">
