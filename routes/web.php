@@ -28,6 +28,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware([AuthenticateCheck::class])->group(function () {
+    Route::get('/scoreboard', [UserController::class, 'showScoreboard'])->name('scoreboard');
+
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/{id}', [UserController::class, 'profile'])->name('profile');
         Route::post('/edit', [UserController::class, 'update'])->name('edit');

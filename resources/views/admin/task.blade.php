@@ -29,6 +29,11 @@
     <div class="col-12">
       <form id="mainForm" class="form-group" enctype="multipart/form-data" action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @else {{route('admin.tasks.add_post')}} @endif" method="post">
         @csrf
+        @if(isset($success))
+        <div class="alert alert-success mt-2 mb-0">
+          {{$success}}
+        </div>
+        @endif
         <div class="row">
           <div class="col-8">
             <label for="nameTask">Название</label>
@@ -66,9 +71,7 @@
 
             <input type="file" class="mt-3" name="file" id="file" aria-describedby="inputGroupFileAddon04">
 
-        <div class="alert alert-success mt-2 mb-0" id="success" hidden>
-          Сохранено!
-        </div>
+
         <div type="" id="submit" name="button" class="btn btn-primary w-100 my-4">Сохранить</div>
       </form>
     </div>

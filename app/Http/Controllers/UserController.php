@@ -87,4 +87,11 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.list');
     }
+
+    public function showScoreboard(Request $request)
+    {
+      return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
+          return $users->points();
+      })]);;
+    }
 }

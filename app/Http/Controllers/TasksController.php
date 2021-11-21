@@ -12,9 +12,9 @@ class TasksController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $tasks = Task::orderBy('points')->withTrashed()->orderBy('id')->get();
+            $tasks = Task::orderBy('category')->orderBy('points')->withTrashed()->orderBy('id')->get();
         } else {
-            $tasks = Task::orderBy('points')->orderBy('id')->get();
+            $tasks = Task::orderBy('category')->orderBy('points')->get();
         }
 
         return view('ctf.tasks')->with(['tasks' => $tasks]);
@@ -51,7 +51,7 @@ class TasksController extends Controller
           'points' => $data['points'],
         ]);
 
-        return response('status', 200);
+        return redirect()->back()->with('success', 'Сохранено');
     }
 
     public function add(Request $request)
@@ -66,7 +66,7 @@ class TasksController extends Controller
             'points' => $data['points'],
         ]);
 
-        return response('status', 200);
+        return view('admin.task')->with('success', 'Задача создана');
     }
 
     public function delete($id)
