@@ -12,7 +12,7 @@
     <p class="mt-5">Ссылка на регистрацию:
       <a target="_blank" href="https://forms.gle/2f2KGSGDVgNHX2ov7">https://forms.gle/Qu62vYTUKFaVWRTt6</a></p>
 
-      <p>Ознакомится с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_olymp.pdf')}}">здесь</a></p>
+      <p>Ознакомиться с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_olymp.pdf')}}">здесь</a></p>
       <p>Telegram-чат для оперативной связи с организаторами: <a target="_blank" href="https://t.me/joinchat/Gz-JDv9hj4NmM2Qy">https://t.me/joinchat/Gz-JDv9hj4NmM2Qy</a></p>
 
       <h4 class="mt-5">Правила олимпиады:</h4>

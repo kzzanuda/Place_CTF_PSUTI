@@ -11,7 +11,7 @@
           <p>Регистрация на соревнования осуществляется по ссылке:
           <a href="https://forms.gle/2f2KGSGDVgNHX2ov7">https://forms.gle/2f2KGSGDVgNHX2ov7</a></p>
 
-          <p>Ознакомится с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_ctf.pdf')}}">здесь</a></p>
+          <p>Ознакомиться с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_ctf.pdf')}}">здесь</a></p>
           <p>Telegram-чат для оперативной связи с организаторами: <a target="_blank" href="https://t.me/joinchat/Rq1Rh-N7wdJmMjU6">https://t.me/joinchat/Rq1Rh-N7wdJmMjU6</a></p>
           <h3 class="mt-5">Правила соревнований</h3>
           <h5>Запрещено:</h5>
