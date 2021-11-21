@@ -29,19 +29,33 @@
     <div class="col-12">
       <form id="mainForm" class="form-group" enctype="multipart/form-data" action="@if(isset($task)) {{ route('admin.tasks.edit_post', $task->id) }} @else {{route('admin.tasks.add_post')}} @endif" method="post">
         @csrf
-          <label for="nameTask">Название</label>
-          <input type="text" name="title" class="form-control" id="nameTask" value="@if(isset($task)){{$task->title}}@endif">
+        <div class="row">
+          <div class="col-8">
+            <label for="nameTask">Название</label>
+            <input type="text" name="title" class="form-control" id="nameTask" value="@if(isset($task)){{$task->title}}@endif">
 
-          <label for="description_short">Краткое описание</label>
-          <input style="height: 60px;" class="form-control" name="description_short" id="description_short" value="@if(isset($task)){{$task->description_short}}@endif" rows="2">
+          </div>
+          <div class="col-4">
+            <label for="description_short">Категория</label>
+            <select class="form-control" id="points" name="points">
+                <option @if(isset($task)) @if($task->category == 'Misc') selected @endif @endif>Misc</option>
+                <option @if(isset($task)) @if($task->category == 'Forensic') selected @endif @endif>Forensic</option>
+                <option @if(isset($task)) @if($task->category == 'Reverse') selected @endif @endif>Reverse</option>
+                <option @if(isset($task)) @if($task->category == 'Pwn') selected @endif @endif>Pwn</option>
+                <option @if(isset($task)) @if($task->category == 'Crypto') selected @endif @endif>Crypto</option>
+            </select>
+          </div>
 
-          <label for="description_full">Условие задачи</label>
-          <input type="hidden" name="description_full" id="description_full" value="@if(isset($task)){{$task->description_full}}@endif">
-          <textarea class="form-control" name="" id="description_full_area" rows="5">@if(isset($task)){!!$task->description_full!!}@endif</textarea>
+        </div>
+
+
+          <label for="description">Условие задачи</label>
+          <input type="hidden" name="description" id="description" value="@if(isset($task)){{$task->description}}@endif">
+          <textarea class="form-control" name="" id="description_area" rows="5">@if(isset($task)){!!$task->description!!}@endif</textarea>
 
           <label for="points">Сложность</label>
           <select class="form-control" id="points" name="points">
-            @for ($i = 1; $i <= 10; $i++)
+            @for ($i = 100; $i <= 500; $i=$i+100)
                 <option @if(isset($task)) @if($task->points == $i) selected @endif @endif>{{$i}}</option>
             @endfor
           </select>
@@ -65,33 +79,13 @@
 var editor = new Editor();
 editor.render();
 
-// $('form#mainForm').submit(function(e) {
-//   e.preventDefault();
-//   $('.icon-preview').click();
-//   $('#description_full').val($('.editor-preview')[0].innerHTML);
-//
-//   let data = new FormData(this);
-//   console.log(data);
-//
-//   $.ajax({
-//     url: '@if(isset($task)){{route('admin.tasks.edit_post', $task->id)}}@else{{route('admin.tasks.add_post')}}@endif',
-//     method: 'POST',
-//     data: data,
-//     processData: false,
-//     success: function(data) {
-//       let success = document.getElementById('success');
-//       success.removeAttribute('hidden');
-//     }
-//   });
-// });
-
 $("#submit").click(function(e) {
   $('.icon-preview').click();
-  $('#description_full').val($('.editor-preview')[0].innerHTML);
+  $('#description').val($('.editor-preview')[0].innerHTML);
 
   setTimeout(function() {
     $('form#mainForm').submit();
-  }), 500;
+  }, 500);
 
 });
 </script>
