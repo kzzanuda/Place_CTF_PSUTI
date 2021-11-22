@@ -48,7 +48,7 @@
 
             <input type="file" class="mt-3 d-none" name="file" id="file" aria-describedby="inputGroupFileAddon04" onchange="renameLabel(this)">
             <label for="file" class="btn btn-primary mt-2" id="file_label">Загрузить новый файл</label>
-            @if($file_url)
+            @if(isset($file_url) && $file_url)
               <div>
                 Скачать ранее загруженный файл
                 <a href="{{$file_url}}" download>

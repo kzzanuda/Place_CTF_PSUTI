@@ -40,10 +40,11 @@ class AdminController extends Controller
     public function taskEdit($id)
     {
         $file = File::where('destination', 'task')->where('destination_id', $id)->pluck('path')->first();
-        if ($file)
+        if ($file) {
             $file_url = asset($file);
-        else
+        }    else {
             $file_url = false;
+        }
 
         return view('admin.task')
             ->with('task', Task::where('id', $id)->first())
