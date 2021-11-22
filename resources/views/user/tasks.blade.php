@@ -3,6 +3,14 @@
 @section('content')
 <div class="container">
   <a href="{{ route('admin.users.list') }}" class="btn btn-outline-secondary m-3">Вернуться к списку пользователей</a>
+  <div class="row mx-5 mb-3">
+    @if(isset($previous))
+    <a href="{{ route('admin.user_answers', $previous) }}" class="btn btn-outline-secondary col-5 mx-2">Предыдущий</a>
+    @endif
+    @if(isset($next))
+    <a href="{{ route('admin.user_answers', $next) }}" class="btn btn-outline-secondary col-5 mx-2">Следующий</a>
+    @endif
+  </div>
   <h4>Ответы пользователя - {{$user->id}} {{$user->name}}</h4>
   <table class="table">
     <thead>

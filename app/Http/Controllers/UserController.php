@@ -57,6 +57,9 @@ class UserController extends Controller
 
     public function answers($id)
     {
+      $previous = User::where('role', 'user')->where('id', '<', $id)->max('id');
+      $next = User::where('role', 'user')->where('id', '>', $id)->min('id');
+
       $answers = Answer::where('user_id', $id)
                   ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
                   ->select('answers.*', 'tasks.title', 'tasks.description_short')
@@ -64,7 +67,7 @@ class UserController extends Controller
                   ->get();
       $user = User::find($id);
 
-      return view('user.tasks', ['answers' => $answers, 'user' => $user]);
+      return view('user.tasks', ['answers' => $answers, 'user' => $user, 'next' => $next, 'previous' => $previous]);
     }
 
     public function add_points(Request $request, $id, $task_id)
