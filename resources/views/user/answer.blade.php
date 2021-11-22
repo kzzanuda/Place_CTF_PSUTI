@@ -15,11 +15,7 @@
             @csrf
             <div class="form-group mt-3">
               <label for="points">Количество баллов за задачу</label>
-              <select name="points" class="form-control" id="points">
-                @for ($i = 0; $i <= $task->points; $i++)
-                    <option @if($answer->points == $i) selected @endif >{{$i}}</option>
-                @endfor
-              </select>
+              <input name="points" class="form-control" id="points" value="{{$answer->points}}" placeholder="От 0 до {{$task->points}}, десятые части через .">
             </div>
             @if (\Session::has('success'))
               <div class="alert alert-success mb-2">
