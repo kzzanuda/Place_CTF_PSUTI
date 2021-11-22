@@ -15,11 +15,16 @@ class AdminController extends Controller
         return view('admin.menu')->with(['admin' => true]);
     }
 
-    public function users()
+    public function users(Request $request)
     {
+      if($request->get('sort') == 'points'){
         return view('admin.users')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function ($users) {
             return $users->points();
         })]);
+      } else {
+        return view('admin.users')->with(['users' => User::where('role', 'user')->orderBy('id')->get()]);
+      }
+
     }
 
     public function tasks()
