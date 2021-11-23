@@ -42,6 +42,7 @@
                         {{$success}}
                     </div>
                 @endif
+                <p>{{ $task->description_short }}</p>
                 {!! $task->description_full !!}
                 @if($task->file())
                   <div>
