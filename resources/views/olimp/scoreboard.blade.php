@@ -15,8 +15,8 @@
   <div class="container px-4 px-lg-5">
 
   <table class="table">
-    <thead>
-    <tr>
+    <thead class="sticky-top">
+    <tr class="sticky-top">
       <th scope="col">Место</th>
       <th scope="col">ФИО</th>
       <th scope="col">Учебное заведение</th>
@@ -25,7 +25,7 @@
     </thead>
     <tbody>
     @foreach ($users as $user)
-      <tr>
+      <tr @if($user->id == Auth::id()) style="font-weight:700;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->name}}</th>
         <th>{{$user->university}}</th>
@@ -37,4 +37,12 @@
 
   </div>
 </section>
+@endsection
+
+@section('scripts')
+<script>
+  $(document).ready(function() {
+    $('html,body').stop().animate({ scrollTop: $('#user').offset().top }, 1000);
+  });
+</script>
 @endsection

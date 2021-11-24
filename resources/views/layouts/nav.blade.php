@@ -7,6 +7,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="text-light nav-link active" aria-current="page" href="{{ route('home') }}">Главная</a></li>
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('tasks.list') }}">Задачи</a></li>
+                <li class="nav-item"><a class="text-light nav-link" href="{{ route('scoreboard') }}">Результаты</a></li>
                 @if(Auth::user() && Auth::user()->role == 'admin')
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index') }}">Админка</a></li>
                 @endif
