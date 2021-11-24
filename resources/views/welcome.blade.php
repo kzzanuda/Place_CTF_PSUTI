@@ -9,9 +9,6 @@
     <p>Олимпиада проводится в один тур в дистанционном формате.</p>
     <p>По итогам олимпиады, призеры и победители будут награждены дипломами и ценными призами. Все участники получат сертификат.</p>
     <p style="font-weight:600;">24 ноября будут проведены мастер-классы от ведущих специалистов в области ИБ.</p>
-    <p class="mt-5">Ссылка на регистрацию:
-      <a target="_blank" href="https://forms.gle/2f2KGSGDVgNHX2ov7">https://forms.gle/Qu62vYTUKFaVWRTt6</a></p>
-
       <p>Ознакомиться с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_olymp.pdf')}}">здесь</a></p>
       <p>Telegram-чат для оперативной связи с организаторами: <a target="_blank" href="https://t.me/joinchat/Gz-JDv9hj4NmM2Qy">https://t.me/joinchat/Gz-JDv9hj4NmM2Qy</a></p>
 

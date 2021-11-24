@@ -15,7 +15,7 @@
   <div class="container px-4 px-lg-5 my-3">
     <div class="text-center text-black">
       <h1 class="display-4 fw-bolder">Результаты</h1>
-      <p class="lead fw-normal text-black-50 mb-0">Пока итоги еще не подведены</p>
+      <p class="lead fw-normal text-black-50 mb-0">Итоги еще не подведены</p>
     </div>
   </div>
 </header>
@@ -26,6 +26,5 @@
       <p class="clock">Результаты станут доступны сразу после выставления оценок всем участникам соревнований</p>
     </div>
   </div>
-</div>
 </div>
 @endsection

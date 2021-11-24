@@ -25,9 +25,9 @@
     </thead>
     <tbody>
     @foreach ($users as $user)
-      <tr @if($user->id == Auth::id()) style="font-weight:700;" id="user" @endif>
+      <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="font-weight:700;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
-        <th>{{$user->name}}</th>
+        <th>{{$user->getFormattedName()}}</th>
         <th>{{$user->university}}</th>
         <th>{{$user->points()}}</th>
       </tr>

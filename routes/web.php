@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScoreboardController;
 
 use App\Http\Middleware\AuthenticateCheck;
 
@@ -27,8 +28,6 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/{id}', [UserController::class, 'profile'])->name('profile');
         Route::post('/edit', [UserController::class, 'update'])->name('edit');
-
-        // Route::get('/{id}/{task_id}',[UserController::class, 'answer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+');
     });
 
     Route::prefix('tasks')->name('tasks.')->middleware('task_time_limit')->group(function () {
@@ -53,7 +52,6 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
             Route::get('/add', [AdminController::class, 'taskAdd'])->name('add_form');
             Route::get('/edit/{id}', [AdminController::class, 'taskEdit'])->name('edit_form');
 
-//            Route::post('/task/{id?}', [TasksController::class, 'closure'])->where('id', '[0-9]+')->name('admin_add_task');
             Route::post('/task/add', [TasksController::class, 'add'])->name('add_post');
             Route::post('/task/edit/{id}', [TasksController::class, 'edit'])->name('edit_post');
             Route::post('/task/restore/{id}', [TasksController::class, 'restore'])->name('restore');
@@ -65,6 +63,8 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/addpoints/{id}/{task_id}/', [UserController::class, 'add_points'])->where('id', '[0-9]+')->where('task_id', '[0-9]+')->name('add_points');
         Route::get('/user/{id}', [UserController::class, 'answers'])->where('id', '[0-9]+')->name('user_answers');
     });
+
+    Route::get('/scoreboard', [ScoreboardController::class, 'index'])->name('scoreboard');
 });
 
 Route::get('/dashboard', function () {

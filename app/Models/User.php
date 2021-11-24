@@ -80,4 +80,11 @@ class User extends Authenticatable
         $this->active = 1;
         $this->save();
     }
+
+    protected function getFormattedName(): string
+    {
+        $name =  preg_split(' ', $this->name);
+
+        return $name[0] . ' ' . $name[1][0] .  '.' . $name[2][0] . '.';
+    }
 }
