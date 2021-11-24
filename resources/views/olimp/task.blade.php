@@ -10,7 +10,7 @@
                         <li class="page-item @if(!$task->hasPrevious()) disabled @endif">
                             <a class="page-link"
                                href="@if($task->hasPrevious()) {{route('tasks.task', $task->previous())}} @else # @endif "
-                               tabindex="-1">Предыдущая задача</a>
+                               tabindex="-1">Предыдущая</a>
                         </li>
                         @foreach ($task->pagination() as $page)
                             <li class="page-item @if($task->id == $page) active @endif @if(Auth::user()->taskAnswer($page)->confirm??0) success
@@ -21,8 +21,7 @@
 
                         <li class="page-item @if(!$task->hasNext()) disabled @endif">
                             <a class="page-link"
-                               href="@if($task->hasNext()) {{route('tasks.task', $task->next())}} @else # @endif ">Следующая
-                                задача</a>
+                               href="@if($task->hasNext()) {{route('tasks.task', $task->next())}} @else # @endif ">Следующая</a>
                         </li>
                     </ul>
                 </nav>

@@ -21,11 +21,11 @@
         @foreach ($tasks as $task)
           <div class="card @if(Auth::user()->taskAnswer($task->id)->confirm??0) success @elseif(Auth::user()->taskAnswer($task->id)) info @endif mb-3">
             <div class="card-header">
-              Задача №{{$loop->iteration}} @if(Auth::user()->taskAnswer($task->id)->confirm??0) - Ответ отправлен на проверку
+              <span style="font-weight:700;">Задача №{{$loop->iteration}}</span> @if(Auth::user()->taskAnswer($task->id)->confirm??0) - Ответ отправлен на проверку
               @elseif(Auth::user()->taskAnswer($task->id)) - Ответ сохранен @endif
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{$task->title}}</h5>
+              {{--<h5 class="card-title">{{$task->title}}</h5>--}}
               <p class="card-text">{{$task->description_short}}</p>
               <div class="d-flex align-items-end justify-content-between">
                 @if(!$task->trashed())
