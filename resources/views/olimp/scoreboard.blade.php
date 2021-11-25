@@ -3,7 +3,7 @@
 @section('styles')
 <style media="screen">
   thead {
-    background: #fff;
+    background: #dee2e6;
   }
 </style>
 @endsection
@@ -34,7 +34,7 @@
     <tbody>
     @foreach ($users as $user)
     @if($user->points() !== 0)
-      <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="font-weight:700;" id="user" @endif>
+      <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="background: green;color: #fff;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->getFormattedName()}}</th>
         <th>{{$user->university}}</th>
@@ -52,7 +52,7 @@
 @section('scripts')
 <script>
   $(document).ready(function() {
-    $('html,body').stop().animate({ scrollTop: $('#user').offset().top }, 1000);
+    $('html,body').stop().animate({ scrollTop: $('#user').offset().top - 100 }, 1000);
   });
 </script>
 @endsection
