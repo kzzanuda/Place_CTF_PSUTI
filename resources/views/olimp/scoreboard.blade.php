@@ -1,5 +1,13 @@
 @extends('layouts.main')
 
+@section('styles')
+<style media="screen">
+  thead {
+    background: #fff;
+  }
+</style>
+@endsection
+
 @section('content')
 <!-- Header-->
 <header class="bg-light py-3">
@@ -25,12 +33,14 @@
     </thead>
     <tbody>
     @foreach ($users as $user)
+    @if($user->points() !== 0)
       <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="font-weight:700;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->getFormattedName()}}</th>
         <th>{{$user->university}}</th>
         <th>{{$user->points()}}</th>
       </tr>
+      @endif
     @endforeach
     </tbody>
   </table>
