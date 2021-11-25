@@ -8,6 +8,7 @@
                 <li class="nav-item"><a class="text-light nav-link active" aria-current="page" href="{{ route('home') }}">Главная</a></li>
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('tasks.list') }}">Задачи</a></li>
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('scoreboard') }}">Результаты</a></li>
+                <li class="nav-item"><a class="text-light nav-link" href="{{ route('masters') }}">Мастер-классы</a></li>
                 @if(Auth::user() && Auth::user()->role == 'admin')
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index') }}">Админка</a></li>
                 @endif

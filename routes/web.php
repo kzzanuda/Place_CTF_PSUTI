@@ -65,6 +65,9 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
     });
 
     Route::get('/scoreboard', [ScoreboardController::class, 'index'])->name('scoreboard');
+    Route::get('/masters', function() {
+      return view('olimp.masters');
+    })->name('masters');
 });
 
 Route::get('/dashboard', function () {
