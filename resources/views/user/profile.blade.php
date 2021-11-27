@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts_comp.main')
 
 @section('content')
 <div class="px-5 my-5 container">

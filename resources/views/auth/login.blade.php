@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts_comp.main')
 
 @section('content')
     <form method="POST" class="form-signin" action="{{ route('login') }}">
@@ -38,6 +38,6 @@
       <div class="mt-2">У Вас нет профиля?
         <a href="{{ route('register') }}"> Регистрация</a>
       </div>
-      
+
     </form>
 @endsection

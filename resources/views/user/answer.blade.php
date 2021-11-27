@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts_comp.main')
 
 @section('content')
 <section class="py-3">

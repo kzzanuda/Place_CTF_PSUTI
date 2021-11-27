@@ -12,7 +12,7 @@
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index') }}">Админка</a></li>
                 @endif
             </ul>
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
             @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
               <a class="nav-link text-light" href="/register" type="button" name="button">Регистрация</a>
               <a class="btn btn-outline-light" href="/login" type="button">Вход</a>

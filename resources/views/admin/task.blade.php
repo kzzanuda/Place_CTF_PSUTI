@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts_comp.main')
 
 @section('styles')
 <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
