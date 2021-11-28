@@ -5,7 +5,7 @@
     <section class="py-3">
         <div class="container px-4 px-lg-5">
             <div class="row row-cols-1 mx-md-5 px-lg-5">
-                <nav aria-label="..." class="d-flex justify-content-center mt-4 mb-3">
+                {{--<nav aria-label="..." class="d-flex justify-content-center mt-4 mb-3">
                     <ul class="pagination">
                         <li class="page-item @if(!$task->hasPrevious()) disabled @endif">
                             <a class="page-link"
@@ -24,7 +24,8 @@
                                 задача</a>
                         </li>
                     </ul>
-                </nav>
+                </nav>--}}
+                <a href="{{route('tasks.list')}}" class="btn btn-primary mb-3">Вернуться к задачам</a>
                 <h3 class="text-center">{{$task->title}}</h3>
                 @if(Auth::user()->role == "admin")
                     <div class="d-flex justify-content-end">
@@ -49,8 +50,7 @@
                 {!! $task->description !!}
                 @if($task->file())
                   <div>
-                    Скачать файл во вложении
-                    <a href="{{asset($task->file()->path)}}" download>
+                    <a href="{{asset($task->file()->path)}}" download>Скачать файл во вложении
                       <i class="bi-file-earmark-arrow-down h3"></i>
                     </a>
                   </div>
@@ -69,7 +69,7 @@
                     @if(!Auth::user()->taskAnswer($task->id) or isset($success))
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Введите ваш ответ в текстовое поле:</label>
-                        <textarea name="answer" class="form-control" id="exampleFormControlTextarea1" rows="3" @if(Auth::user()->role != 'user' or Auth::user()->taskAnswer($task->id)) disabled @endif>@if(isset($flag)){{$flag}}@endif</textarea>
+                        <input name="answer" class="form-control" id="exampleFormControlTextarea1" @if(Auth::user()->role != 'user' or Auth::user()->taskAnswer($task->id)) disabled @endif @if(isset($flag))value="{{$flag}}"@endif>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary mb-2" @if(Auth::user()->role != 'user' or Auth::user()->taskAnswer($task->id)) disabled @endif>
