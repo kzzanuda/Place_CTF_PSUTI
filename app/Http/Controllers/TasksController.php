@@ -60,7 +60,7 @@ class TasksController extends Controller
     {
         $data = $this->validateInput($request);
 
-        Task::create([
+        $task = Task::create([
             'title' => $data['title'],
             'description' => $data['description'],
             'category' => $data['category'],
