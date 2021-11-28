@@ -50,8 +50,10 @@ class TasksController extends Controller
           'flag' => $data['flag'],
           'points' => $data['points'],
         ]);
+        $this->storeTaskFile($request->file('file'), $task->id);
 
-        return redirect()->back()->with('success', 'Сохранено');
+        return redirect()->route('admin.tasks.edit_form', $id)
+            ->with('file_url', asset(File::where('destination', 'task')->where('destination_id', $id)->pluck('path')));
     }
 
     public function add(Request $request)
@@ -65,8 +67,9 @@ class TasksController extends Controller
             'flag' => $data['flag'],
             'points' => $data['points'],
         ]);
+        $this->storeTaskFile($request->file('file'), $task->id);
 
-        return view('admin.task')->with('success', 'Задача создана');
+        return redirect(route('admin.tasks.edit_form', $task->id));
     }
 
     public function delete($id)
@@ -81,6 +84,22 @@ class TasksController extends Controller
         Task::withTrashed()->find($id)->restore();
 
         return redirect()->route('tasks.list');
+    }
+
+    protected function storeTaskFile($file, $task_id)
+    {
+        if ($file) {
+            $old_file = File::where('destination', 'task')->where('destination_id', $task_id)->first();
+
+            if ($old_file) {
+                Storage::delete($old_file->path);
+            }
+
+            $path = $file->store('files');
+
+            File::updateOrCreate(['destination' => 'task', 'destination_id' => $task_id],
+                ['path' => $path]);
+        }
     }
 
     protected function validateInput($request)
