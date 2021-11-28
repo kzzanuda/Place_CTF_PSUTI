@@ -21,8 +21,13 @@ class TaskTimeLimits
         date_default_timezone_set('Europe/Samara');
 
         $current_time = now()->addHour();
+<<<<<<< HEAD
         $start = '2021-11-20 10:00:00';
         $end = '2021-11-25 16:01:00';
+=======
+        $start = '2021-12-02 10:00:00';
+        $end = '2021-12-03 16:01:00';
+>>>>>>> parent of 883f9c5 (Перенес функционал файлов из олимпиады.)
 
         $date = date_create($start); #2012-01-26T13:51:50.417-07:00
 

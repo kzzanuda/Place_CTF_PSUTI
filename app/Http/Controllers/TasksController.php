@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
-use App\Models\File;
 use App\Models\Task;
+use App\Models\File;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class TasksController extends Controller
 {
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $tasks = Task::orderBy('points')->withTrashed()->orderBy('id')->get();
+            $tasks = Task::orderBy('category')->orderBy('points')->withTrashed()->orderBy('id')->get();
         } else {
-            $tasks = Task::orderBy('points')->orderBy('id')->get();
+            $tasks = Task::orderBy('category')->orderBy('points')->get();
         }
 
         return view('ctf.tasks')->with(['tasks' => $tasks]);
@@ -30,17 +28,16 @@ class TasksController extends Controller
 
     public function toAnswer(Request $request, $task_id)
     {
-        if (Auth::user()->taskAnswer($task_id) and Auth::user()->taskAnswer($task_id)->isConfirm()) return abort('403');
-        if ($request->answer == '') {
-            Answer::where('task_id', $task_id)->where('user_id', Auth::id())->delete();
-        } else {
+        if ($request->answer == Task::where('id', $task_id)->first()->flag) {
             Answer::updateOrCreate(
                 ['user_id' => Auth::id(), 'task_id' => $task_id],
-                ['answer' => $request->answer ?? '', 'confirm' => $request->confirm],
             );
+            return $this->showTask($task_id)->with(['success' => 'Верный флаг! Задача сдана.']);
+        } else {
+            return $this->showTask($task_id)->with(['error' => 'Неверный флаг.', 'flag' => $request->answer]);
         }
 
-        return $this->showTask($task_id)->with(['success' => 'Ваш ответ сохранен!']);
+
     }
 
     public function edit(Request $request, $id)
@@ -48,13 +45,13 @@ class TasksController extends Controller
         $data = $this->validateInput($request);
 
         Task::withTrashed()->find($id)->update([
-            'title' => $data['title'],
-            'description_short' => $data['description_short'],
-            'description_full' => $this->strip_tags($data['description_full']),
-            'points' => $data['points'],
+          'title' => $data['title'],
+          'description' => $data['description'],
+          'category' => $data['category'],
+          'flag' => $data['flag'],
+          'points' => $data['points'],
         ]);
-
-        $this->storeTaskFile($request->file('file'), $id);
+        $this->storeTaskFile($request->file('file'), $task->id);
 
         return redirect()->route('admin.tasks.edit_form', $id)
             ->with('file_url', asset(File::where('destination', 'task')->where('destination_id', $id)->pluck('path')));
@@ -66,14 +63,28 @@ class TasksController extends Controller
 
         $task = Task::create([
             'title' => $data['title'],
-            'description_short' => $data['description_short'],
-            'description_full' => $this->strip_tags($data['description_full']),
+            'description' => $data['description'],
+            'category' => $data['category'],
+            'flag' => $data['flag'],
             'points' => $data['points'],
         ]);
-
         $this->storeTaskFile($request->file('file'), $task->id);
 
         return redirect(route('admin.tasks.edit_form', $task->id));
+    }
+
+    public function delete($id)
+    {
+        Task::find($id)->delete();
+
+        return redirect()->route('tasks.list');
+    }
+
+    public function restore($id)
+    {
+        Task::withTrashed()->find($id)->restore();
+
+        return redirect()->route('tasks.list');
     }
 
     protected function storeTaskFile($file, $task_id)
@@ -92,27 +103,11 @@ class TasksController extends Controller
         }
     }
 
-    public function delete($id)
-    {
-        Task::find($id)->delete();
-
-        return redirect()->route('tasks.list');
-    }
-
-    public function restore($id)
-    {
-        Task::withTrashed()->find($id)->restore();
-
-        return redirect()->route('tasks.list');
-    }
-
     protected function validateInput($request)
     {
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'description_short' => ['required', 'string', 'max:255'],
-            'description_full' => ['required', 'string', 'max:40000'],
-            'points' => ['required', 'integer', 'max:10'],
+            'points' => ['required', 'integer', 'max:500'],
         ]);
 
         return $request->all();
