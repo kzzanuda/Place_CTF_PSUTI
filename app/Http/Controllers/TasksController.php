@@ -20,12 +20,12 @@ class TasksController extends Controller
             $tasks = Task::orderBy('points')->orderBy('id')->get();
         }
 
-        return view('olimp.tasks')->with(['tasks' => $tasks]);
+        return view('ctf.tasks')->with(['tasks' => $tasks]);
     }
 
     public function showTask($task_id)
     {
-        return view('olimp.task')->with(['task' => Task::where('id', $task_id)->first()]);
+        return view('ctf.task')->with(['task' => Task::where('id', $task_id)->first()]);
     }
 
     public function toAnswer(Request $request, $task_id)
