@@ -47,6 +47,14 @@
                     </div>
                 @endif
                 {!! $task->description !!}
+                @if($task->file())
+                  <div>
+                    Скачать файл во вложении
+                    <a href="{{asset($task->file()->path)}}" download>
+                      <i class="bi-file-earmark-arrow-down h3"></i>
+                    </a>
+                  </div>
+                @endif
                 <form class="mt-2" action="{{route('tasks.answer', $task->id)}}" method="post" disabled>
                     @csrf
                     @if($errors->any())

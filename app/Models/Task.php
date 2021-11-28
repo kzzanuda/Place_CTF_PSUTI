@@ -69,4 +69,9 @@ class Task extends Model
     {
         return Task::orderBy('points')->orderBy('id')->pluck('id')->toArray();
     }
+
+    public function file()
+    {
+        return $this->hasOne(File::class, 'destination_id')->first();
+    }
 }
