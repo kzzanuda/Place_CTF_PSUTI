@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Task;
+use App\Models\File;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -37,6 +38,13 @@ class AdminController extends Controller
 
     public function taskEdit($id)
     {
-        return view('admin.task')->with(['task' => Task::where('id', $id)->first()]);
+      $file = File::where('destination', 'task')->where('destination_id', $id)->pluck('path')->first();
+      if ($file)
+        $file_url = asset($file);
+      else
+        $file_url = false;
+      return view('admin.task')
+        ->with('task', Task::where('id', $id)->first())
+        ->with('file_url', $file_url);
     }
 }

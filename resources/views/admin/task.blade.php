@@ -70,6 +70,14 @@
           </select>
 
             <input type="file" class="mt-3" name="file" id="file" aria-describedby="inputGroupFileAddon04">
+            @if(isset($file_url))
+              <div>
+                Скачать ранее загруженный файл
+                <a href="{{$file_url}}" download>
+                  <i class="bi-file-earmark-arrow-down h2"></i>
+                </a>
+              </div>
+            @endif
 
 
         <div type="" id="submit" name="button" class="btn btn-primary w-100 my-4">Сохранить</div>
