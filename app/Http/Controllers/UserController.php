@@ -8,7 +8,9 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
@@ -31,14 +33,23 @@ class UserController extends Controller
           'name' => ['required', 'string', 'max:255'],
           'university' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->getAuthIdentifier()],
+          'old_password' => ['string', 'max:255'],
+          'new_password' => ['string', 'max:255'],
       ]);
 
-      $name = $request->name;
-      $university = $request->university;
-      $email = $request->email;
-      $updated_at = date("Y-m-d H:i:s");
+      $user = Auth::user();
 
-      DB::table('users')->where('id', Auth::user()->getAuthIdentifier())->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at, ]);
+      if (!Hash::check($request->old_password, $user->getAuthPassword())) {
+          return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
+      }
+
+      $user->name = $request->name;
+      $user->university = $request->university;
+      $user->email = $request->email;
+      $user->password = Hash::make($request->new_password);
+      $user->updated_at = date("Y-m-d H:i:s");
+
+      $user->save();
 
       return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
@@ -92,6 +103,6 @@ class UserController extends Controller
     {
       return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
           return $users->points();
-      })]);;
+      })]);
     }
 }

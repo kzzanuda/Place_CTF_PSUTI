@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function points()
     {
-        return $this->belongsToMany(Task::class, 'answers', 'user_id', 'task_id')->sum('points');
+        return $this->belongsToMany(Task::class, 'answers', 'user_id', 'task_id')->sum('tasks.points');
     }
 
     public function verified(): HasMany
