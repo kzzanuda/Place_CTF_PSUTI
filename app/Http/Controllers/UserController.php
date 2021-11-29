@@ -101,8 +101,14 @@ class UserController extends Controller
 
     public function showScoreboard(Request $request)
     {
-      return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
-          return $users->points();
-      })]);
+      if (Auth::user()->email == 'test_user@psuti.ru') {
+        return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
+            return $users->points();
+        })]);
+      } else {
+        return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->where('email','!=','test_user@psuti.ru')->get()->sortByDesc(function($users){
+            return $users->points();
+        })]);
+      }
     }
 }
