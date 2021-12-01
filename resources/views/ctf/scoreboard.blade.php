@@ -28,7 +28,7 @@
       <tr>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->name}}</th>
-        <th>{{$user->university}}</th>
+        <th>{{$user->university}} {{$user->last_answer_time()}}</th>
         <th>{{$user->points()}}</th>
       </tr>
     @endforeach

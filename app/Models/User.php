@@ -78,4 +78,9 @@ class User extends Authenticatable
         $this->active = 1;
         $this->save();
     }
+
+    public function last_answer_time()
+    {
+        return $this->hasMany(Answer::class, 'user_id')->max('updated_at');
+    }
 }
