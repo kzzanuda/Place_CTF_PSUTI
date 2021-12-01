@@ -31,8 +31,10 @@ class TaskTimeLimits
             or Auth::user()->role == 'juri'
             or Auth::user()->email == 'test_user@psuti.ru') {
             return $next($request);
-        } else {
-            return response()->view('ctf.nottime', ['time'=>date_format($date, 'c')]);
-        }
+          } else if($current_time < $start) {
+              return response()->view('ctf.nottime', ['time'=>date_format($date, 'c')]);
+          } else {
+              return response()->view('ctf.final');
+          }
     }
 }
