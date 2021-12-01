@@ -17,11 +17,15 @@ class AuthenticateCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()) {
-            return $next($request);
+        if (Auth::user()->active == 1){
+            if (Auth::user()) {
+                return $next($request);
+            } else {
+                session(['message'=>'Авторизуйтесь чтобы продолжить', 'back_route' => $request->route()->getName()]);
+                return redirect(route('login'));
+            }
         } else {
-            session(['message'=>'Авторизуйтесь чтобы продолжить', 'back_route' => $request->route()->getName()]);
-            return redirect(route('login'));
+            return redirect(route('home'))->with('block', 'Вы заблокированы');
         }
     }
 }
