@@ -26,7 +26,7 @@
                     </ul>
                 </nav>--}}
                 <a href="{{route('tasks.list')}}" class="btn btn-primary mb-3">Вернуться к задачам</a>
-                <h3 class="text-center">{{$task->title}}</h3>
+                <h3 class="text-center">{{$task->category}} - {{$task->points}}</h3>
                 @if(Auth::user()->role == "admin")
                     <div class="d-flex justify-content-end">
                         <a href="{{route('admin.tasks.edit_form', $task->id)}}" class="btn btn-success">Редактировать</a>
