@@ -16,11 +16,16 @@ class UserController extends Controller
 {
     public function profile(Request $request, $id)
     {
-      $user = DB::select('select id, name, email, university from users where id = ? and active = 1', [$id]);
-      $userAuth = Auth::user();
+      $user = User::where('id', $id)->first();
+
+      $answers = Answer::where('user_id', $id)
+                  ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
+                  ->select('answers.*', 'tasks.category', 'tasks.points')
+                  ->orderBy('answers.updated_at')
+                  ->get();
 
       if ($user) {
-        return view('user.profile', ['user' => $user[0], 'userAuth' => $userAuth]);
+        return view('user.profile', ['user' => $user, 'answers' => $answers]);
       } else {
         return abort('404');
       }
