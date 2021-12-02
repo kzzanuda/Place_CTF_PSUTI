@@ -112,14 +112,15 @@ class UserController extends Controller
         })]);
       } else {
         return view('ctf.scoreboard')
-            ->with(
-                ['users' => User::where('role', 'user')->where('email','!=','test_user@psuti.ru')->get()
-                    ->sortBy(
-                        [
-                            fn ($a, $b) => $b->points() <=> $a->points(),
-                            fn ($a, $b) => $a->last_answer_time() <=> $b->last_answer_time(),
-                        ]
-                    )]);
+            ->with(['users' =>
+                DB::select("
+select users.id, users.name, a.updated_at, users.university, sum(points) as points
+from users
+    left join answers a on users.id = a.user_id
+    left join tasks t on a.task_id = t.id
+where users.role='user'
+group by users.id
+order by sum(t.points) desc, a.updated_at")]);
       }
     }
 }

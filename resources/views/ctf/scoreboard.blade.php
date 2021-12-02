@@ -29,7 +29,7 @@
         <th scope="row">{{$loop->iteration}}</th>
         <th><a href="{{route('user.profile', $user->id)}}">{{$user->name}}</a></th>
         <th>{{$user->university}}</th>
-        <th>{{$user->points()}}</th>
+        <th>{{$user->points}}</th>
       </tr>
     @endforeach
     </tbody>
