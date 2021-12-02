@@ -114,11 +114,12 @@ class UserController extends Controller
         return view('ctf.scoreboard')
             ->with(
                 ['users' => User::where('role', 'user')->where('email','!=','test_user@psuti.ru')->get()
-                ->sortByDesc(function($users){
-                    return $users->points();
-                })->sortBy(function($users){
-                    return $users->last_answer_time();
-                })]);
+                    ->sortBy(function($users){
+                        return $users->last_answer_time();
+                    })
+                    ->sortByDesc(function($users){
+                        return $users->points();
+                    })]);
       }
     }
 }
