@@ -16,10 +16,12 @@
           <p>Ознакомиться с программой мероприятия можно - <a target="_blank" href="{{asset('storage/docs/progr_ctf.pdf')}}">здесь</a></p>
           <p>Telegram-чат для оперативной связи с организаторами: <a target="_blank" href="https://t.me/joinchat/Rq1Rh-N7wdJmMjU6">https://t.me/joinchat/Rq1Rh-N7wdJmMjU6</a></p>
 
-          <h3>Поздравляем победителей соревнований 2021 года:</h3>
-          <p>1 - место команда "UnsafeTeam" Самарский государственный технический университет</p>
-          <p>2 - место команда "rm -rf /" Уфимский государственный авиационный технический университет</p>
-          <p>3 - место команда "qwerty123" Чувашский государственный университет им. И.Н. Ульянова</p>
+          <h2 class="mt-4">Поздравляем победителей соревнований 2021 года:</h2>
+          <div class="ml-5 mt-3">
+            <p><span class="font-weight-bold">1</span> - место команда <span class="font-weight-bold">"UnsafeTeam"</span> Самарский государственный технический университет</p>
+            <p><span class="font-weight-bold">2</span> - место команда <span class="font-weight-bold">"rm -rf /"</span> Уфимский государственный авиационный технический университет</p>
+            <p><span class="font-weight-bold">3</span> - место команда <span class="font-weight-bold">"qwerty123"</span> Чувашский государственный университет им. И.Н. Ульянова</p>
+          </div>
 
           <h3 class="mt-5">Правила соревнований</h3>
           <p>Стандартный формат флага: /^(FLAG|flag){[A-z0-9_-@?!]}$/, если в задаче не указано иного.</p>
