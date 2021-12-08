@@ -27,6 +27,8 @@ Route::get('/', function () {
     return view('welcome_comp');
 })->name('home');
 
+Route::get('/certificate', [UserController::class, 'downloadCertificate'])->name('certificate');
+
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::get('/scoreboard', [UserController::class, 'showScoreboard'])->name('scoreboard');
 

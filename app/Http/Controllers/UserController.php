@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
@@ -122,5 +123,18 @@ where users.role='user'
 group by users.id
 order by sum(t.points) desc, a.updated_at")]);
       }
+   }
+
+    public function downloadCertificate()
+    {
+        $certificate_names = User::find(Auth::user()->getAuthIdentifier())->getCertificateName();
+
+        foreach ($certificate_names as $certificate_name) {
+            if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
+                return Storage::download('files/cert/' . $certificate_name . '.pdf');
+            }
+        }
+
+        return Response('Сертификат не найден. Обратитесь к технической поддержке', 404);
     }
 }
