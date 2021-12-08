@@ -83,12 +83,29 @@ class User extends Authenticatable
 
     public function getFormattedName(): string
     {
-	$name =  explode(' ', $this->name);
+        $name = explode(' ', $this->name);
 
         if (count($name) > 2) {
             return $name[0] . ' ' . mb_substr($name[1], 0, 1, 'utf-8') . '.' . mb_substr($name[2], 0, 1, 'utf-8') . '.';
         } else {
             return $this->name;
         }
+    }
+
+    public function getCertificateName()
+    {
+        $file_name_1 = $this->getFormattedName();
+
+        $fio_array = explode(' ', $this->name);
+
+        if(count($fio_array) > 2) {
+            $file_name_2 = $fio_array[0] . ' ' . $fio_array[1] . ' ' . $fio_array[2];
+        } else {
+            $file_name_2 = '';
+        }
+
+        $file_name_3 = $fio_array[0] . ' ' . $fio_array[1];
+
+        return [$file_name_1, $file_name_2, $file_name_3];
     }
 }

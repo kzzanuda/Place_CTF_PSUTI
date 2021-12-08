@@ -52,5 +52,14 @@
     </div>
   </div>
   @endif
+  @if($user->id == Auth::user()->getAuthIdentifier())
+  <div class="mt-5">
+    <a download href="{{route('certificate')}}">
+      <button class="btn btn-primary">
+        Скачать сертификат
+      </button>
+    </a>
+  </div>
+  @endif
 </div>
 @endsection

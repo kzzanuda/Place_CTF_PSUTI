@@ -24,15 +24,19 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/certificate', [UserController::class, 'downloadCertificate'])->name('certificate');
+
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/{id}', [UserController::class, 'profile'])->name('profile');
+
         Route::post('/edit', [UserController::class, 'update'])->name('edit');
     });
 
     Route::prefix('tasks')->name('tasks.')->middleware('task_time_limit')->group(function () {
         Route::get('/list', [TasksController::class, 'index'])->name('list');
         Route::get('/task/{id}', [TasksController::class, 'showTask'])->name('task');
+
         Route::post('/answer/{id}', [TasksController::class, 'toAnswer'])->name('answer');
     });
 
