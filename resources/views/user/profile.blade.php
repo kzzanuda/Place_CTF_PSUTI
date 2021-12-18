@@ -42,7 +42,7 @@
         </div>
       @endif
       @if($user->id == Auth::user()->getAuthIdentifier())
-        <div class="mt-5 container">
+        <div class="mt-5 mb-3 container d-flex justify-content-center">
           <a download href="{{route('certificate')}}">
             <button class="btn btn-primary">
               Скачать сертификат
