@@ -127,7 +127,7 @@ order by sum(t.points) desc, a.updated_at")]);
 
     public function downloadCertificate()
     {
-        $certificate_name = User::find(Auth::user()->getAuthIdentifier())->name();
+        $certificate_name = User::find(Auth::user()->getAuthIdentifier())->name;
         if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
             return Storage::download(
                 'files/cert/' . $certificate_name . '.pdf',
