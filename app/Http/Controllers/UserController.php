@@ -129,7 +129,11 @@ order by sum(t.points) desc, a.updated_at")]);
     {
         $certificate_name = User::find(Auth::user()->getAuthIdentifier())->name();
         if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
-            return Storage::download('files/cert/' . $certificate_name . '.pdf');
+            return Storage::download(
+                'files/cert/' . $certificate_name . '.pdf',
+                $certificate_name . '.pdf',
+                ['Content-Type' => 'application/pdf']
+            );
         }
 
         return Response('Сертификат не найден. Обратитесь к технической поддержке', 404);
