@@ -127,12 +127,9 @@ order by sum(t.points) desc, a.updated_at")]);
 
     public function downloadCertificate()
     {
-        $certificate_names = User::find(Auth::user()->getAuthIdentifier())->name();
-
-        foreach ($certificate_names as $certificate_name) {
-            if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
-                return Storage::download('files/cert/' . $certificate_name . '.pdf');
-            }
+        $certificate_name = User::find(Auth::user()->getAuthIdentifier())->name();
+        if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
+            return Storage::download('files/cert/' . $certificate_name . '.pdf');
         }
 
         return Response('Сертификат не найден. Обратитесь к технической поддержке', 404);
