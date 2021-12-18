@@ -41,6 +41,15 @@
           {!! Session::get('error') !!}
         </div>
       @endif
+      @if($user->id == Auth::user()->getAuthIdentifier())
+        <div class="mt-5 container">
+          <a download href="{{route('certificate')}}">
+            <button class="btn btn-primary">
+              Скачать сертификат
+            </button>
+          </a>
+        </div>
+      @endif
       <form action="{{route('user.edit')}}" method="post">
         @csrf
         <div class="form-group row">
@@ -110,13 +119,4 @@
       </tbody>
     </table>
   </div>
-  @if($user->id == Auth::user()->getAuthIdentifier())
-    <div class="mt-5">
-      <a download href="{{route('certificate')}}">
-        <button class="btn btn-primary">
-          Скачать сертификат
-        </button>
-      </a>
-    </div>
-  @endif
 @endsection
