@@ -8,40 +8,76 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
     public function profile(Request $request, $id)
     {
-        $user = DB::select('select id, name, email, university from users where id = ? and active = 1', [$id]);
-        $userAuth = Auth::user();
+      $user = User::where('id', $id)->first();
 
-        if ($user) {
-            return view('user.profile', ['user' => $user[0], 'userAuth' => $userAuth]);
-        } else {
-            return abort('404');
-        }
+      $answers = Answer::where('user_id', $id)
+                  ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
+                  ->select('answers.*', 'tasks.points')
+                  ->orderBy('answers.updated_at')
+                  ->get();
+
+      if ($user) {
+        return view('user.profile', ['user' => $user, 'answers' => $answers]);
+      } else {
+        return abort('404');
+      }
 
     }
 
     public function update(Request $request)
     {
-        $validate = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'university' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->getAuthIdentifier()],
-        ]);
+      $validate = $request->validate([
+        'name' => ['required', 'max:255', 'unique:users,name,'.Auth::user()->getAuthIdentifier()],
+        'university' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->getAuthIdentifier()],
+        'mem0' => ['required', 'string', 'max:55'],
+        'mem1' => ['max:55'],
+        'mem2' => ['max:55'],
+        'mem3' => ['max:55'],
+        'mem4' => ['max:55'],
+        'old_password' => ['string','nullable', 'max:255'],
+        'new_password' => ['string','nullable', 'max:255'],
+        'new_confirm_password' => ['string','nullable', 'max:255'],
+      ]);
 
-        $name = $request->name;
-        $university = $request->university;
-        $email = $request->email;
-        $updated_at = date("Y-m-d H:i:s");
+      $user = Auth::user();
 
-        DB::table('users')->where('id', Auth::user()->getAuthIdentifier())->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at,]);
+      if ($request->old_password != null) {
+        if (!Hash::check($request->old_password, $user->getAuthPassword())) {
+            return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
+        } elseif ($request->new_password != $request->new_confirm_password) {
+            return redirect()->back()->with('error', 'Пароли не совпадают');
+        }
 
-        return redirect()->back()->with('success', 'Профиль успешно обновлен!');
+        $user->password = Hash::make($request->new_password);
+      }
+
+      $membersDirt = array($request->mem0, $request->mem1, $request->mem2, $request->mem3, $request->mem4);
+      $members = [];
+      foreach ($membersDirt as $member) {
+        if(!is_null($member)) {
+          array_push($members, $member);
+        }
+      }
+
+      $user->name = $request->name;
+      $user->university = $request->university;
+      $user->email = $request->email;
+      $user->members = json_encode($members);
+      $user->updated_at = date("Y-m-d H:i:s");
+
+      $user->save();
+
+      return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
 
     public function answer($id, $task_id)

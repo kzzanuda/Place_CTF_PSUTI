@@ -23,7 +23,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 d-flex justify-content-center flex-column text-center mt-4">
-      <p class="clock">Результаты станут доступны сразу после выставления оценок всем участникам соревнований</p>
+      <p class="clock">Результаты станут доступны сразу после выставления оценок всем участникам</p>
     </div>
   </div>
 </div>

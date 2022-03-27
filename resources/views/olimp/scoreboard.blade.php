@@ -26,7 +26,7 @@
     <thead class="sticky-top">
     <tr class="sticky-top">
       <th scope="col">Место</th>
-      <th scope="col">ФИО</th>
+      <th scope="col">Наименование команды</th>
       <th scope="col">Учебное заведение</th>
       <th scope="col">Очки</th>
     </tr>

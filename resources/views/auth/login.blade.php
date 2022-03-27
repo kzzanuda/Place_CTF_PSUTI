@@ -20,8 +20,8 @@
       @endif
 
       <div class="form-label-group">
-        <input name="email" type="email" id="inputEmail" class="form-control" value="{{old('email')}}" placeholder="Email address" required autofocus>
-        <label for="inputEmail">Email</label>
+        <input name="name" type="text" id="inputName" class="form-control" value="{{old('name')}}" placeholder="Наименование команды" required autofocus>
+        <label for="inputName">Наименование команды</label>
       </div>
 
       <div class="form-label-group">
@@ -34,10 +34,8 @@
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-      @if(Auth()->user() && Auth()->user()->role == 'admin')
       <div class="mt-2">У Вас нет профиля?
         <a href="{{ route('register') }}"> Регистрация</a>
       </div>
-      @endif
     </form>
 @endsection

@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/certificate', [UserController::class, 'downloadCertificate'])->name('certificate');
+#Route::get('/certificate', [UserController::class, 'downloadCertificate'])->name('certificate');
 
 Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {

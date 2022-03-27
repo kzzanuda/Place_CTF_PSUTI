@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'university',
+        'members'
     ];
 
     /**
@@ -107,5 +108,10 @@ class User extends Authenticatable
         $file_name_3 = $fio_array[0] . ' ' . $fio_array[1];
 
         return [$file_name_1, $file_name_2, $file_name_3];
+    }
+
+    public function getMembers()
+    {
+        return json_decode($this->members);
     }
 }
