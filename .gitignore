@@ -8,9 +8,11 @@ bootstrap/compiled.php
 app/storage/
 
 # Laravel 5 & Lumen specific
+!public/css
 public/storage
 public/hot
-public/
+public/mix-manifest.json
+public/fonts
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
@@ -34,5 +36,3 @@ docker-compose.yml
 mysql/
 nginx/
 php/
-
-
