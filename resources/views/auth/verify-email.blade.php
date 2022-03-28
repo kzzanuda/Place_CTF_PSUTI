@@ -1,9 +1,9 @@
 <x-guest-layout>
   <x-auth-card>
-    <div style="text-align: center">
+    <div style="text-align: center" class="pt-3">
       <x-slot name="logo">
-        <a href="/">
-          <img src="{{asset('storage/logo-white.png')}}" alt="logo" class="logo">
+        <a class="m-5" href="/">
+          <img src="{{asset('storage/logo-white.png')}}" alt="logo" class="logo pt-3">
         </a>
       </x-slot>
 
@@ -22,16 +22,16 @@
           @csrf
 
           <div>
-            <x-button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">
               {{ __('Выслать письмо повторно') }}
-            </x-button>
+            </button>
           </div>
         </form>
 
         <form method="POST" action="{{ route('logout') }}">
           @csrf
 
-          <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
+          <button type="submit" class="btn btn-lg btn-block">
             {{ __('Выйти') }}
           </button>
         </form>
