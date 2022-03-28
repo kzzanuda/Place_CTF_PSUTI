@@ -37,11 +37,11 @@
     <form action="{{route('user.edit')}}" method="post">
           @csrf
           <div class="form-group row">
-            <label for="staticFio" class="col-sm-3 col-form-label">Название команды</label>
+            <label for="staticFio" class="col-sm-3 col-form-label">Название команды (логин)</label>
             <div class="col-sm-9">
               <input name="name" type="text" class="form-control" id="staticFio" value="{{ $user->name }}">
             </div>
-            <label for="staticEmail" class="col-sm-3 col-form-label mt-3">Email для входа</label>
+            <label for="staticEmail" class="col-sm-3 col-form-label mt-3">Email</label>
             <div class="col-sm-9 mt-3">
               <input name="email" type="text" class="form-control" id="staticEmail" value="{{ $user->email }}">
             </div>

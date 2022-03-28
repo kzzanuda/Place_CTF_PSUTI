@@ -4,7 +4,7 @@
         @include('layouts.meta')
         @yield('styles')
     </head>
-    <body class="d-flex flex-column h-100" style="background: url(/storage/cybersecurity-b.jpg);background-repeat: no-repeat;background-size: cover;">
+    <body class="d-flex flex-column h-100" style="background: url({{asset('storage/logo-cyber.jpg')}});background-repeat: no-repeat;background-size: cover;">
       @include('layouts.nav')
 
       @yield('content')
