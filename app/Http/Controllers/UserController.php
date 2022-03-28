@@ -44,6 +44,7 @@ class UserController extends Controller
         'mem2' => ['max:55'],
         'mem3' => ['max:55'],
         'mem4' => ['max:55'],
+        'city' => ['required', 'string', 'max:255'],
         'old_password' => ['string','nullable', 'max:255'],
         'new_password' => ['string','nullable', 'max:255'],
         'new_confirm_password' => ['string','nullable', 'max:255'],
@@ -72,6 +73,7 @@ class UserController extends Controller
       $user->name = $request->name;
       $user->university = $request->university;
       $user->email = $request->email;
+      $user->city = $request->city;
       $user->members = json_encode($members);
       $user->updated_at = date("Y-m-d H:i:s");
 

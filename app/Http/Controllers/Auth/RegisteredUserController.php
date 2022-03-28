@@ -41,6 +41,7 @@ class RegisteredUserController extends Controller
             'mem3' => ['max:55'],
             'mem4' => ['max:55'],
             'university' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -56,6 +57,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'university' => $request->university,
+            'city' => $request->city,
             'members' => json_encode($members),
             'email' => $request->email,
             'password' => Hash::make($request->password),

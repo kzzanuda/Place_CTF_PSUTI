@@ -21,9 +21,15 @@
           <input name="name" type="text" id="name" class="form-control" placeholder="ФИО" value="{{old('name')}}" required autofocus>
           <label for="name">Наименование команды</label>
         </div>
+
         <div class="form-label-group">
           <input name="university" type="text" id="university" class="form-control" placeholder="Наименование учебного заведения" value="{{old('university')}}" required autofocus>
           <label for="university">Наименование учебного заведения</label>
+        </div>
+
+        <div class="form-label-group">
+          <input name="city" type="text" id="city" class="form-control" placeholder="Город" value="{{old('city')}}" required autofocus>
+          <label for="city">Город</label>
         </div>
 
         <div class="form-label-group">
@@ -43,15 +49,16 @@
       </div>
 
       <div class="w-100 w-md-50 mx-2">
+
         <div class="form-label-group">
           <input name="mem0" type="text" id="mem0" class="form-control" placeholder="ФИО капитана команды" value="{{old('mem0')}}" required>
-          <label for="mem0">Группа и ФИО капитана команды</label>
+          <label for="mem0">ФИО капитана команды</label>
         </div>
 
         @for ($i = 1; $i < 5; $i++)
         <div class="form-label-group">
-          <input name="mem{{$i}}" type="text" id="mem{{$i}}" class="form-control" placeholder="Группа и ФИО учаcтника {{$i}}" value="{{old('mem$i')}}">
-          <label for="mem{{$i}}">Группа и ФИО учаcтника {{$i}}</label>
+          <input name="mem{{$i}}" type="text" id="mem{{$i}}" class="form-control" placeholder="ФИО учаcтника {{$i}}" value="{{old('mem{$i}')}}">
+          <label for="mem{{$i}}">ФИО учаcтника {{$i+1}}</label>
         </div>
         @endfor
       </div>

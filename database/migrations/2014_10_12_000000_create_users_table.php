@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('university');
+            $table->string('city');
             $table->string('members');
             $table->string('role')->default('user');
             $table->boolean('active')->default(1);
