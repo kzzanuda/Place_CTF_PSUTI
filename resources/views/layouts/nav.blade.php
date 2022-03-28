@@ -14,7 +14,7 @@
                 @endif
             </ul>
             <div class="d-flex">
-            @if( !Auth::check() or Route::has('register') )
+            @if( !Auth::check() and Route::has('register') )
               <a class="nav-link text-light" href="/register" type="button" name="button">Регистрация</a>
             @endif
             @if( !Auth::check() and (Route::has('login')) )
