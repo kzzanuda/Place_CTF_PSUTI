@@ -55,19 +55,6 @@
               <input name="city" type="text" class="form-control" id="staticCity"
                      value="{{ $user->city }}">
             </div>
-
-            <label for="staticOldPassword" class="col-sm-3 col-form-label mt-3">Текущий пароль</label>
-            <div class="col-sm-9 mt-3">
-              <input name="old_password" type="password" class="form-control" id="staticOldPassword">
-            </div>
-            <label for="staticNewPassword" class="col-sm-3 col-form-label mt-3">Новый пароль</label>
-            <div class="col-sm-9 mt-3">
-              <input name="new_password" type="password" class="form-control" id="staticNewPassword">
-            </div>
-            <label for="staticNewConfirmPassword" class="col-sm-3 col-form-label mt-3">Подтвердите пароль</label>
-            <div class="col-sm-9 mt-3">
-              <input name="new_confirm_password" type="password" class="form-control" id="staticNewConfirmPassword">
-            </div>
             @for($key = 0; $key < 5; $key++)
               <label for="mem{{$key}}" class="col-sm-3 col-form-label mt-3">
                 @if($key == 0)
@@ -80,7 +67,20 @@
                 <input name="mem{{$key}}" type="text" class="form-control" id="mem{{$key}}" value="{{$user->getMembers()[$key]??''}}">
               </div>
             @endfor
+            <label for="staticOldPassword" class="col-sm-3 col-form-label mt-4">Текущий пароль</label>
+            <div class="col-sm-9 mt-4">
+              <input name="old_password" type="password" class="form-control" id="staticOldPassword">
+            </div>
+            <label for="staticNewPassword" class="col-sm-3 col-form-label mt-3">Новый пароль</label>
+            <div class="col-sm-9 mt-3">
+              <input name="new_password" type="password" class="form-control" id="staticNewPassword">
+            </div>
+            <label for="staticNewConfirmPassword" class="col-sm-3 col-form-label mt-3">Подтвердите пароль</label>
+            <div class="col-sm-9 mt-3">
+              <input name="new_confirm_password" type="password" class="form-control" id="staticNewConfirmPassword">
+            </div>
           </div>
+
           <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
         </form>
       @else
