@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
@@ -10,7 +8,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScoreboardController;
 
 use App\Http\Middleware\AuthenticateCheck;
-use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +33,7 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/edit', [UserController::class, 'update'])->name('edit');
     });
 
-    Route::prefix('tasks')->name('tasks.')->middleware(['verified', 'task_time_limit'])->group(function () {
+    Route::prefix('tasks')->name('tasks.')->middleware(['task_time_limit'])->group(function () {
         Route::get('/list', [TasksController::class, 'index'])->name('list');
         Route::get('/task/{id}', [TasksController::class, 'showTask'])->name('task');
 
@@ -71,11 +68,10 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::get('/user/{id}', [UserController::class, 'answers'])->where('id', '[0-9]+')->name('user_answers');
     });
 
-    Route::get('/scoreboard', [ScoreboardController::class, 'index'])->middleware('verified')
-        ->name('scoreboard');
+    Route::get('/scoreboard', [ScoreboardController::class, 'index'])->name('scoreboard');
     Route::get('/masters', function() {
       return view('olimp.masters');
-    })->middleware('verified')->name('masters');
+    })->name('masters');
 });
 
 Route::get('/dashboard', function () {
