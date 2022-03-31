@@ -50,7 +50,7 @@
               <input name="university" type="text" class="form-control" id="staticUnivers"
                      value="{{ $user->university }}">
             </div>
-            <label for="staticCity" class="col-sm-3 col-form-label mt-3">Учебное заведение</label>
+            <label for="staticCity" class="col-sm-3 col-form-label mt-3">Город</label>
             <div class="col-sm-9 mt-3">
               <input name="city" type="text" class="form-control" id="staticCity"
                      value="{{ $user->city }}">

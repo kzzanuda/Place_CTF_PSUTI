@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterStatsController;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,8 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
             Route::post('/block/{id}', [UserController::class, 'block'])->name('block');
             Route::post('/unblock/{id}', [UserController::class, 'unblock'])->name('unblock');
         });
+
+        Route::get('/register_stats', [RegisterStatsController::class, 'registerByDate'])->name('register-stats');
 
         Route::prefix('tasks')->name('tasks.')->group(function () {
             Route::get('/list', [AdminController::class, 'tasks'])->name('list');
