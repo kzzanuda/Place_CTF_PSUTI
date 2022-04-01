@@ -9,6 +9,7 @@ class RegisterStatsController extends Controller
 {
     public function registerByDate()
     {
-        return User::where('role', 'user')->orderBy('created_at')->orderBy('city')->get();
+        $users = User::where('role', 'user')->where('email_verified_at', 'NOT NULL')->orderBy('created_at')->get();
+        return view('admin.users', ['users' => $users]);
     }
 }

@@ -52,6 +52,7 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
 
             Route::post('/block/{id}', [UserController::class, 'block'])->name('block');
             Route::post('/unblock/{id}', [UserController::class, 'unblock'])->name('unblock');
+            Route::get('/registered-by-city', [RegisterStatsController::class, 'registerByDate'])->name('registered');
         });
 
         Route::get('/register_stats', [RegisterStatsController::class, 'registerByDate'])->name('register-stats');
