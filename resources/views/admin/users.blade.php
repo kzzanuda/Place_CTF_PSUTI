@@ -2,8 +2,16 @@
 
 @section('content')
   @if(Request::is('*/registered-by-city'))
-    1
+  <div class="ml-4 m-2">
+    <b>Всего регистраций:</b> {{$regs->sum('today_user')}}
+  </div>
+  @foreach($regs as $reg)
+    <div class="ml-4 m-1">
+      <b>Регистраций {{$reg->reg_date}}:</b> {{$reg->today_user}}
+    </div>
+  @endforeach
   @else
+  @endif
   <table class="table">
     <thead>
     <tr>
@@ -35,8 +43,8 @@
         <th>{{$user->university}}</th>
         @if(Request::is('*/registered-by-city'))
         <th>{{$user->city}}</th>
-        <th></th>
-        <th></th>
+        <th>{{$user->created_at}}</th>
+        <th>{{$user->email_verified_at}}</th>
         @else
         <th>{{$user->answers()->count()}}</th>
         <th>{{$user->confirmAnswers()->count()}}</th>
