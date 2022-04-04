@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScoreboardController;
 
@@ -44,6 +45,10 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/answer/{id}', [TasksController::class, 'toAnswer'])->name('answer');
     });
 
+    Route::prefix('challange')->name('challange.')->group(function () {
+        Route::get('/', [ChallengeController::class, 'index'])->name('index');
+    });
+
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
 
@@ -68,6 +73,10 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
             Route::post('/task/restore/{id}', [TasksController::class, 'restore'])->name('restore');
 
             Route::delete('/delete/{id}', [TasksController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('challange')->name('challange.')->group(function () {
+            Route::get('/', [ChallengeController::class, 'index'])->name('index');
         });
 
         Route::get('/user/{id}/task/{task_id}/', [UserController::class, 'answer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+')->name('user_answer');

@@ -6,6 +6,9 @@
     <div class="text-center mb-4">
       <h1 class="h3 mb-3 font-weight-normal">Регистрация команды</h1>
     </div>
+    <div class="text-center mb-4">
+      <h1 class="h5 mb-3 font-weight-normal">Обращаем ваше внимание, что в зачет участвуют только команды из ПФО, ЮФО и СКФО.</h1>
+    </div>
     @if(isset($success))
         <div class="alert alert-success mt-2">
             {{$success}}
