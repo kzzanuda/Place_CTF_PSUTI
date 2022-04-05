@@ -45,7 +45,7 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/answer/{id}', [TasksController::class, 'toAnswer'])->name('answer');
     });
 
-    Route::prefix('challange')->name('challange.')->group(function () {
+    Route::prefix('challenge')->name('challenge.')->middleware(['verified', 'task_time_limit'])->group(function () {
         Route::get('/', [ChallengeController::class, 'index'])->name('index');
     });
 
@@ -75,7 +75,7 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
             Route::delete('/delete/{id}', [TasksController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('challange')->name('challange.')->group(function () {
+        Route::prefix('challenge')->name('challenge.')->group(function () {
             Route::get('/', [ChallengeController::class, 'index'])->name('index');
         });
 

@@ -10,7 +10,7 @@ class Challange extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'challange';
+    protected $table = 'challenge';
 
     protected $fillable = [
         'title',

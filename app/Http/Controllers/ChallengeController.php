@@ -11,11 +11,11 @@ class ChallengeController extends Controller
   public function index()
   {
       if (Auth::user()->role == 'admin') {
-          $challs = Challange::orderBy('points')->withTrashed()->orderBy('id')->get();
+          $challenges = Challange::orderBy('points')->withTrashed()->orderBy('id')->get();
       } else {
-          $challs = Challange::orderBy('points')->orderBy('id')->get();
+          $challenges = Challange::orderBy('points')->orderBy('id')->get();
       }
 
-      return view('olimp.tasks')->with(['tasks' => $challs]);
+      return view('challenge.index')->with(['challenges' => $challenges]);
   }
 }
