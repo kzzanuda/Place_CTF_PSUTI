@@ -9,7 +9,7 @@ class AnswerChallange extends Model
 {
     use HasFactory;
 
-    protected $table = 'answers';
+    protected $table = 'answers_chall';
 
     protected $fillable = ['user_id', 'chall_id'];
 }

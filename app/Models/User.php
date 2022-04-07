@@ -118,4 +118,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return json_decode($this->members);
     }
+
+    public function getLvlChallange()
+    {
+        return $this->hasMany(AnswerChallange::class)->max('chall_id')??0;
+    }
 }

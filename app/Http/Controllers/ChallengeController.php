@@ -13,9 +13,10 @@ class ChallengeController extends Controller
       if (Auth::user()->role == 'admin') {
           $challenges = Challange::orderBy('points')->withTrashed()->orderBy('id')->get();
       } else {
-          $challenges = Challange::orderBy('points')->orderBy('id')->get();
+          $challenges = Challange::orderBy('points')->orderBy('id')->where('id','<=',Auth::user()->getLvlChallange()+1)->get();
       }
+      $lvl = Auth::user()->getLvlChallange();
 
-      return view('challenge.index')->with(['challenges' => $challenges]);
+      return view('challenge.index')->with(['challenges' => $challenges, 'lvl' => $lvl]);
   }
 }
