@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Challange;
+use App\Models\Challenge;
+use App\Models\AnswerChallenge;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,12 +13,30 @@ class ChallengeController extends Controller
   public function index()
   {
       if (Auth::user()->role == 'admin') {
-          $challenges = Challange::orderBy('points')->withTrashed()->orderBy('id')->get();
+          $challenges = Challenge::orderBy('points')->withTrashed()->orderBy('id')->get();
       } else {
-          $challenges = Challange::orderBy('points')->orderBy('id')->where('id','<=',Auth::user()->getLvlChallange()+1)->get();
+          $challenges = Challenge::orderBy('points')->orderBy('id')->where('id','<=',Auth::user()->getLvlChallenge()+1)->get();
       }
-      $lvl = Auth::user()->getLvlChallange();
+      $lvl = Auth::user()->getLvlChallenge();
 
-      return view('challenge.index')->with(['challenges' => $challenges, 'lvl' => $lvl]);
+      if (Auth::user()->getLvlChallenge() === Challenge::max('id')) {
+        return view('challenge.index')->with(['challenges' => $challenges, 'lvl' => 'max', 'success' => 'Вы успешно завершили квест!']);
+      } else {
+        return view('challenge.index')->with(['challenges' => $challenges, 'lvl' => $lvl]);
+      }
   }
+
+  public function toAnswer(Request $request)
+    {
+        if (Auth::user()->getLvlChallenge() === Challenge::max('id')) return $this->index()->with(['success' => 'Вы успешно завершили квест!']);
+        if ($request->answer == Challenge::where('id', Auth::user()->getLvlChallenge()+1)->first()->answer) {
+            AnswerChallenge::updateOrCreate(
+                ['user_id' => Auth::id(), 'chall_id' => Auth::user()->getLvlChallenge()+1],
+            );
+            $success = Auth::user()->getLvlChallenge() === Challenge::max('id')?'Вы успешно завершили квест!':'Верный флаг! Задача сдана.';
+            return $this->index()->with(['success' => $success]);
+        } else {
+            return $this->index()->with(['error' => 'Неверный флаг.', 'flag' => $request->answer]);
+        }
+    }
 }

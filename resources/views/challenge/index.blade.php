@@ -15,10 +15,21 @@
   <section class="py-3">
     <div class="container px-4 px-lg-5">
       <div class="row justify-content-center">
-        <form id="mainForm" class="mt-2 col-12 col-md-7" action="{{route('challenge.index')}}" method="post" disabled>
+        <form id="mainForm" class="mt-2 col-12 col-md-7" action="{{route('challenge.answer')}}" method="post" disabled>
               @csrf
+              <p>В данном разделе вам предстоит поэтапно найти флаги в задачах, которые проверят ваши знания в разных областях ИБ. Следующая задача будет доступна только после сдачи флага от предыдущей. Удачи в поисках!</p>
+              @if(isset($success))
+                    <div class="alert alert-success mt-2">
+                        {{$success}}
+                    </div>
+                @endif
+                @if(isset($error))
+                    <div class="alert alert-danger mt-2">
+                        {{$error}}
+                    </div>
+                @endif
               <div class="form-group">
-                  <input name="answer" class="form-control" id="answer">
+                  <input name="answer" class="form-control" id="exampleFormControlTextarea1" @if(Auth::user()->role != 'user' or $lvl === 'max') disabled @endif @if(isset($flag))value="{{$flag}}"@endif>
               </div>
               @if($errors->any())
                   <div class="alert alert-danger">
@@ -30,7 +41,7 @@
                   </div>
               @endif
               <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary mb-2">
+                  <button type="submit" class="btn btn-primary mb-4" @if(Auth::user()->role != 'user' or $lvl === 'max') disabled @endif>
                       Сдать флаг
                   </button>
               </div>

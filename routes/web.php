@@ -47,6 +47,7 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
 
     Route::prefix('challenge')->name('challenge.')->middleware(['verified', 'task_time_limit'])->group(function () {
         Route::get('/', [ChallengeController::class, 'index'])->name('index');
+        Route::post('/', [ChallengeController::class, 'toAnswer'])->name('answer');
     });
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {

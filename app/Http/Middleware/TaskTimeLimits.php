@@ -30,7 +30,7 @@ class TaskTimeLimits
             or ($current_time > $start and $current_time < $end)
             or Auth::user()->role == 'admin'
             or Auth::user()->role == 'juri'
-            or Auth::user()->email == 'test_user@psuti.ru') {
+            or Auth::user()->name == 'Admin') {
             return $next($request);
         } else if($current_time < $start) {
             return response()->view('olimp.nottime', ['time'=>date_format($date, 'c')]);
