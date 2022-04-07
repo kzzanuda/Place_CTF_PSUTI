@@ -69,6 +69,10 @@
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+    <div class="form-group form-check">
+      <input name="submit" type="checkbox" class="form-check-input" id="submit" required>
+      <label class="form-check-label" for="submit">Нажимая кнопку "Регистрация" вы даете согласие на обработку персональных данных.</label>
+    </div>
     <div class="mt-2">Вы уже зарегистрированы?
       <a href="{{ route('login') }}"> Войти</a>
     </div>

@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'mem2' => ['max:55'],
             'mem3' => ['max:55'],
             'mem4' => ['max:55'],
+            'submit' => ['required'],
             'university' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
