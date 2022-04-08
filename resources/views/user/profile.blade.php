@@ -29,7 +29,7 @@
       <div class="col-sm-10">
         <input name="group" type="text" class="form-control" id="staticGroup" value="{{ $user->group }}">
       </div>
-      <label for="staticNum" class="col-sm-2 col-form-label">Группа</label>
+      <label for="staticNum" class="col-sm-2 col-form-label">Номер зачетки</label>
       <div class="col-sm-10">
         <input name="numbook" type="text" class="form-control" id="staticNum" value="{{ $user->numbook }}">
       </div>
