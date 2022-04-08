@@ -8,20 +8,17 @@
                 <li class="nav-item"><a class="text-light nav-link active" aria-current="page" href="{{ route('home') }}">Главная</a></li>
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('tasks.list') }}">Задачи</a></li>
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('scoreboard') }}">Результаты</a></li>
-                <li class="nav-item"><a class="text-light nav-link" href="{{ route('masters') }}">Мастер-классы</a></li>
+                {{--<li class="nav-item"><a class="text-light nav-link" href="{{ route('masters') }}">Мастер-классы</a></li>--}}
                 @if(Auth::user() && Auth::user()->role == 'admin')
                 <li class="nav-item"><a class="text-light nav-link" href="{{ route('admin.index') }}">Админка</a></li>
                 @endif
             </ul>
             <div class="d-flex">
-            @if( Auth::check() and Route::has('register') and (Auth::user()->role == "admin" or Auth::user()->role == "juri") )
+            @if( !Auth::check() )
               <a class="nav-link text-light" href="/register" type="button" name="button">Регистрация</a>
-            @endif
-            @if( !Auth::check() and (Route::has('login') or Route::has('register')) )
               <a class="btn btn-outline-light" href="/login" type="button">Вход</a>
             </div>
-            @endif
-            @if( Auth::check() )
+            @else
               <div class="btn-group">
                 <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ Auth::user()->name }}

@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function profile(Request $request, $id)
     {
-        $user = DB::select('select id, name, email, university from users where id = ? and active = 1', [$id]);
+        $user = DB::select('select id, name, numbook, users.group from users where id = ? and active = 1', [$id]);
         $userAuth = Auth::user();
 
         if ($user) {
@@ -30,16 +30,16 @@ class UserController extends Controller
     {
         $validate = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'university' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->getAuthIdentifier()],
+            'group' => ['required', 'string', 'max:255'],
+            'numbook' => ['required', 'integer', 'max:1000000', 'unique:users,numbook,' . Auth::user()->getAuthIdentifier()],
         ]);
 
         $name = $request->name;
-        $university = $request->university;
-        $email = $request->email;
+        $numbook = $request->numbook;
+        $group = $request->group;
         $updated_at = date("Y-m-d H:i:s");
 
-        DB::table('users')->where('id', Auth::user()->getAuthIdentifier())->update(['name' => $name, 'university' => $university, 'email' => $email, 'updated_at' => $updated_at,]);
+        DB::table('users')->where('id', Auth::user()->getAuthIdentifier())->update(['name' => $name, 'group' => $group, 'numbook' => $numbook, 'updated_at' => $updated_at,]);
 
         return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }

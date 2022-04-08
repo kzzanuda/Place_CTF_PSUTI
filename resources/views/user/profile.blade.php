@@ -25,13 +25,13 @@
       <div class="col-sm-10">
         <input name="name" type="text" class="form-control" id="staticFio" value="{{ $user->name }}">
       </div>
-      <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email</label>
-      <div class="col-sm-10 mt-3">
-        <input name="email" type="text" class="form-control" id="staticEmail" value="{{ $user->email }}">
+      <label for="staticGroup" class="col-sm-2 col-form-label">Группа</label>
+      <div class="col-sm-10">
+        <input name="group" type="text" class="form-control" id="staticGroup" value="{{ $user->group }}">
       </div>
-      <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
-      <div class="col-sm-10 mt-3">
-        <input name="university" type="text" class="form-control" id="staticUnivers" value="{{ $user->university }}">
+      <label for="staticNum" class="col-sm-2 col-form-label">Группа</label>
+      <div class="col-sm-10">
+        <input name="numbook" type="text" class="form-control" id="staticNum" value="{{ $user->numbook }}">
       </div>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
@@ -42,23 +42,10 @@
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" id="staticFio" value="{{ $user->name }}">
     </div>
-    <label for="staticEmail" class="col-sm-2 col-form-label mt-3">Email</label>
-    <div class="col-sm-10 mt-3">
-      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $user->email }}">
+    <label for="staticGroup" class="col-sm-2 col-form-label">Группа</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="staticGroup" value="{{ $user->group }}">
     </div>
-    <label for="staticUnivers" class="col-sm-2 col-form-label mt-3">Учебное заведение</label>
-    <div class="col-sm-10 mt-3">
-      <input type="text" readonly class="form-control-plaintext" id="staticUnivers" value="{{ $user->university }}">
-    </div>
-  </div>
-  @endif
-  @if($user->id == Auth::user()->getAuthIdentifier())
-  <div class="mt-5">
-    <a download href="{{route('certificate')}}">
-      <button class="btn btn-primary">
-        Скачать сертификат
-      </button>
-    </a>
   </div>
   @endif
 </div>

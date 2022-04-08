@@ -27,7 +27,7 @@
     <tr class="sticky-top">
       <th scope="col">Место</th>
       <th scope="col">ФИО</th>
-      <th scope="col">Учебное заведение</th>
+      <th scope="col">Группа</th>
       <th scope="col">Очки</th>
     </tr>
     </thead>
@@ -37,7 +37,7 @@
       <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="background: green;color: #fff;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->getFormattedName()}}</th>
-        <th>{{$user->university}}</th>
+        <th>{{$user->group}}</th>
         <th>{{$user->points()}}</th>
       </tr>
       @endif
