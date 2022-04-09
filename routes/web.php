@@ -53,6 +53,10 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
 
+        Route::get('/users-list', function() {
+            return view('admin.users-list')->with(['users' => User::all()]);
+        })->name('all-users');
+
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/list', [AdminController::class, 'users'])->name('list');
 
