@@ -40,17 +40,28 @@
                       </ul>
                   </div>
               @endif
-              <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary mb-4" @if(Auth::user()->role != 'user' or $lvl === 'max') disabled @endif>
-                      Сдать флаг
-                  </button>
+              <div class="d-flex justify-content-between">
+                @if (Auth::user()->role === 'admin')
+                <a href="{{route('admin.challenge.add_challenge')}}" class="btn btn-primary mb-4">
+                  Добавить уровень
+                </a>
+                @endif
+                <button type="submit" class="btn btn-primary mb-4" @if(Auth::user()->role != 'user' or $lvl === 'max') disabled @endif>
+                    Сдать флаг
+                </button>
               </div>
           </form>
 
           @foreach ($challenges as $challenge)
             <div class="mb-3 col-12 col-md-7">
               <div class="card-header">
-                <span style="font-weight:700;">Уровень №{{$loop->iteration}} <a href="{{$challenge->url}}" target="_blank" class="ml-5 card-text">{{$challenge->url}}</a></span>
+                <span style="font-weight:700;">
+                  Уровень №{{$loop->iteration}}
+                  <a href="{{$challenge->url}}" target="_blank" class="ml-5 card-text">{{$challenge->url}}</a>
+                  @if (Auth::user()->role === 'admin')
+                  <a href="{{route('admin.challenge.edit_challenge', [$challenge->id])}}" class="float-right card-text">Редактировать</a>
+                  @endif
+                </span>
               </div>
             </div>
           @endforeach

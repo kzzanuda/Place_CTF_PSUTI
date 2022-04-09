@@ -26,6 +26,49 @@ class ChallengeController extends Controller
       }
   }
 
+  public function form()
+  {
+      return view('challenge.form')->with(['type' => 'add']);
+  }
+
+  public function store(Request $request)
+  {
+      $data = [
+          'title' => $request->title,
+          'description' => $request->description,
+          'url' => $request->url,
+          'points' => $request->points,
+          'answer' => $request->answer,
+      ];
+
+      Challenge::create($data);
+
+      return redirect(route('admin.challenge.index'));
+  }
+
+  public function edit($id)
+  {
+      $challenge = Challenge::find($id);
+
+      return view('challenge.form')->with(['challenge' => $challenge, 'type' => 'edit']);
+  }
+
+  public function update($id, Request $request)
+  {
+      $data = [
+          'title' => $request->title,
+          'description' => $request->description,
+          'url' => $request->url,
+          'points' => $request->points,
+          'answer' => $request->answer,
+      ];
+
+      $challenge = Challenge::find($id);
+      $challenge->update($data);
+
+      return redirect(route('admin.challenge.index'));
+  }
+
   public function toAnswer(Request $request)
     {
         if (Auth::user()->getLvlChallenge() === Challenge::max('id')) return $this->index()->with(['success' => 'Вы успешно завершили квест!']);

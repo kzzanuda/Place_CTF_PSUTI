@@ -78,6 +78,10 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
 
         Route::prefix('challenge')->name('challenge.')->group(function () {
             Route::get('/', [ChallengeController::class, 'index'])->name('index');
+            Route::get('/add', [ChallengeController::class, 'form'])->name('add_challenge');
+            Route::post('/store', [ChallengeController::class, 'store'])->name('save_challenge');
+            Route::get('/edit/{id}', [ChallengeController::class, 'edit'])->name('edit_challenge');
+            Route::post('/edit/{id}', [ChallengeController::class, 'update'])->name('update_challenge');
         });
 
         Route::get('/user/{id}/task/{task_id}/', [UserController::class, 'answer'])->where('id', '[0-9]+')->where('task_id', '[0-9]+')->name('user_answer');
