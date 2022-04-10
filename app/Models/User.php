@@ -64,9 +64,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Answer::class)->where('confirm', 1);
     }
 
-    public function points()
+    public function pointsTasks()
     {
         return $this->hasMany(Answer::class)->sum('points');
+    }
+
+    public function pointsChallenge()
+    {
+        return $this->belongsToMany(Challenge::class, 'answers_chall', 'user_id', 'chall_id')->sum('points');
+    }
+
+    public function points()
+    {
+        return $this->pointsTasks()+$this->pointsChallenge();
     }
 
     public function verified(): HasMany

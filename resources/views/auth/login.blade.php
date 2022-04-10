@@ -34,8 +34,14 @@
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-      <div class="mt-2">У Вас нет профиля?
-        <a href="{{ route('register') }}"> Регистрация</a>
+      <div class="d-flex justify-content-between">
+        <div class="mt-2">У Вас нет профиля?
+          <a href="{{ route('register') }}"> Регистрация</a>
+        </div>
+        <div class="mt-2">Забыли пароль?
+          <a href="{{ route('password.request') }}"> Восстановить</a>
+        </div>
       </div>
+
     </form>
 @endsection

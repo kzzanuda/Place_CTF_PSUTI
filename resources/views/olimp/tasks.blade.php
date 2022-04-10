@@ -7,7 +7,8 @@
     <div class="container px-4 px-lg-5 my-3">
       <div class="text-center text-black">
         <h1 class="display-4 fw-bolder">Задачи</h1>
-        <p class="lead fw-normal text-black-50 mb-0">Задачи расположены в порядке возрастания сложности</p>
+        <p class="lead fw-normal text-black-50">Задачи расположены в порядке возрастания сложности</p>
+        <p class="lead fw-normal text-black-50 mb-0">Не забудьте также о <a href="{{route('challenge.index')}}">квесте</a></p>
       </div>
     </div>
   </header>

@@ -13,7 +13,8 @@ class ScoreboardController extends Controller
 
         if (time() > strtotime('2022-04-15 10:59:00')
             or Auth::user()->role == 'admin'
-            or Auth::user()->role == 'juri') {
+            or Auth::user()->role == 'juri'
+            or Auth::user()->name == 'Admin') {
             return view('olimp.scoreboard')
                 ->with('users', User::where('role', 'user')
                     ->get()

@@ -28,19 +28,23 @@
       <th scope="col">Место</th>
       <th scope="col">Наименование команды</th>
       <th scope="col">Учебное заведение</th>
-      <th scope="col">Очки</th>
+      <th scope="col">Очков за задачи</th>
+      <th scope="col">Очков за квест</th>
+      <th scope="col">Всего очков</th>
     </tr>
     </thead>
     <tbody>
     @foreach ($users as $user)
-    @if($user->points() !== 0)
+    {{--@if($user->points() !== 0)--}}
       <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="background: green;color: #fff;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
         <th>{{$user->getFormattedName()}}</th>
         <th>{{$user->university}}</th>
+        <th>{{$user->pointsTasks()}}</th>
+        <th>{{$user->pointsChallenge()}}</th>
         <th>{{$user->points()}}</th>
       </tr>
-      @endif
+      {{--@endif--}}
     @endforeach
     </tbody>
   </table>

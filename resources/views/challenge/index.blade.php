@@ -7,7 +7,8 @@
     <div class="container px-4 px-lg-5 my-3">
       <div class="text-center text-black">
         <h1 class="display-4 fw-bolder">Квест</h1>
-        <p class="lead fw-normal text-black-50 mb-0">Здесь вы можете сдать флаг и перейти на следующий уровень</p>
+        <p class="lead fw-normal text-black-50">Здесь вы можете сдать флаг и перейти на следующий уровень</p>
+        <p class="lead fw-normal text-black-50 mb-0">Не забудьте также об основных <a href="{{route('tasks.list')}}">задачах</a></p>
       </div>
     </div>
   </header>
