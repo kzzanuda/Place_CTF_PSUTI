@@ -14,11 +14,14 @@
             <div class="text-center mb-4">
               <h1 class="h3 mb-3 font-weight-normal">Новый пароль</h1>
             </div>
-            
-            <x-label for="email" :value="__('Email')" />
 
             <div class="form-label-group">
-              <input name="password" type="password" id="password" class="form-control" placeholder="Пароль" required autofocus>
+              <input name="email" type="email" id="email" class="form-control" placeholder="Email" required autofocus>
+              <label for="email">Email</label>
+            </div>
+
+            <div class="form-label-group">
+              <input name="password" type="password" id="password" class="form-control" placeholder="Пароль" required>
               <label for="password">Пароль</label>
             </div>
             <div class="form-label-group">
