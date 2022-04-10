@@ -20,19 +20,19 @@
       @endif
 
       <div class="form-label-group">
-        <input name="email" type="email" id="inputEmail" class="form-control" value="{{old('email')}}" placeholder="Email address" required autofocus>
-        <label for="inputEmail">Email</label>
+        <input name="numbook" type="number" id="inputNum" class="form-control" value="{{old('numbook')}}" placeholder="Номер зачетки" required autofocus>
+        <label for="inputNum">Номер зачетки</label>
       </div>
 
       <div class="form-label-group">
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <label for="inputPassword">Пароль</label>
       </div>
-      <div class="checkbox mb-2">
+      {{--<div class="checkbox mb-2">
         <label>
           <input type="checkbox" value="remember-me"> Запомнить меня
         </label>
-      </div>
+      </div>--}}
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 
       <div class="mt-2">У Вас нет профиля?

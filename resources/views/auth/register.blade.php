@@ -16,16 +16,16 @@
 
     <div class="form-label-group">
       <input name="name" type="text" id="name" class="form-control" placeholder="ФИО" value="{{old('name')}}" required autofocus>
-      <label for="name">Название команды</label>
+      <label for="name">ФИО</label>
     </div>
     <div class="form-label-group">
-      <input name="university" type="text" id="university" class="form-control" placeholder="Наименование учебного заведения" value="{{old('university')}}" required autofocus>
-      <label for="university">Наименование учебного заведения</label>
+      <input name="group" type="text" id="group" class="form-control" placeholder="Наименование учебного заведения" value="{{old('group')}}" required autofocus>
+      <label for="group">Группа</label>
     </div>
 
     <div class="form-label-group">
-      <input name="email" type="email" id="email" class="form-control" placeholder="Email" value="{{old('email')}}" required autofocus>
-      <label for="email">Email</label>
+      <input name="numbook" type="number" id="numbook" class="form-control" placeholder="Email" value="{{old('numbook')}}" required autofocus>
+      <label for="numbook">Номер зачетки</label>
     </div>
 
     <div class="form-label-group">

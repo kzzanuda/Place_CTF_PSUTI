@@ -21,9 +21,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'numbook',
         'password',
-        'university',
+        'group',
         'role', #FIXME: уязвимость
     ];
 
@@ -82,5 +82,16 @@ class User extends Authenticatable
     public function last_answer_time()
     {
         return $this->hasMany(Answer::class, 'user_id')->max('updated_at');
+    }
+
+    public function getFormattedName(): string
+    {
+        $name = explode(' ', $this->name);
+
+        if (count($name) > 2) {
+            return $name[0] . ' ' . mb_substr($name[1], 0, 1, 'utf-8') . '.' . mb_substr($name[2], 0, 1, 'utf-8') . '.';
+        } else {
+            return $this->name;
+        }
     }
 }

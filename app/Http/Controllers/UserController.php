@@ -37,22 +37,22 @@ class UserController extends Controller
     {
       $validate = $request->validate([
           'name' => ['required', 'string', 'max:255'],
-          'university' => ['required', 'string', 'max:255'],
-          'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->getAuthIdentifier()],
+          'group' => ['required', 'string', 'max:255'],
+          'numbook' => ['required', 'integer', 'max:1000000', 'unique:users,numbook,'.Auth::user()->getAuthIdentifier()],
           'old_password' => ['string', 'max:255'],
           'new_password' => ['string', 'max:255'],
       ]);
 
       $user = Auth::user();
 
-      if (!Hash::check($request->old_password, $user->getAuthPassword())) {
-          return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
-      }
+      // if (!Hash::check($request->old_password, $user->getAuthPassword())) {
+      //     return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
+      // }
 
       $user->name = $request->name;
-      $user->university = $request->university;
-      $user->email = $request->email;
-      $user->password = Hash::make($request->new_password);
+      $user->group = $request->group;
+      $user->numbook = $request->numbook;
+    //  $user->password = Hash::make($request->new_password);
       $user->updated_at = date("Y-m-d H:i:s");
 
       $user->save();
@@ -107,7 +107,7 @@ class UserController extends Controller
 
     public function showScoreboard(Request $request)
     {
-      if (Auth::user()->email == 'test_user@psuti.ru') {
+      if (Auth::user()->numbook == 'test_user@psuti.ru') {
         return view('ctf.scoreboard')->with(['users' => User::where('role', 'user')->get()->sortByDesc(function($users){
             return $users->points();
         })]);
@@ -115,7 +115,7 @@ class UserController extends Controller
         return view('ctf.scoreboard')
             ->with(['users' =>
                 DB::select("
-select users.id, users.name, a.updated_at, users.university, sum(points) as points
+select users.id, users.name, a.updated_at, users.group, sum(points) as points
 from users
     left join answers a on users.id = a.user_id
     left join tasks t on a.task_id = t.id

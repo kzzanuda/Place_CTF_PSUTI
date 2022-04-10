@@ -18,8 +18,8 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Название команды</th>
-      <th scope="col">Учебное заведение</th>
+      <th scope="col">ФИО</th>
+      <th scope="col">Группа</th>
       <th scope="col">Очки</th>
     </tr>
     </thead>
@@ -28,7 +28,7 @@
       <tr>
         <th scope="row">{{$loop->iteration}}</th>
         <th><a href="{{route('user.profile', $user->id)}}">{{$user->name}}</a></th>
-        <th>{{$user->university}}</th>
+        <th>{{$user->group}}</th>
         <th>{{$user->points}}</th>
       </tr>
     @endforeach
