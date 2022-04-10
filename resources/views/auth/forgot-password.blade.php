@@ -1,11 +1,23 @@
 @extends('layouts.main')
 
 @section('content')
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        @if($errors->any())
+          <div class="alert alert-danger">
+              <ul class="m-0">
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+        @endif
+        @if (\Session::has('status'))
+          <div class="alert alert-success">
+              {!! \Session::get('status') !!}
+          </div>
+          @endif
 
         <form method="POST" class="form-signin" action="{{ route('password.email') }}">
             @csrf
