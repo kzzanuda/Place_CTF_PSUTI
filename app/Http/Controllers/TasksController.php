@@ -51,7 +51,7 @@ class TasksController extends Controller
           'flag' => $data['flag'],
           'points' => $data['points'],
         ]);
-        $this->storeTaskFile($request->file('file'), $task->id);
+        $this->storeTaskFile($request->file('file'), $id);
 
         return redirect()->route('admin.tasks.edit_form', $id)
             ->with('file_url', asset(File::where('destination', 'task')->where('destination_id', $id)->pluck('path')));
