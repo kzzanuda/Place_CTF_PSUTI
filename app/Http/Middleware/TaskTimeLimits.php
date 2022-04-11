@@ -22,7 +22,7 @@ class TaskTimeLimits
 
         $current_time = now();
         $start = '2022-04-13 10:00:01';
-        $end = '2022-04-13 16:01:00';
+        $end = '2022-04-13 14:01:00';
 
         $date = date_create($start); #2012-01-26T13:51:50.417-07:00
 
@@ -30,7 +30,7 @@ class TaskTimeLimits
             or ($current_time > $start and $current_time < $end)
             or Auth::user()->role == 'admin'
             or Auth::user()->role == 'juri'
-            or Auth::user()->email == 'test_user@psuti.ru') {
+            or Auth::user()->name == 'Test') {
             return $next($request);
         } else if($current_time < $start) {
             return response()->view('olimp.nottime', ['time'=>date_format($date, 'c')]);
