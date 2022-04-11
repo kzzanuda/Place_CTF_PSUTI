@@ -19,12 +19,12 @@
       <label for="name">ФИО</label>
     </div>
     <div class="form-label-group">
-      <input name="group" type="text" id="group" class="form-control" placeholder="Наименование учебного заведения" value="{{old('group')}}" required autofocus>
+      <input name="group" type="text" id="group" class="form-control" placeholder="Группа" value="{{old('group')}}" required autofocus>
       <label for="group">Группа</label>
     </div>
 
     <div class="form-label-group">
-      <input name="numbook" type="number" id="numbook" class="form-control" placeholder="Email" value="{{old('numbook')}}" required autofocus>
+      <input name="numbook" type="text" id="numbook" class="form-control" placeholder="Номер зачетки" value="{{old('numbook')}}" required autofocus>
       <label for="numbook">Номер зачетки</label>
     </div>
 

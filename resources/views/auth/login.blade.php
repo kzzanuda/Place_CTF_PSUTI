@@ -20,7 +20,7 @@
       @endif
 
       <div class="form-label-group">
-        <input name="numbook" type="number" id="inputNum" class="form-control" value="{{old('numbook')}}" placeholder="Номер зачетки" required autofocus>
+        <input name="numbook" type="text" id="inputNum" class="form-control" value="{{old('numbook')}}" placeholder="Номер зачетки" required autofocus>
         <label for="inputNum">Номер зачетки</label>
       </div>
 
