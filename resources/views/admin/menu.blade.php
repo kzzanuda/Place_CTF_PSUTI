@@ -18,6 +18,9 @@
     <div class="col-12 mt-3">
       <a href="{{ route('admin.users.registered') }}" class="btn btn-light rounded font-weight-bold">Статистика регистраций</a>
     </div>
+    <div class="col-12 mt-3">
+      <a href="{{ route('admin.all-users') }}" class="btn btn-light rounded font-weight-bold">Список пользователей</a>
+    </div>
   </div>
 </div>
 @endsection
