@@ -112,7 +112,7 @@ class TasksController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'description_short' => ['required', 'string', 'max:255'],
             'description_full' => ['required', 'string', 'max:40000'],
-            'points' => ['required', 'integer', 'max:10'],
+            'points' => ['required', 'integer', 'max:30'],
         ]);
 
         return $request->all();
