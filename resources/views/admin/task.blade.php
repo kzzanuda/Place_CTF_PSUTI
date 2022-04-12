@@ -41,7 +41,7 @@
 
           <label for="points">Сложность</label>
           <select class="form-control" id="points" name="points">
-            @for ($i = 1; $i <= 10; $i++)
+            @for ($i = 1; $i <= 30; $i++)
                 <option @if(isset($task)) @if($task->points == $i) selected @endif @endif>{{$i}}</option>
             @endfor
           </select>
