@@ -11,7 +11,7 @@ class ScoreboardController extends Controller
     {
         date_default_timezone_set('Europe/Samara');
 
-        if (time() > strtotime('2022-04-15 10:59:00')
+        if (time() > strtotime('2022-04-15 9:59:00')
             or Auth::user()->role == 'admin'
             or Auth::user()->role == 'juri'
             or Auth::user()->name == 'TestTeam') {

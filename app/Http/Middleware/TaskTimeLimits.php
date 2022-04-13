@@ -22,7 +22,7 @@ class TaskTimeLimits
 
         $current_time = now();
         $start = '2022-04-14 10:00:00';
-        $end = '2022-04-15 16:01:00';
+        $end = '2022-04-14 14:01:00';
 
         $date = date_create($start); #2012-01-26T13:51:50.417-07:00
 
