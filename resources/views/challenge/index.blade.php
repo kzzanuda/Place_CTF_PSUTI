@@ -61,6 +61,8 @@
                   <a href="{{$challenge->url}}" target="_blank" class="ml-5 card-text">{{$challenge->url}}</a>
                   @if (Auth::user()->role === 'admin')
                   <a href="{{route('admin.challenge.edit_challenge', [$challenge->id])}}" class="float-right card-text">Редактировать</a>
+                  @else
+                  <span  class="float-right card-text">{{$challenge->title}}</span>
                   @endif
                 </span>
               </div>
