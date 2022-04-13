@@ -5,6 +5,14 @@
     <div class="container px-4 px-lg-5">
         <div class="row row-cols-1 mx-md-5 px-lg-5">
           <a href="{{ route('admin.user_answers', $answer->user_id) }}" class="btn btn-outline-secondary mb-5">Вернуться к списку ответов пользователя</a>
+          <div class="form-group mb-3">
+            @if(isset($previous))
+              <a href="{{ route('admin.user_answer', ['id' => $answer->user_id, 'task_id' => $previous]) }}" class="btn btn-outline-secondary col-5 mx-2 float-left">Предыдущий</a>
+            @endif
+            @if(isset($next))
+              <a href="{{ route('admin.user_answer', ['id' => $answer->user_id, 'task_id' => $next]) }}" class="btn btn-outline-secondary col-5 mx-2 float-right">Следующий</a>
+            @endif
+          </div>
           <h3 class="text-center">{{$task->title}}</h3>
           Условие:<br>
           {!! $task->description_full !!}<br>

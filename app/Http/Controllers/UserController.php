@@ -17,69 +17,69 @@ class UserController extends Controller
 {
     public function profile(Request $request, $id)
     {
-      $user = User::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
 
-      $answers = Answer::where('user_id', $id)
-                  ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
-                  ->select('answers.*', 'tasks.points')
-                  ->orderBy('answers.updated_at')
-                  ->get();
+        $answers = Answer::where('user_id', $id)
+            ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
+            ->select('answers.*', 'tasks.points')
+            ->orderBy('answers.updated_at')
+            ->get();
 
-      if ($user) {
-        return view('user.profile', ['user' => $user, 'answers' => $answers]);
-      } else {
-        return abort('404');
-      }
+        if ($user) {
+            return view('user.profile', ['user' => $user, 'answers' => $answers]);
+        } else {
+            return abort('404');
+        }
 
     }
 
     public function update(Request $request)
     {
-      $validate = $request->validate([
-        'name' => ['required', 'max:255', 'unique:users,name,'.Auth::user()->getAuthIdentifier()],
-        'university' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->getAuthIdentifier()],
-        'mem0' => ['required', 'string', 'max:55'],
-        'mem1' => ['max:55'],
-        'mem2' => ['max:55'],
-        'mem3' => ['max:55'],
-        'mem4' => ['max:55'],
-        'city' => ['required', 'string', 'max:255'],
-        'old_password' => ['string','nullable', 'max:255'],
-        'new_password' => ['string','nullable', 'max:255'],
-        'new_confirm_password' => ['string','nullable', 'max:255'],
-      ]);
+        $validate = $request->validate([
+            'name' => ['required', 'max:255', 'unique:users,name,' . Auth::user()->getAuthIdentifier()],
+            'university' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->getAuthIdentifier()],
+            'mem0' => ['required', 'string', 'max:55'],
+            'mem1' => ['max:55'],
+            'mem2' => ['max:55'],
+            'mem3' => ['max:55'],
+            'mem4' => ['max:55'],
+            'city' => ['required', 'string', 'max:255'],
+            'old_password' => ['string', 'nullable', 'max:255'],
+            'new_password' => ['string', 'nullable', 'max:255'],
+            'new_confirm_password' => ['string', 'nullable', 'max:255'],
+        ]);
 
-      $user = Auth::user();
+        $user = Auth::user();
 
-      if ($request->old_password != null) {
-        if (!Hash::check($request->old_password, $user->getAuthPassword())) {
-            return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
-        } elseif ($request->new_password != $request->new_confirm_password) {
-            return redirect()->back()->with('error', 'Пароли не совпадают');
+        if ($request->old_password != null) {
+            if (!Hash::check($request->old_password, $user->getAuthPassword())) {
+                return redirect()->back()->with('error', 'Вы ввели неправильный пароль');
+            } elseif ($request->new_password != $request->new_confirm_password) {
+                return redirect()->back()->with('error', 'Пароли не совпадают');
+            }
+
+            $user->password = Hash::make($request->new_password);
         }
 
-        $user->password = Hash::make($request->new_password);
-      }
-
-      $membersDirt = array($request->mem0, $request->mem1, $request->mem2, $request->mem3, $request->mem4);
-      $members = [];
-      foreach ($membersDirt as $member) {
-        if(!is_null($member)) {
-          array_push($members, $member);
+        $membersDirt = array($request->mem0, $request->mem1, $request->mem2, $request->mem3, $request->mem4);
+        $members = [];
+        foreach ($membersDirt as $member) {
+            if (!is_null($member)) {
+                array_push($members, $member);
+            }
         }
-      }
 
-      $user->name = $request->name;
-      $user->university = $request->university;
-      $user->email = $request->email;
-      $user->city = $request->city;
-      $user->members = json_encode($members);
-      $user->updated_at = date("Y-m-d H:i:s");
+        $user->name = $request->name;
+        $user->university = $request->university;
+        $user->email = $request->email;
+        $user->city = $request->city;
+        $user->members = json_encode($members);
+        $user->updated_at = date("Y-m-d H:i:s");
 
-      $user->save();
+        $user->save();
 
-      return redirect()->back()->with('success', 'Профиль успешно обновлен!');
+        return redirect()->back()->with('success', 'Профиль успешно обновлен!');
     }
 
     public function answer($id, $task_id)
@@ -87,8 +87,42 @@ class UserController extends Controller
         $task = Task::where('id', $task_id)->first();
         $answer = Answer::where('user_id', $id)->where('task_id', $task_id)->first();
 
+        $prev_answer_id = Answer::where('id', '<', $answer->id)
+            ->where('user_id', $id)
+            ->max('id');
+
+        $next_answer_id = Answer::where('id', '>', $answer->id)
+            ->where('user_id', $id)
+            ->min('id');
+
+        if ($prev_answer_id) {
+            $previous_task = Task::find(
+                Answer::find($prev_answer_id)->task_id
+            );
+        } else {
+            $previous_task = null;
+        }
+
+        if ($next_answer_id) {
+            $next_task = Task::find(
+                Answer::find($next_answer_id)->task_id
+            );
+        } else {
+            $next_task = null;
+        }
+
+        $data = ['task' => $task, 'answer' => $answer];
+
+        if ($previous_task) {
+            $data['previous'] = $previous_task;
+        }
+
+        if ($next_task) {
+            $data['next'] = $next_task;
+        }
+
         if ($answer) {
-            return view('user.answer', ['task' => $task, 'answer' => $answer]);
+            return view('user.answer', $data);
         } else {
             return abort('404');
         }
@@ -103,6 +137,7 @@ class UserController extends Controller
             ->leftJoin('tasks', 'answers.task_id', '=', 'tasks.id')
             ->select('answers.*', 'tasks.title', 'tasks.description_short')
             ->orderBy('tasks.points')
+            ->orderBy('tasks.id')
             ->get();
         $user = User::find($id);
 
