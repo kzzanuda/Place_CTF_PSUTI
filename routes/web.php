@@ -38,14 +38,14 @@ Route::middleware([AuthenticateCheck::class])->group(function () {
         Route::post('/edit', [UserController::class, 'update'])->name('edit');
     });
 
-    Route::prefix('tasks')->name('tasks.')->middleware(['verified', 'task_time_limit'])->group(function () {
+    Route::prefix('tasks')->name('tasks.')->middleware(['task_time_limit'])->group(function () {
         Route::get('/list', [TasksController::class, 'index'])->name('list');
         Route::get('/task/{id}', [TasksController::class, 'showTask'])->name('task');
 
         Route::post('/answer/{id}', [TasksController::class, 'toAnswer'])->name('answer');
     });
 
-    Route::prefix('challenge')->name('challenge.')->middleware(['verified', 'task_time_limit'])->group(function () {
+    Route::prefix('challenge')->name('challenge.')->middleware(['task_time_limit'])->group(function () {
         Route::get('/', [ChallengeController::class, 'index'])->name('index');
         Route::post('/', [ChallengeController::class, 'toAnswer'])->name('answer');
     });

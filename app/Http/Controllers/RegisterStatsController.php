@@ -10,14 +10,13 @@ class RegisterStatsController extends Controller
 {
     public function registerByDate()
     {
-        $users = User::where('role', 'user')->whereNotNull('email_verified_at')->orderBy('created_at')->get();
+        $users = User::where('role', 'user')->orderBy('created_at')->get();
         $regs = User::select(
                             DB::raw("(count(id)) as today_user"),
-                            DB::raw("(DATE_FORMAT(email_verified_at, '%d.%m.%Y')) as reg_date")
+                            DB::raw("(DATE_FORMAT(created_at, '%d.%m.%Y')) as reg_date")
                             )
                             ->where('role', 'user')
-                            ->orderBy('email_verified_at')
-                            ->groupBy(DB::raw("DATE_FORMAT(email_verified_at, '%d-%m-%Y')"))
+                            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y')"))
                             ->get();
         return view('admin.users', ['users' => $users, 'regs' => $regs]);
     }
