@@ -10,6 +10,7 @@ app/storage/
 # Laravel 5 & Lumen specific
 !public/css
 public/storage
+public/files
 public/hot
 public/mix-manifest.json
 public/fonts
@@ -28,6 +29,8 @@ Homestead.json
 
 /storage/framework
 /storage/logs/
+
+.idea
 
 resources/js/app.js
 resources/css/app.css
