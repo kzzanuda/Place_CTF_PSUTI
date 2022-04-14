@@ -29,6 +29,9 @@ Homestead.json
 /storage/framework
 /storage/logs/
 
+resources/js/app.js
+resources/css/app.css
+
 Dockerfile
 Dockerfile.save
 dbdata/

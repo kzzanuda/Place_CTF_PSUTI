@@ -38,7 +38,7 @@
     {{--@if($user->points() !== 0)--}}
       <tr @if($user->id == Auth::user()->getAuthIdentifier()) style="background: green;color: #fff;" id="user" @endif>
         <th scope="row">{{$loop->iteration}}</th>
-        <th>{{$user->getFormattedName()}}</th>
+        <th>{{$user->name}}</th>
         <th>{{$user->university}}</th>
         <th>{{$user->pointsTasks()}}</th>
         <th>{{$user->pointsChallenge()}}</th>
