@@ -167,13 +167,14 @@ class UserController extends Controller
 
     public function downloadCertificate()
     {
-        $certificate_names = User::find(Auth::user()->getAuthIdentifier())->getCertificateName();
+        $certificate_name = Auth::user()->name;
 
-        foreach ($certificate_names as $certificate_name) {
-            if (file_exists('files/cert/' . $certificate_name . '.pdf')) {
-                return Storage::download('files/cert/' . $certificate_name . '.pdf');
-            }
+        if (file_exists('files/cert/' . $certificate_name . '.jpg')) {
+            return Storage::download('files/cert/' . $certificate_name . '.jpg');
+        } elseif (file_exists('files/cert/`' . $certificate_name . '.jpg`')) {
+            return Storage::download('files/cert/`' . $certificate_name . '.jpg`');
         }
+        dd(public_path() . '/files/cert/' . $certificate_name . '.jpg');
 
         return abort(404);
     }
